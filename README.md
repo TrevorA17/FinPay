@@ -1,0 +1,2 @@
+# FinPay
+MERN stack practice
