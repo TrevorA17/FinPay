@@ -1,2 +1,2 @@
 # FinPay
-MERN stack practice
+FinPay App Dashboard with MERN stack
