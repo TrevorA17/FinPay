@@ -1,41 +1,74 @@
-
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoute from "./components/PrivateRoute";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./store/store";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import DashboardLayout from "./components/DashboardLayout";
-import DashboardContent from "./pages/DashboardContent";
-import Invoices from "./pages/Invoices";
-import Cards from "./pages/Cards";
-import Wallets from "./pages/Wallets";
-import Transactions from "./pages/Transactions";
+import Header from "./components/Header";
+import Sidebar from "./components/Sidebar";
+
+// Helper function to manage private routes
+const PrivateRoute = ({ children }) => {
+  const isAuthenticated = store.getState().auth.isAuthenticated; // Redux state for authentication
+  return isAuthenticated ? children : <Navigate to="/login" />;
+};
+
+// Public route (prevents logged-in users from accessing auth pages)
+const PublicRoute = ({ children }) => {
+  const isAuthenticated = store.getState().auth.isAuthenticated;
+  return isAuthenticated ? <Navigate to="/dashboard" /> : children;
+};
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+    <Provider store={store}>
+      <Router>
+        <div style={{ display: "flex", height: "100vh" }}>
+          <Routes>
+            {/* Public Routes */}
+            <Route
+              path="/login"
+              element={
+                <PublicRoute>
+                  <Login />
+                </PublicRoute>
+              }
+            />
+            <Route
+              path="/register"
+              element={
+                <PublicRoute>
+                  <Register />
+                </PublicRoute>
+              }
+            />
 
-        {/* Private Routes */}
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <DashboardLayout />
-            </PrivateRoute>
-          }
-        >
-          <Route path="dashboard" element={<DashboardContent />} />
-          <Route path="invoices" element={<Invoices />} />
-          <Route path="cards" element={<Cards />} />
-          <Route path="wallets" element={<Wallets />} />
-          <Route path="transactions" element={<Transactions />} />
-        </Route>
-      </Routes>
-    </Router>
+            {/* Private Routes */}
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+                    {/* Header and Sidebar are private, always shown on private routes */}
+                    <Header />
+                    <Sidebar />
+                    <div style={{ flex: 1, overflowY: "auto", padding: "20px" }}>
+                      <Routes>
+                        
+                        {/* Add other private routes here */}
+                      </Routes>
+                    </div>
+                  </div>
+                </PrivateRoute>
+              }
+            />
+
+            {/* Redirect to login if no route matches */}
+            <Route path="*" element={<Navigate to="/login" />} />
+          </Routes>
+        </div>
+      </Router>
+    </Provider>
   );
 };
 

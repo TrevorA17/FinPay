@@ -14,7 +14,7 @@ const Login = () => {
     // Mock authentication
     if (credentials.email === "admin@example.com" && credentials.password === "password") {
       dispatch(login({ email: credentials.email }));
-      navigate("/dashboard");
+      navigate("/sidebar");
     } else {
       alert("Invalid credentials");
     }
