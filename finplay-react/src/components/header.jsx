@@ -5,20 +5,22 @@ const Header = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#1976d2',  // Blue background
+        backgroundColor: '#7733da',  // Blue background
         color: '#fff',              // White text
-        width: '300px',             // Same width as the sidebar
+        width: '280px',              // Full width
         height: '149px',             // Fixed height for the header
         display: 'flex',            // Flex container
         alignItems: 'center',       // Center text vertically
         justifyContent: 'center',   // Center text horizontally
-        boxShadow: '2px 0px 5px rgba(0, 0, 0, 0.2)', // Subtle shadow
+        // boxShadow: '2px 0px 5px rgba(0, 0, 0, 0.2)', // Subtle shadow
         position: 'fixed',          // Fix the header's position
         top: 0,                     // Align it to the top
-        left: 0,                    // Align it to the left of the page
+        left: 0,                    // Align it to the left
+        zIndex: 1000,               // Ensure the header is above other elements
+        borderTopRightRadius: '15px', // Rounded corner on the top-right
       }}
     >
-      <h1 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold' }}>FinPay</h1>
+      <h1 style={{ margin: 0, fontSize: '30px', fontWeight: 'bold' }}>FinPay</h1>
     </Box>
   );
 };
