@@ -7,8 +7,8 @@ const Header = () => {
       sx={{
         backgroundColor: '#7733da',  // Blue background
         color: '#fff',              // White text
-        width: '280px',              // Full width
-        height: '149px',             // Fixed height for the header
+        width: '260px',              // Full width
+        height: '125px',             // Fixed height for the header
         display: 'flex',            // Flex container
         alignItems: 'center',       // Center text vertically
         justifyContent: 'center',   // Center text horizontally
