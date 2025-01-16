@@ -16,7 +16,7 @@ const PrivateRoute = ({ children }) => {
 // Public route (prevents logged-in users from accessing auth pages)
 const PublicRoute = ({ children }) => {
   const isAuthenticated = store.getState().auth.isAuthenticated;
-  return isAuthenticated ? <Navigate to="/dashboard" /> : children;
+  return isAuthenticated ? <Navigate to="/" /> : children;
 };
 
 const App = () => {
@@ -48,13 +48,12 @@ const App = () => {
               path="/"
               element={
                 <PrivateRoute>
-                  <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-                    {/* Header and Sidebar are private, always shown on private routes */}
+                  <div>
+                    {/* All Private Routes here */}
                     <Header />
                     <Sidebar />
-                    <div style={{ flex: 1, overflowY: "auto", padding: "20px" }}>
+                    <div>
                       <Routes>
-                        
                         {/* Add other private routes here */}
                       </Routes>
                     </div>
