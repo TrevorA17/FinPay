@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, List, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
+import { Avatar, Box, List, ListItemButton, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
@@ -81,8 +81,59 @@ const Sidebar = () => {
           </ListItemButton>
         ))}
       </List>
+      {/* Profile Section */}
+  <Box
+    sx={{
+      width: "100%",
+      borderTop: "1px solid #fff", // Divider between list and profile
+      padding: 2,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginTop: "350px"
+    }}
+  >
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      {/* Dummy Avatar */}
+      <Avatar
+        src=""
+        alt="User Avatar"
+        sx={{
+          width: 50,
+          height: 50,
+          marginRight: 2,
+          border: "2px solid #fff", // Optional border around avatar
+        }}
+      />
+      <Box>
+        {/* Dummy Username and Email */}
+        <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+          Olivia Rhye
+        </Typography>
+        <Typography variant="body2" color="rgba(255, 255, 255, 0.8)">
+          olivia@untitledui.com
+        </Typography>
+      </Box>
+    </Box>
+    <Button
+      variant="text"
+      sx={{
+        color: "#fff",
+        textTransform: "none",
+        "&:hover": {
+          color: "#8833da", // Change button color on hover
+          backgroundColor: "#fff", // Background on hover
+        },
+        cursor: "pointer", // Pointer on hover
+      }}
+    >
+      My Profile
+    </Button>
+  </Box>
       
     </Box>
+
+    
   );
 };
 
