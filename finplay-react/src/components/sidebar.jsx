@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Avatar, Box, List, ListItemButton, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import ReceiptIcon from "@mui/icons-material/Receipt";
-import CreditCardIcon from "@mui/icons-material/CreditCard";
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';import CreditCardIcon from "@mui/icons-material/CreditCard";
 import WalletIcon from "@mui/icons-material/Wallet";
-import TransactionIcon from "@mui/icons-material/AccountBalanceWallet";
+import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
+import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
 
 const Sidebar = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -12,10 +12,10 @@ const Sidebar = () => {
   // Menu items data
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon /> },
-    { text: "Invoices", icon: <ReceiptIcon /> },
+    { text: "Invoices", icon: <DescriptionOutlinedIcon/> },
     { text: "Cards", icon: <CreditCardIcon /> },
     { text: "Wallets", icon: <WalletIcon /> },
-    { text: "Transactions", icon: <TransactionIcon /> },
+    { text: "Transactions", icon: <CompareArrowsOutlinedIcon /> },
   ];
 
   // Handle button click to update selected item
@@ -130,7 +130,7 @@ const Sidebar = () => {
         cursor: "pointer", // Pointer on hover
       }}
     >
-      My Profile
+      <OpenInNewOutlinedIcon/>
     </Button>
   </Box>
       
