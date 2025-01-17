@@ -45,7 +45,7 @@ const Register = () => {
 >
   <Container component="main" maxWidth="xs">
     <Paper
-      elevation={6}
+      elevation={5}
       sx={{
         padding: 4,
         display: "flex",
