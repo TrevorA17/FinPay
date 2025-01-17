@@ -12,7 +12,7 @@ const PublicRouteLayout = () => {
 
   return (
     <div>
-      <Outlet /> {/* Render the child routes */}
+      <Outlet /> 
     </div>
   );
 };

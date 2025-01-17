@@ -17,7 +17,7 @@ const PrivateRouteLayout = () => {
       <Sidebar />
       <div style={{ marginLeft: "260px", width: "100%" }}>
         <Header />
-        <Outlet /> {/* Render the child routes */}
+        <Outlet />
       </div>
     </div>
   );
