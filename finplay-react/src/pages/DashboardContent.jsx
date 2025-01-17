@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Menu, MenuItem } from "@mui/material";
+import { Box, Typography, Button, Menu, MenuItem, ListItemIcon } from "@mui/material";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"; // Icon for the button
+import DashboardIcon from "@mui/icons-material/Dashboard"; // Example icon for menu item
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; // Example icon for menu item
 
-
-const DashboardContent = () => {
+const WelcomeBox = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -16,16 +18,16 @@ const DashboardContent = () => {
   return (
     <Box
       sx={{
-        display: "flex", 
-        justifyContent: "space-between", 
-        alignItems: "center", 
-        backgroundColor: "#fff", 
-        padding: "30px", 
-        borderRadius: "0px", 
-        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        height: "55px",
-        top:"0",
-        left: "0"
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        backgroundColor: "#fff",
+        padding: "20px",
+        borderRadius: "0px",
+        boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
+        marginBottom: "20px",
+        height: "76px",
+        marginLeft: "-5px",   
       }}
     >
       {/* Left Section: Welcome Message */}
@@ -43,13 +45,13 @@ const DashboardContent = () => {
         <Button
           variant="contained"
           onClick={handleClick}
+          startIcon={<ArrowDropDownIcon />} // Adds the drop-down arrow icon to the button
           sx={{
             backgroundColor: "#fff",
+            padding: "10px",
             color: "#000",
-            textTransform: "none",
-            "&:hover": {
-              backgroundColor: "#be8bea",
-            },
+            textTransform: "none", 
+            fontSize : "15px"           
           }}
         >
           Quick Actions
@@ -63,14 +65,24 @@ const DashboardContent = () => {
             mt: "45px", // Adjust position of the dropdown
           }}
         >
-          <MenuItem onClick={handleClose}>Action 1</MenuItem>
-          <MenuItem onClick={handleClose}>Action 2</MenuItem>
-          <MenuItem onClick={handleClose}>Action 3</MenuItem>
+          {/* Menu Items with Icons */}
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
+            </ListItemIcon>
+            Dashboard
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DescriptionOutlinedIcon fontSize="small" /> {/* Invoices icon */}
+            </ListItemIcon>
+            Invoices
+          </MenuItem>
+          {/* You can add more MenuItems with icons here */}
         </Menu>
       </Box>
     </Box>
   );
 };
 
-
-export default DashboardContent
+export default WelcomeBox;

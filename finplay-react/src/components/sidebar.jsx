@@ -44,7 +44,7 @@ const Sidebar = () => {
           borderTopRightRadius: "15px", // Rounded corner on the top-right
         }}
       >
-        <h1 style={{ margin: 0, fontSize: '30px', fontWeight: 'bold' }}>FinPay</h1>
+        <h1 style={{ margin: 0, fontSize: '30px', fontWeight: 'bold', fontFamily:"Verdana, Helvetica, sans-serif" }}>FinPay</h1>
       </Box>
 
       {/* Sidebar Menu */}
