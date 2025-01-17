@@ -26,8 +26,7 @@ const PublicRoute = ({ children }) => {
 
 const App = () => {
   return (
-    <Provider store={store}>
-      <Router>
+          <Router>
         <div style={{ display: "flex", height: "100vh" }}>
           <Routes>
             {/* Public Routes */}
@@ -75,7 +74,6 @@ const App = () => {
           </Routes>
         </div>
       </Router>
-    </Provider>
   );
 };
 
