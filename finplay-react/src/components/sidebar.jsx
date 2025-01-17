@@ -21,12 +21,13 @@ const Sidebar = () => {
   // Handle button click to update selected item
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
+    onMenuItemClick(index) // notify parent component about the selected index
   };
 
   return (
     <Box
       sx={{
-        backgroundColor: "#7733da", // Sidebar color
+        backgroundColor: "#8833da", // Sidebar color
         color: "#fff", // Default text color
         width: "260px", // Sidebar width
         height: "450px", // Sidebar height
@@ -52,19 +53,19 @@ const Sidebar = () => {
               alignItems: "center",
               width: "240px",
               padding: "10px 30px", // Add padding for spacing
-              marginBottom: "10px", // Add space between buttons
+              marginBottom: "20px", // Add space between buttons
               borderRadius: "10px", // Rounded corners for buttons
               "&.Mui-selected": {
-                backgroundColor: "#551a8b", // Selected background color
+                backgroundColor: "#be8bea", // Selected background color
                 color: "#fff", // Selected text color
               },
               "&.Mui-selected:hover": {
                 backgroundColor: "#ffffff", // Hover color for selected item
-                color: "#551a8b", // Text color on hover
+                color: "#000000", // Text color on hover
               },
               "&:hover": {
                 backgroundColor: "#ffffff", // Hover background color
-                color: "#7733da", // Hover text color
+                color: "black", // Hover text color
               },
             }}
           >

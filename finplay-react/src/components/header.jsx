@@ -5,14 +5,13 @@ const Header = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#7733da',  // Blue background
+        backgroundColor: '#8833da',  // Blue background
         color: '#fff',              // White text
         width: '260px',              // Full width
         height: '125px',             // Fixed height for the header
         display: 'flex',            // Flex container
         alignItems: 'center',       // Center text vertically
         justifyContent: 'center',   // Center text horizontally
-        // boxShadow: '2px 0px 5px rgba(0, 0, 0, 0.2)', // Subtle shadow
         position: 'fixed',          // Fix the header's position
         top: 0,                     // Align it to the top
         left: 0,                    // Align it to the left

@@ -1,19 +1,61 @@
-import React from "react";
-import { Outlet } from "react-router-dom";
-import Sidebar from "./Sidebar";
-import Header from "./Header";
+import React, { useState } from "react";
+import Sidebar from "./Sidebar";  // import your Sidebar component
+
+// Import content components
+import DashboardContent from "../pages/DashboardContent"; 
+import InvoicesContent from "../pages/Invoices";   
+import CardsContent from "../pages/Cards";         
+import WalletsContent from "../pages/Wallets";     
+import TransactionsContent from "../pages/Transactions"; 
 
 const DashboardLayout = () => {
+  const [selectedContent, setSelectedContent] = useState("Dashboard"); // Default selected content
+
+  const handleMenuItemClick = (index) => {
+    // Mapping index to corresponding content
+    const contentMapping = [
+      "Dashboard",       // Index 0
+      "Invoices",        // Index 1
+      "Cards",           // Index 2
+      "Wallets",         // Index 3
+      "Transactions",    // Index 4
+    ];
+    setSelectedContent(contentMapping[index]);
+  };
+
+  const renderContent = () => {
+    switch (selectedContent) {
+      case "Dashboard":
+        return <DashboardContent />;
+      case "Invoices":
+        return <InvoicesContent />;
+      case "Cards":
+        return <CardsContent />;
+      case "Wallets":
+        return <WalletsContent />;
+      case "Transactions":
+        return <TransactionsContent />;
+      default:
+        return <DashboardContent />;
+    }
+  };
+
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      <Header />
-      <div style={{ display: "flex", flex: 1 }}>
-        <Sidebar />
-        <div style={{ flex: 1, padding: "20px" }}>
-          <Outlet />
-        </div>
-      </div>
-    </div>
+    <Box sx={{ display: "flex" }}>
+      {/* Sidebar on the left */}
+      <Sidebar onMenuItemClick={handleMenuItemClick} />
+      
+      {/* Main content area */}
+      <Box
+        sx={{
+          flexGrow: 1, // Take remaining space
+          marginLeft: "260px", // Offset by sidebar width
+          padding: "20px", // Add some padding
+        }}
+      >
+        {renderContent()} {/* Dynamically render content */}
+      </Box>
+    </Box>
   );
 };
 

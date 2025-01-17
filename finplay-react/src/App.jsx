@@ -6,6 +6,11 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+// import Dashboard from "./pages/DashboardContent"; // New page component
+// import Invoices from "./pages/Invoices";  // New page component
+// // import Cards from "./pages/Cards";        // New page component
+// import Wallets from "./pages/Wallets";    // New page component
+// import Transactions from "./pages/Transactions"; // New page component
 
 // Helper function to manage private routes
 const PrivateRoute = ({ children }) => {
@@ -48,14 +53,17 @@ const App = () => {
               path="/"
               element={
                 <PrivateRoute>
-                  <div>
-                    {/* All Private Routes here */}
-                    <Header />
+                  <div style={{ display: "flex" }}>
                     <Sidebar />
-                    <div>
-                      <Routes>
-                        {/* Add other private routes here */}
-                      </Routes>
+                    <div style={{ marginLeft: "260px", width: "100%" }}>
+                      <Header />
+                      {/* <Routes>
+                        <Route path="dashboard" element={<Dashboard />} />
+                        <Route path="invoices" element={<Invoices />} />
+                        <Route path="cards" element={<Cards />} />
+                        <Route path="wallets" element={<Wallets />} />
+                        <Route path="transactions" element={<Transactions />} />
+                      </Routes> */}
                     </div>
                   </div>
                 </PrivateRoute>
