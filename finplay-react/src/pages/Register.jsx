@@ -34,87 +34,108 @@ const Register = () => {
   };
 
   return (
-    <Container component="main" maxWidth="xs">
-      <Paper elevation={6} sx={{ padding: 4, display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#f5f5f5", borderRadius: 3 }}>
-        <Typography variant="h5" component="h1" gutterBottom>
-          Create Your Account
-        </Typography>
+    <Box
+  sx={{
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100vh", // Full viewport height
+    backgroundColor: "#e0e0e0", // Light background for contrast
+  }}
+>
+  <Container component="main" maxWidth="xs">
+    <Paper
+      elevation={6}
+      sx={{
+        padding: 4,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        backgroundColor: "#f5f5f5",
+        borderRadius: 3,
+      }}
+    >
+      <Typography variant="h5" component="h1" gutterBottom>
+        Create Your Account
+      </Typography>
 
-        <form onSubmit={handleRegister} style={{ width: "100%" }}>
-          <TextField
-            label="Full Name"
-            type="text"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            value={credentials.fullName}
-            onChange={(e) => setCredentials({ ...credentials, fullName: e.target.value })}
-          />
-          <TextField
-            label="Email"
-            type="email"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            value={credentials.email}
-            onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
-          />
-          <TextField
-            label="Phone Number"
-            type="tel"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            value={credentials.phone}
-            onChange={(e) => setCredentials({ ...credentials, phone: e.target.value })}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            value={credentials.password}
-            onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-          />
-          <TextField
-            label="Confirm Password"
-            type="password"
-            variant="outlined"
-            fullWidth
-            required
-            margin="normal"
-            value={credentials.confirmPassword}
-            onChange={(e) => setCredentials({ ...credentials, confirmPassword: e.target.value })}
-          />
-          
-          <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              fullWidth
-              sx={{ padding: "10px", marginBottom: 2 }}
-            >
-              Register
-            </Button>
-          </Box>
-        </form>
+      <form onSubmit={handleRegister} style={{ width: "100%" }}>
+        <TextField
+          label="Full Name"
+          type="text"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+          value={credentials.fullName}
+          onChange={(e) => setCredentials({ ...credentials, fullName: e.target.value })}
+        />
+        <TextField
+          label="Email"
+          type="email"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+          value={credentials.email}
+          onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+        />
+        <TextField
+          label="Phone Number"
+          type="tel"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+          value={credentials.phone}
+          onChange={(e) => setCredentials({ ...credentials, phone: e.target.value })}
+        />
+        <TextField
+          label="Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+          value={credentials.password}
+          onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+        />
+        <TextField
+          label="Confirm Password"
+          type="password"
+          variant="outlined"
+          fullWidth
+          required
+          margin="normal"
+          value={credentials.confirmPassword}
+          onChange={(e) => setCredentials({ ...credentials, confirmPassword: e.target.value })}
+        />
 
-        <Box sx={{ textAlign: "center", marginTop: 2 }}>
-          <Typography variant="body2" color="textSecondary">
-            Already have an account?{" "}
-            <Button color="primary" size="small" href="/login">
-              Login
-            </Button>
-          </Typography>
+        <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+          <Button
+            type="submit"
+            variant="contained"
+            color="primary"
+            fullWidth
+            sx={{ padding: "10px", marginBottom: 2 }}
+          >
+            Register
+          </Button>
         </Box>
-      </Paper>
-    </Container>
+      </form>
+
+      <Box sx={{ textAlign: "center", marginTop: 2 }}>
+        <Typography variant="body2" color="textSecondary">
+          Already have an account?{" "}
+          <Button color="primary" size="small" href="/login">
+            Login
+          </Button>
+        </Typography>
+      </Box>
+    </Paper>
+  </Container>
+</Box>
+
   );
 };
 

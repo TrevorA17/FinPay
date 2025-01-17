@@ -24,3 +24,4 @@ const PrivateRouteLayout = () => {
 };
 
 export default PrivateRouteLayout;
+
