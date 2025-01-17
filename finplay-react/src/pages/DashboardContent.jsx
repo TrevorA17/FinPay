@@ -3,6 +3,7 @@ import { Box, Typography, Button, Menu, MenuItem, ListItemIcon } from "@mui/mate
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"; // Icon for the button
 import DashboardIcon from "@mui/icons-material/Dashboard"; // Example icon for menu item
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; // Example icon for menu item
+import Invoices from './Invoices';
 
 const WelcomeBox = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -27,7 +28,7 @@ const WelcomeBox = () => {
         boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
         marginBottom: "20px",
         height: "76px",
-        marginLeft: "-5px",   
+        marginLeft: "-5px",  
       }}
     >
       {/* Left Section: Welcome Message */}
@@ -62,7 +63,7 @@ const WelcomeBox = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
           sx={{
-            mt: "45px", // Adjust position of the dropdown
+            mt: "-45px", // Adjust position of the dropdown
           }}
         >
           {/* Menu Items with Icons */}
@@ -70,15 +71,26 @@ const WelcomeBox = () => {
             <ListItemIcon>
               <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
             </ListItemIcon>
-            Dashboard
+            Send Money
           </MenuItem>
           <MenuItem onClick={handleClose}>
             <ListItemIcon>
               <DescriptionOutlinedIcon fontSize="small" /> {/* Invoices icon */}
             </ListItemIcon>
-            Invoices
+            Fund Wallet
           </MenuItem>
-          {/* You can add more MenuItems with icons here */}
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
+            </ListItemIcon>
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
+            </ListItemIcon>
+            Create New Invoice
+          </MenuItem>
         </Menu>
       </Box>
     </Box>
