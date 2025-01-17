@@ -41,21 +41,10 @@ const DashboardLayout = () => {
   };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      {/* Sidebar on the left */}
+   
       <Sidebar onMenuItemClick={handleMenuItemClick} />
       
-      {/* Main content area */}
-      <Box
-        sx={{
-          flexGrow: 1, // Take remaining space
-          marginLeft: "260px", // Offset by sidebar width
-          padding: "20px", // Add some padding
-        }}
-      >
-        {renderContent()} {/* Dynamically render content */}
-      </Box>
-    </Box>
+      
   );
 };
 
