@@ -21,7 +21,6 @@ const Sidebar = () => {
   // Handle button click to update selected item
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
-    onMenuItemClick(index) // notify parent component about the selected index
   };
 
   return (
@@ -53,7 +52,7 @@ const Sidebar = () => {
               alignItems: "center",
               width: "240px",
               padding: "10px 30px", // Add padding for spacing
-              marginBottom: "20px", // Add space between buttons
+              marginBottom: "10px", // Add space between buttons
               borderRadius: "10px", // Rounded corners for buttons
               "&.Mui-selected": {
                 backgroundColor: "#be8bea", // Selected background color
