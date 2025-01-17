@@ -5,6 +5,12 @@ import PublicRouteLayout from "./layouts/PublicRouteLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Sidebar from "./components/Sidebar";
+import Dashboard from "./pages/DashboardContent";      
+import Invoices from "./pages/Invoices";      
+import Cards from "./pages/Cards";            
+import Wallets from "./pages/Wallets";        
+import Transactions from "./pages/Transactions"; 
+
 const App = () => {
   return (
     <Routes>
@@ -14,13 +20,17 @@ const App = () => {
         <Route path="/register" element={<Register />} />
       </Route>
 
-      {/* Private Routes (Dashboard, etc.) */}
+      {/* Private Routes (Sidebar with Dashboard, Invoices, etc.) */}
       <Route element={<PrivateRouteLayout />}>
         <Route path="/" element={<Sidebar />} />
-        {/* Add more private routes here */}
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/invoices" element={<Invoices />} />
+        <Route path="/cards" element={<Cards />} />
+        <Route path="/wallets" element={<Wallets />} />
+        <Route path="/transactions" element={<Transactions />} />
       </Route>
 
-      {/* Catch-all route to redirect to login */}
+      {/* Catch-all route to redirect to login if not matched */}
       <Route path="*" element={<Navigate to="/login" />} />
     </Routes>
   );

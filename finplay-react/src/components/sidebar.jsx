@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import { Avatar, Box, List, ListItemButton, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
@@ -12,11 +13,11 @@ const Sidebar = () => {
 
   // Menu items data
   const menuItems = [
-    { text: "Dashboard", icon: <DashboardIcon /> },
-    { text: "Invoices", icon: <DescriptionOutlinedIcon/> },
-    { text: "Cards", icon: <CreditCardIcon /> },
-    { text: "Wallets", icon: <WalletIcon /> },
-    { text: "Transactions", icon: <CompareArrowsOutlinedIcon /> },
+    { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
+    { text: "Invoices", icon: <DescriptionOutlinedIcon />, path: "/invoices" },
+    { text: "Cards", icon: <CreditCardIcon />, path: "/cards" },
+    { text: "Wallets", icon: <WalletIcon />, path: "/wallets" },
+    { text: "Transactions", icon: <CompareArrowsOutlinedIcon />, path: "/transactions" },
   ];
 
   // Handle button click to update selected item
@@ -65,43 +66,44 @@ const Sidebar = () => {
       >
         <List sx={{ width: "100%" }}>
           {menuItems.map((item, index) => (
-            <ListItemButton
-              key={index}
-              selected={selectedIndex === index}
-              onClick={() => handleListItemClick(index)}
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "240px",
-                padding: "10px 30px", // Add padding for spacing
-                marginBottom: "10px", // Add space between buttons
-                borderRadius: "10px", // Rounded corners for buttons
-                "&.Mui-selected": {
-                  backgroundColor: "#be8bea", // Selected background color
-                  color: "#fff", // Selected text color
-                },
-                "&.Mui-selected:hover": {
-                  backgroundColor: "#ffffff", // Hover color for selected item
-                  color: "#000000", // Text color on hover
-                },
-                "&:hover": {
-                  backgroundColor: "#ffffff", // Hover background color
-                  color: "black", // Hover text color
-                },
-              }}
-            >
-              <ListItemIcon
+            <Link to={item.path} key={index} style={{ textDecoration: "none", width: "100%", color: "#fff" }}>
+              <ListItemButton
+                selected={selectedIndex === index}
+                onClick={() => handleListItemClick(index)}
                 sx={{
-                  color: selectedIndex === index ? "#fff" : "#ffffff", // Dynamic icon color
+                  display: "flex",
                   justifyContent: "center",
-                  marginRight: "0px", // Add spacing between icon and text
+                  alignItems: "center",
+                  width: "240px",
+                  padding: "10px 30px", // Add padding for spacing
+                  marginBottom: "10px", // Add space between buttons
+                  borderRadius: "10px", // Rounded corners for buttons
+                  "&.Mui-selected": {
+                    backgroundColor: "#be8bea", // Selected background color
+                    color: "#fff", // Selected text color
+                  },
+                  "&.Mui-selected:hover": {
+                    backgroundColor: "#ffffff", // Hover color for selected item
+                    color: "#000000", // Text color on hover
+                  },
+                  "&:hover": {
+                    backgroundColor: "#ffffff", // Hover background color
+                    color: "black", // Hover text color
+                  },
                 }}
               >
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} sx={{ textAlign: "left" }} />
-            </ListItemButton>
+                <ListItemIcon
+                  sx={{
+                    color: selectedIndex === index ? "#fff" : "#ffffff", // Dynamic icon color
+                    justifyContent: "center",
+                    marginRight: "0px", // Add spacing between icon and text
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.text} sx={{ textAlign: "left" }} />
+              </ListItemButton>
+            </Link>
           ))}
         </List>
 
