@@ -12,7 +12,7 @@ const Header = () => {
         display: 'flex',            // Flex container
         alignItems: 'center',       // Center text vertically
         justifyContent: 'center',   // Center text horizontally
-        position: 'fixed',          // Fix the header's position
+        position: 'absolute',          // Fix the header's position
         top: 0,                     // Align it to the top
         left: 0,                    // Align it to the left
         zIndex: 1000,               // Ensure the header is above other elements

@@ -29,8 +29,8 @@ const Sidebar = () => {
         backgroundColor: "#8833da", // Sidebar color
         color: "#fff", // Default text color
         width: "260px", // Sidebar width
-        height: "100%", // Sidebar height
-        position: "fixed", // Fixed positioning
+        height: "175%", // Sidebar height
+        position: "absolute", // Fixed positioning
         top: "126px", // Position below the header
         left: 0, // Align to the left
         paddingTop: "15px", // Top padding
@@ -103,6 +103,9 @@ const Sidebar = () => {
           height: 50,
           marginRight: 2,
           border: "2px solid #fff", // Optional border around avatar
+          textTransform: "none",
+        "&:hover": {},
+        cursor: "pointer", // Pointer on hover
         }}
       />
       <Box>
