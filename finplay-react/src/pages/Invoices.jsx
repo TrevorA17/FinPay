@@ -1,10 +1,23 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, TextField, InputAdornment, IconButton } from "@mui/material";
+import { Box, Typography, Button, TextField, InputAdornment,  Menu, MenuItem, ListItemIcon } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"; 
+import DashboardIcon from "@mui/icons-material/Dashboard"; 
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; 
 
 const WelcomeBox = () => {
   const [activeMenu, setActiveMenu] = useState("All Invoices");
+
+   const [anchorEl, setAnchorEl] = useState(null);
+ 
+   const handleClick = (event) => {
+     setAnchorEl(event.currentTarget);
+   };
+ 
+   const handleClose = () => {
+     setAnchorEl(null);
+   };
 
   const menuItems = [
     "All Invoices",
@@ -34,6 +47,54 @@ const WelcomeBox = () => {
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           Invoices
         </Typography>
+        <Button
+          variant="contained"
+          onClick={handleClick}
+          startIcon={<ArrowDropDownIcon />} // Adds the drop-down arrow icon to the button
+          sx={{
+            backgroundColor: "#fff",
+            padding: "10px",
+            color: "#000",
+            textTransform: "none", 
+            fontSize : "15px"           
+          }}
+        >
+          Quick Actions
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+          sx={{
+            mt: "-45px", // Adjust position of the dropdown
+          }}
+        >
+          {/* Menu Items with Icons */}
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
+            </ListItemIcon>
+            Send Money
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DescriptionOutlinedIcon fontSize="small" /> {/* Invoices icon */}
+            </ListItemIcon>
+            Fund Wallet
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
+            </ListItemIcon>
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
+            </ListItemIcon>
+            Create New Invoice
+          </MenuItem>
+        </Menu>
       </Box>
 
       {/* Search Bar Box */}
