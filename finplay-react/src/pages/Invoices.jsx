@@ -114,15 +114,6 @@ const invoices = () => {
           fullWidth
           placeholder="Search for an invoice"
           variant="outlined"
-          slots={{
-            startAdornment: InputAdornment,
-          }}
-          slotProps={{
-            startAdornment: {
-              position: "start",
-              children: <SearchIcon />,
-            },
-          }}
           sx={{
             marginRight: "10px",
           }}

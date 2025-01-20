@@ -136,16 +136,7 @@ const TransactionsPage = () => {
           variant="outlined"
           placeholder="Search for a transaction"
           sx={{ marginBottom: "20px" }}
-          InputAdornmentProps={{
-            position: "start",
-          }}
-          slots={{
-            inputAdornmentStart: (
-              <InputAdornment position="start">
-                <SearchIcon />
-              </InputAdornment>
-            ),
-          }}
+          
         />
 
         <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "10px" }}>
