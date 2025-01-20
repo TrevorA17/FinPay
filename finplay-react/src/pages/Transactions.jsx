@@ -7,7 +7,6 @@ import {
   MenuItem,
   ListItemIcon,
   TextField,
-  InputAdornment,
   Table,
   TableBody,
   TableCell,

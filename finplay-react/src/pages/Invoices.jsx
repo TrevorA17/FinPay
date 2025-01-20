@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, TextField, InputAdornment,  Menu, MenuItem, ListItemIcon } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Box, Typography, Button, TextField, Menu, MenuItem, ListItemIcon } from "@mui/material";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"; 
 import DashboardIcon from "@mui/icons-material/Dashboard"; 
@@ -20,7 +19,7 @@ const invoices = () => {
      setAnchorEl(null);
    };
 
-  const menuItems = [
+const menuItems = [
     "All Invoices",
     "Draft",
     "Pending",
