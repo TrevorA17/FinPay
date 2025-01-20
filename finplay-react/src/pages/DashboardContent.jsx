@@ -3,7 +3,6 @@ import { Box, Typography, Button, Menu, MenuItem, ListItemIcon } from "@mui/mate
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown"; // Icon for the button
 import DashboardIcon from "@mui/icons-material/Dashboard"; // Example icon for menu item
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; // Example icon for menu item
-import Invoices from './Invoices';
 
 const WelcomeBox = () => {
   const [anchorEl, setAnchorEl] = useState(null);
