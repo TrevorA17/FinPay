@@ -17,7 +17,6 @@ import {
   Pagination,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import SearchIcon from "@mui/icons-material/Search";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import axios from "axios";
 
@@ -138,7 +137,7 @@ const TransactionsPage = () => {
           
         />
 
-        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "10px" }}>
+        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "30px" }}>
           Recent Transactions
         </Typography>
 
