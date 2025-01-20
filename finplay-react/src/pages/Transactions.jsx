@@ -29,7 +29,7 @@ const TransactionsPage = () => {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const itemsPerPage = 10;
+  const itemsPerPage = 6;
 
   // Fetch products from API
   useEffect(() => {
@@ -114,23 +114,38 @@ const TransactionsPage = () => {
             </ListItemIcon>
             Fund Wallet
           </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Fund Wallet
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Fund Wallet
+          </MenuItem>
         </Menu>
       </Box>
 
       {/* Search Bar and Recent Transactions */}
       <Box sx={{ backgroundColor: "#f9f9f9", padding: "20px", borderRadius: "8px" }}>
-        <TextField
+      <TextField
           fullWidth
           variant="outlined"
           placeholder="Search for a transaction"
-          InputProps={{
-            startAdornment: (
+          sx={{ marginBottom: "20px" }}
+          InputAdornmentProps={{
+            position: "start",
+          }}
+          slots={{
+            inputAdornmentStart: (
               <InputAdornment position="start">
                 <SearchIcon />
               </InputAdornment>
             ),
           }}
-          sx={{ marginBottom: "20px" }}
         />
 
         <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "10px" }}>
@@ -171,7 +186,7 @@ const TransactionsPage = () => {
               </TableBody>
             </Table>
             <Box sx={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
-              <Pagination
+              <Pagination 
                 count={Math.ceil(products.length / itemsPerPage)}
                 page={page}
                 onChange={handlePageChange}
@@ -189,7 +204,7 @@ const TransactionsPage = () => {
               left: "50%",
               transform: "translate(-50%, -50%)",
               backgroundColor: "#fff",
-              padding: "20px",
+              padding: "30px",
               borderRadius: "8px",
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
               zIndex: 10,
