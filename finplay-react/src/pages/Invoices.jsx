@@ -6,7 +6,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard"; 
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; 
 
-const WelcomeBox = () => {
+const invoices = () => {
   const [activeMenu, setActiveMenu] = useState("All Invoices");
 
    const [anchorEl, setAnchorEl] = useState(null);
@@ -38,10 +38,10 @@ const WelcomeBox = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "40px",
+          padding: "35px",
           borderRadius: "0px",
           boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
-          marginBottom: "20px",
+          marginBottom: "30px",
         }}
       >
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
@@ -104,7 +104,7 @@ const WelcomeBox = () => {
           alignItems: "center",
           backgroundColor: "#fff",
           padding: "10px 20px",
-          borderRadius: "8px",
+          borderRadius: "0px",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
           marginBottom: "20px",
         }}
@@ -133,7 +133,7 @@ const WelcomeBox = () => {
             backgroundColor: "#000",
             color: "#fff",
             fontWeight: "bold",
-            padding: "10px 20px",
+            padding: "20px 20px",
             "&:hover": {
               backgroundColor: "#333",
             },
@@ -152,7 +152,7 @@ const WelcomeBox = () => {
             justifyContent: "center",
             gap: "90px",
             borderBottom: "1px solid #ddd",
-            paddingBottom: "20px",
+            paddingBottom: "30px",
           }}
         >
           {menuItems.map((item) => (
@@ -182,7 +182,7 @@ const WelcomeBox = () => {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            padding: "30px",
+            padding: "100px",
             textAlign: "center",
           }}
         >
@@ -193,7 +193,7 @@ const WelcomeBox = () => {
               />
               <Typography
                 variant="h6"
-                sx={{ marginBottom: "10px", color: "#555" }}
+                sx={{ marginBottom: "15px", color: "#555", fontWeight:"bold" }}
               >
                 No payments
               </Typography>
@@ -225,4 +225,4 @@ const WelcomeBox = () => {
   );
 };
 
-export default WelcomeBox;
+export default invoices;

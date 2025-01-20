@@ -4,7 +4,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; 
 
-const WelcomeBox = () => {
+const DashboardContent = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleClick = (event) => {
@@ -96,4 +96,4 @@ const WelcomeBox = () => {
   );
 };
 
-export default WelcomeBox;
+export default DashboardContent;
