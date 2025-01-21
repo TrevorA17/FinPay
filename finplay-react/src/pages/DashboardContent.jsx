@@ -20,7 +20,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import axios from "axios";
@@ -70,7 +69,7 @@ const DashboardContent = () => {
           marginBottom: "20px",
           height: "76px",
           marginLeft: "-5px",
-          width: "93.5%",
+          width: "100%",
         }}
       >
         {/* Left Section: Welcome Message */}
@@ -144,7 +143,8 @@ const DashboardContent = () => {
           backgroundColor: "#fff",
           borderRadius: "2px",
           marginBottom: "20px",
-          width: "94%",
+          width: "90%",
+          marginLeft: "40px"
         }}
       >
         <Typography
@@ -161,7 +161,7 @@ const DashboardContent = () => {
             display: "flex",
             gap: 2,
             overflowX: "auto",
-            justifyContent: "center",
+            justifyContent: "left",
           }}
         >
           {products.map((product) => (
@@ -216,7 +216,8 @@ const DashboardContent = () => {
           padding: 1.6,
           backgroundColor: "#fff",
           borderRadius: "0px",
-          width: "94.5%",
+          width: "90%",
+          marginLeft: "40px"
         }}
       >
         <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2, textAlign: "left" }}>
@@ -246,7 +247,6 @@ const DashboardContent = () => {
           </Button>
           <Button
             variant="contained"
-            startIcon={<AutorenewOutlinedIcon />}
             sx={{
               flex: 0.4,
               backgroundColor: "#28a745",
@@ -284,11 +284,11 @@ const DashboardContent = () => {
         <Paper
           elevation={3}
           sx={{
-            padding: 2,
+            padding: 3,
             backgroundColor: "#fff",
             borderRadius: "0px",
-            width: "43.5%",
-            marginTop: "30px"
+            width: "35%", 
+            margin: " 40px 40px"
           }}
         >
           <Typography
@@ -327,8 +327,8 @@ const DashboardContent = () => {
             padding: 2,
             backgroundColor: "#fff",
             borderRadius: "2px",
-            width: "45%",
-            marginTop: "30px"
+            width: "48%",
+            margin: " 40px -40px"
           }}
         >
           <Typography
