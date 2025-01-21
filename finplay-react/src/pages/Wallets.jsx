@@ -15,7 +15,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
-import AutorenewOutlinedIcon from "@mui/icons-material/AutorenewOutlined";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
@@ -164,8 +163,7 @@ const Wallets = () => {
           Send Money
         </Button>
         <Button
-          variant="contained"
-          startIcon={<AutorenewOutlinedIcon />}
+          variant="contained"          
           sx={{
             backgroundColor: "#28a745",
             color: "#fff",
