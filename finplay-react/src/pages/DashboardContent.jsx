@@ -22,6 +22,8 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import MonetizationOnOutlinedIcon from "@mui/icons-material/MonetizationOnOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import axios from "axios";
 
 const DashboardContent = () => {
@@ -29,8 +31,12 @@ const DashboardContent = () => {
   const [products, setProducts] = useState([]);
   const [payments, setPayments] = useState([]);
   const [invoices, setInvoices] = useState([]);
+  const [exchangeRates] = useState([
+    { currency: "USD", buying: 750, selling: 760 },
+    { currency: "EUR", buying: 820, selling: 830 },
+    { currency: "GBP", buying: 910, selling: 920 },
+  ]);
 
-  // Fetch dummy data for cards and boxes
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -72,7 +78,6 @@ const DashboardContent = () => {
           width: "100%",
         }}
       >
-        {/* Left Section: Welcome Message */}
         <Box>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
             Welcome Olivia
@@ -82,7 +87,6 @@ const DashboardContent = () => {
           </Typography>
         </Box>
 
-        {/* Right Section: Quick Actions Button */}
         <Box>
           <Button
             variant="contained"
@@ -104,7 +108,7 @@ const DashboardContent = () => {
             open={Boolean(anchorEl)}
             onClose={handleClose}
             sx={{
-              mt: "-45px", // Adjust position of the dropdown
+              mt: "-45px",
             }}
           >
             <MenuItem onClick={handleClose}>
@@ -135,7 +139,7 @@ const DashboardContent = () => {
         </Box>
       </Box>
 
-      {/* Account Balance Box */}
+      {/* Account Balance */}
       <Paper
         elevation={3}
         sx={{
@@ -144,24 +148,19 @@ const DashboardContent = () => {
           borderRadius: "2px",
           marginBottom: "20px",
           width: "90%",
-          marginLeft: "40px"
+          marginLeft: "40px",
         }}
       >
-        <Typography
-          variant="h6"
-          sx={{ fontWeight: "bold", marginBottom: 2, textAlign: "left" }}
-        >
+        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
           Account Balance
         </Typography>
         <Divider sx={{ marginY: 2 }} />
 
-        {/* Horizontal Cards */}
         <Box
           sx={{
             display: "flex",
             gap: 2,
             overflowX: "auto",
-            justifyContent: "left",
           }}
         >
           {products.map((product) => (
@@ -186,21 +185,17 @@ const DashboardContent = () => {
                   marginBottom: 1,
                 }}
               />
-              <CardContent sx={{ textAlign: "center", padding: 0, flexGrow: 1 }}>
+              <CardContent sx={{ textAlign: "center", padding: 0 }}>
                 <Typography
                   variant="body1"
-                  sx={{
-                    fontWeight: "bold",
-                    textTransform: "capitalize",
-                    marginBottom: 1,
-                  }}
+                  sx={{ fontWeight: "bold", marginBottom: 1 }}
                 >
                   {product.title.split(" ").slice(0, 1).join(" ")}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   Available Balance
                 </Typography>
-                <Typography variant="h6" sx={{ fontWeight: "bold", marginTop: 1 }}>
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                   ${product.price.toFixed(2)}
                 </Typography>
               </CardContent>
@@ -209,7 +204,7 @@ const DashboardContent = () => {
         </Box>
       </Paper>
 
-      {/* Quick Actions Box */}
+      {/* Quick Actions */}
       <Paper
         elevation={3}
         sx={{
@@ -217,10 +212,10 @@ const DashboardContent = () => {
           backgroundColor: "#fff",
           borderRadius: "0px",
           width: "90%",
-          marginLeft: "40px"
+          marginLeft: "40px",
         }}
       >
-        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2, textAlign: "left" }}>
+        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
           Quick Actions
         </Typography>
         <Divider sx={{ marginY: 2 }} />
@@ -273,28 +268,19 @@ const DashboardContent = () => {
         </Box>
       </Paper>
 
-      {/* Receive Payments Box */}
-      <Box
-        sx={{
-          display: "flex",
-          gap: 3,
-        }}
-      >
-        {/* Left Box */}
+      {/* Receive Payments & Invoices */}
+      <Box sx={{ display: "flex", gap: 3 }}>
         <Paper
           elevation={3}
           sx={{
             padding: 3,
             backgroundColor: "#fff",
             borderRadius: "0px",
-            width: "35%", 
-            margin: " 40px 40px"
+            width: "35%",
+            margin: "40px 40px",
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", marginBottom: 2, textAlign: "left" }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
             Receive Payments
           </Typography>
           <Divider sx={{ marginY: 2 }} />
@@ -305,10 +291,7 @@ const DashboardContent = () => {
                   <Avatar
                     src={payment.image}
                     alt={payment.title}
-                    sx={{
-                      width: 50,
-                      height: 50,
-                    }}
+                    sx={{ width: 50, height: 50 }}
                   />
                 </ListItemAvatar>
                 <ListItemText
@@ -320,7 +303,6 @@ const DashboardContent = () => {
           </List>
         </Paper>
 
-        {/* Right Box */}
         <Paper
           elevation={3}
           sx={{
@@ -328,13 +310,10 @@ const DashboardContent = () => {
             backgroundColor: "#fff",
             borderRadius: "2px",
             width: "48%",
-            margin: " 40px -40px"
+            margin: "40px -40px",
           }}
         >
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", marginBottom: 2, textAlign: "left" }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
             Invoices
           </Typography>
           <Divider sx={{ marginY: 2 }} />
@@ -343,7 +322,9 @@ const DashboardContent = () => {
               <ListItem key={index} sx={{ paddingBottom: 1 }}>
                 <ListItemText
                   primary={`Invoice #${index + 1}`}
-                  secondary={`Status: Pending | Amount: $${invoice.price.toFixed(2)}`}
+                  secondary={`Status: Pending | Amount: $${invoice.price.toFixed(
+                    2
+                  )}`}
                 />
               </ListItem>
             ))}
@@ -357,11 +338,100 @@ const DashboardContent = () => {
               color: "#fff",
               textTransform: "none",
               padding: "15px",
-              width: "100%"
+              width: "100%",
             }}
           >
             Create New Invoice
           </Button>
+        </Paper>
+      </Box>
+
+      {/* New Boxes: Exchange Rates & Cards */}
+      <Box
+        sx={{
+          display: "flex",
+          gap: 3,
+          marginTop: 4,
+          marginLeft: "40px",
+          marginRight: "40px",
+        }}
+      >
+        <Paper
+          elevation={3}
+          sx={{
+            padding: 2,
+            backgroundColor: "#fff",
+            borderRadius: "0px",
+            width: "50%",
+            margin: "-45px 0px"
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+            Exchange Rates
+          </Typography>
+          <Divider sx={{ marginY: 2 }} />
+          <List>
+            {exchangeRates.map((rate, index) => (
+              <ListItem key={index} sx={{ paddingBottom: 1 }}>
+                <ListItemAvatar>
+                  <Avatar>
+                    <TrendingUpIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText
+                  primary={rate.currency}
+                  secondary={`Buying: $${rate.buying} | Selling: $${rate.selling}`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+
+        <Paper
+          elevation={3}
+          sx={{
+            padding: 2,
+            backgroundColor: "#fff",
+            borderRadius: "2px",
+            width: "50%",
+            margin: "-45px 0px"
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+            Cards
+          </Typography>
+          <Divider sx={{ marginY: 2 }} />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <CreditCardIcon sx={{ fontSize: 64, color: "gray", marginBottom: 2 }} />
+            <Typography variant="body1" sx={{ marginBottom: 2 }}>
+              No cards yet
+            </Typography>
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              sx={{ marginBottom: 2 }}
+            >
+              Once you create your card, It will appear here
+            </Typography>
+            <Button
+              variant="contained"
+              startIcon={<AddCircleOutlineIcon />}
+              sx={{
+                backgroundColor: "#007bff",
+                color: "#fff",
+                textTransform: "none",
+              }}
+            >
+              Create New Card
+            </Button>
+          </Box>
         </Paper>
       </Box>
     </Box>
