@@ -70,7 +70,7 @@ const DashboardContent = () => {
           marginBottom: "20px",
           height: "76px",
           marginLeft: "-5px",
-          width: "94%",
+          width: "93.5%",
         }}
       >
         {/* Left Section: Welcome Message */}
@@ -216,7 +216,7 @@ const DashboardContent = () => {
           padding: 1.6,
           backgroundColor: "#fff",
           borderRadius: "0px",
-          width: "95%",
+          width: "94.5%",
         }}
       >
         <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2, textAlign: "left" }}>
@@ -287,7 +287,7 @@ const DashboardContent = () => {
             padding: 2,
             backgroundColor: "#fff",
             borderRadius: "0px",
-            width: "40%",
+            width: "43.5%",
             marginTop: "30px"
           }}
         >
@@ -327,7 +327,7 @@ const DashboardContent = () => {
             padding: 2,
             backgroundColor: "#fff",
             borderRadius: "2px",
-            width: "40%",
+            width: "45%",
             marginTop: "30px"
           }}
         >
