@@ -137,7 +137,7 @@ const CardsPage = () => {
             }}
           >
             <img
-              src="https://via.placeholder.com/500x250" // Replace with the actual image URL
+              src="" // Replace with the actual image URL
               alt="Card Illustration"
               style={{
                 maxWidth: "100%",
