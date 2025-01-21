@@ -172,8 +172,8 @@ const DashboardContent = () => {
                 alignItems: "center",
                 padding: 2,
                 width: "150px",
-                boxShadow: "0 4px 4px rgba(0, 0, 0, 0.1)",
-                borderRadius: "5px",
+                boxShadow: "0 4px 4px rgba(0, 0, 0.1, 0.1)",
+                borderRadius: "0px",
               }}
             >
               <Avatar
@@ -346,7 +346,7 @@ const DashboardContent = () => {
         </Paper>
       </Box>
 
-      {/* New Boxes: Exchange Rates & Cards */}
+      {/*Exchange Rates & Cards */}
       <Box
         sx={{
           display: "flex",
