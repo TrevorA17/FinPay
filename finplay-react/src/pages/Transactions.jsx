@@ -57,7 +57,7 @@ const TransactionsPage = () => {
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     { field: "title", headerName: "Product Name", flex: 1 },
-    { field: "price", headerName: "Price", width: 150, valueFormatter: ({ value }) => `$${value}` },
+    { field: "price", headerName: "Price", width: 150 },
     { field: "category", headerName: "Category", width: 180 },
     {
       field: "action",
@@ -163,8 +163,8 @@ const TransactionsPage = () => {
             <DataGrid
               rows={filteredProducts}
               columns={columns}
-              pageSize={6}
-              rowsPerPageOptions={[6]}
+              pageSize={4}
+              rowsPerPageOptions={[2]}
               autoHeight
               disableSelectionOnClick
               sx={{ backgroundColor: "#fff" }}
