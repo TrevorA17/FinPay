@@ -14,6 +14,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SearchIcon from "@mui/icons-material/Search";
 import { DataGrid } from "@mui/x-data-grid"; // Importing MUI DataGrid
 import axios from "axios";
+import { createSlice } from '@reduxjs/toolkit';
 
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -29,7 +30,7 @@ const TransactionsPage = () => {
       setLoading(true);
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
-        setProducts(response.data);
+        setProducts(response.data.slice(0,10));
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch products. Please try again later.");
@@ -163,9 +164,8 @@ const TransactionsPage = () => {
             <DataGrid
               rows={filteredProducts}
               columns={columns}
-              pageSize={4}
-              rowsPerPageOptions={[2]}
-              autoHeight
+              pageSize={[5]}
+              rowsPerPageOptions={[5]}              
               disableSelectionOnClick
               sx={{ backgroundColor: "#fff" }}
             />
