@@ -1,51 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
-import { Button, TextField, Typography, Container, Box, Paper } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Typography,
+  Container,
+  Box,
+  Paper,
+} from "@mui/material";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [error, setError] = useState(""); // For displaying login errors
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // Check if the user is already logged in on component mount
-  useEffect(() => {
-    const storedUser = localStorage.getItem("authUser");
-    if (storedUser) {
-      dispatch(login(JSON.parse(storedUser))); // Restore auth state
-      navigate("/dashboard"); // Redirect to dashboard
-    }
-  }, [dispatch, navigate]);
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     // Mock authentication logic
     if (credentials.email === "admin@example.com" && credentials.password === "password") {
-      const userData = { email: credentials.email }; // Data to store
-
-      // Save user data in localStorage
-      localStorage.setItem("authUser", JSON.stringify(userData));
-
-      // Dispatch login action
-      dispatch(login(userData));
+      // Dispatch the login action (using a Boolean)
+      dispatch(login(true));
 
       // Navigate to the dashboard
       navigate("/dashboard");
     } else {
-      alert("Invalid credentials");
+      setError("Invalid email or password. Please try again.");
     }
   };
-  
-return (
+
+  return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Full viewport height
-        backgroundColor: "#e0e0e0", // Light background color for contrast
+        height: "100vh",
+        backgroundColor: "#e0e0e0",
       }}
     >
       <Container component="main" maxWidth="xs">
@@ -64,6 +58,16 @@ return (
             Login to Your Account
           </Typography>
 
+          {error && (
+            <Typography
+              variant="body2"
+              color="error"
+              sx={{ marginBottom: 2, textAlign: "center" }}
+            >
+              {error}
+            </Typography>
+          )}
+
           <form onSubmit={handleLogin} style={{ width: "100%" }}>
             <TextField
               label="Email"
@@ -73,7 +77,9 @@ return (
               required
               margin="normal"
               value={credentials.email}
-              onChange={(e) => setCredentials({ ...credentials, email: e.target.value })}
+              onChange={(e) =>
+                setCredentials({ ...credentials, email: e.target.value })
+              }
             />
             <TextField
               label="Password"
@@ -83,7 +89,9 @@ return (
               required
               margin="normal"
               value={credentials.password}
-              onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
+              onChange={(e) =>
+                setCredentials({ ...credentials, password: e.target.value })
+              }
             />
             <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
               <Button

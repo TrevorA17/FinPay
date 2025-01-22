@@ -14,9 +14,16 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isAuthenticated = false;
     },
+    clear: (state) => {
+      Object.assign(state, initialState); // Reset state to the initial state
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
+export const { login, logout, clear } = authSlice.actions;
 
 export default authSlice.reducer;
+
+
+//clear reducer
+//create backend project - login, reg, 2 factor auth

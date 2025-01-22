@@ -15,8 +15,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import { DataGrid } from "@mui/x-data-grid"; // Importing MUI DataGrid
 import axios from "axios";
 
+import SendMoney from "../components/SendMoney";
+import FundWallet from "../components/FundWallet";
+import ConvertFunds from "../components/ConvertFunds";
+import CreateInvoice from "../components/CreateNewInvoice"
+
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -46,6 +52,11 @@ const TransactionsPage = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleMenuClick = (page) => {
+    setActivePage(page); // Set the active page dynamically
+    handleClose();       // Close the dropdown
   };
 
   // Handle search filter
@@ -87,6 +98,18 @@ const TransactionsPage = () => {
     }
   };
 
+  switch (activePage) {
+    case "Send Money":
+      return <SendMoney />;
+    case "Fund Wallet":
+      return <FundWallet />
+    case "Convert Funds":
+      return <ConvertFunds />
+    case "Create Invoice":
+      return <CreateInvoice />     
+       
+  default:
+       
   return (
     <Box>
       {/* Welcome Box */}
@@ -196,6 +219,7 @@ const TransactionsPage = () => {
       )}
     </Box>
   );
+};
 };
 
 export default TransactionsPage;
