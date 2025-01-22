@@ -11,9 +11,17 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import AddIcon from "@mui/icons-material/Add";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
+//Importing dynamic components for QuickActions Menu
+import SendMoney from "../components/SendMoney";
+import FundWallet from "../components/FundWallet";
+import ConvertFunds from "../components/ConvertFunds";
+import CreateInvoice from "../components/CreateNewInvoice"
+
 const CardsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
+  const [activePage, setActivePage] = useState(null); // Declare activePage state
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -21,7 +29,24 @@ const CardsPage = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleMenuClick = (page) => {
+    setActivePage(page); // Set the active page dynamically
+    handleClose();       // Close the dropdown
+  };
 
+  switch (activePage) {
+    case "Send Money":
+      return <SendMoney />;
+    case "Convert Funds":
+      return <ConvertFunds />;
+    case "Fund Wallet":
+      return <FundWallet />;
+    case "Create Invoice":
+      return <CreateInvoice />;      
+      
+    default:
+      
+ 
   return (
     <Box>
       {/* Header Card */}
@@ -66,25 +91,25 @@ const CardsPage = () => {
             onClose={handleClose}
             sx={{ mt: "-45px" }}
           >
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => handleMenuClick("Send Money")}>
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
               Send Money
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
               Fund Wallet
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
               Convert Funds
             </MenuItem>
-            <MenuItem onClick={handleClose}>
+            <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
@@ -169,6 +194,7 @@ const CardsPage = () => {
       </Box>
     </Box>
   );
+};
 };
 
 export default CardsPage;

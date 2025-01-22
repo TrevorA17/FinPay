@@ -9,7 +9,7 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
-import CreateNewInvoice from "../components/CreateNewInvoice";
+import CreateInvoice from "../components/CreateNewInvoice";
 
 const invoices = () => {
   const [activeMenu, setActiveMenu] = useState("All Invoices");
