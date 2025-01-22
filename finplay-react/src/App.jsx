@@ -5,6 +5,8 @@ import PublicRouteLayout from "./layouts/PublicRouteLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Sidebar from "./components/Sidebar";
+
+//Sidebar imports
 import Dashboard from "./pages/DashboardContent";      
 import Invoices from "./pages/Invoices";      
 import Cards from "./pages/Cards";            
@@ -27,7 +29,7 @@ const App = () => {
         <Route path="/invoices" element={<Invoices />} />
         <Route path="/cards" element={<Cards />} />
         <Route path="/wallets" element={<Wallets />} />
-        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/transaction" element={<Transactions />} />              
       </Route>
 
       {/* Catch-all route to redirect to login if not matched */}
