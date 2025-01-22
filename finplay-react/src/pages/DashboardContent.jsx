@@ -26,7 +26,7 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import axios from "axios";
 
-// Importing dynamic components
+// Importing dynamic components for Quick Actions Menu
 import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";

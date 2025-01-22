@@ -5,9 +5,16 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard"; 
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined"; 
 
+//Importing dynamic components for Quick Actions Menu
+import SendMoney from "../components/SendMoney";
+import FundWallet from "../components/FundWallet";
+import ConvertFunds from "../components/ConvertFunds";
+import CreateNewInvoice from "../components/CreateNewInvoice";
 
 const invoices = () => {
   const [activeMenu, setActiveMenu] = useState("All Invoices");
+  const [activePage, setActivePage] = useState(null); // Declare activePage state
+  
 
    const [anchorEl, setAnchorEl] = useState(null);
  
@@ -18,6 +25,10 @@ const invoices = () => {
    const handleClose = () => {
      setAnchorEl(null);
    };
+   const handleMenuClick = (page) => {
+    setActivePage(page); // Set the active page dynamically
+    handleClose();       // Close the dropdown
+  };
 
 const menuItems = [
     "All Invoices",
@@ -28,6 +39,20 @@ const menuItems = [
     "Due",
     "Overdue",
   ];
+
+  switch (activePage) {
+    case "Send Money":
+      return <SendMoney />;
+    case "Convert Funds":
+      return <ConvertFunds />;
+    case "Fund Wallet":
+      return <FundWallet />;
+    case "Create Invoice":
+      return <CreateInvoice />;
+             
+    default:
+      
+ 
 
   return (
     <Box>
@@ -70,25 +95,25 @@ const menuItems = [
           }}
         >
           {/* Menu Items with Icons */}
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => handleMenuClick("Send Money")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
             </ListItemIcon>
             Send Money
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
             <ListItemIcon>
               <DescriptionOutlinedIcon fontSize="small" /> {/* Invoices icon */}
             </ListItemIcon>
             Fund Wallet
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
             </ListItemIcon>
             Convert Funds
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" /> {/* Dashboard icon */}
             </ListItemIcon>
@@ -214,6 +239,7 @@ const menuItems = [
       </Box>
     </Box>
   );
+};
 };
 
 export default invoices;
