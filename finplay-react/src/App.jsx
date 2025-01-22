@@ -29,7 +29,7 @@ const App = () => {
         <Route path="/invoices" element={<Invoices />} />
         <Route path="/cards" element={<Cards />} />
         <Route path="/wallets" element={<Wallets />} />
-        <Route path="/transaction" element={<Transactions />} />              
+        <Route path="/transactions" element={<Transactions />} />              
       </Route>
 
       {/* Catch-all route to redirect to login if not matched */}

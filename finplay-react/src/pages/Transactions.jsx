@@ -14,7 +14,6 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import SearchIcon from "@mui/icons-material/Search";
 import { DataGrid } from "@mui/x-data-grid"; // Importing MUI DataGrid
 import axios from "axios";
-import { createSlice } from '@reduxjs/toolkit';
 
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
