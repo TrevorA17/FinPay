@@ -39,13 +39,13 @@ const Register = () => {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    height: "100vh", // Full viewport height
+    height: "100%", // Full viewport height
     backgroundColor: "#e0e0e0", // Light background for contrast
   }}
 >
   <Container component="main" maxWidth="xs">
     <Paper
-      elevation={5}
+      elevation={3}
       sx={{
         padding: 4,
         display: "flex",
@@ -53,6 +53,7 @@ const Register = () => {
         alignItems: "center",
         backgroundColor: "#f5f5f5",
         borderRadius: 3,
+        height:"550px"
       }}
     >
       <Typography variant="h5" component="h1" gutterBottom>
