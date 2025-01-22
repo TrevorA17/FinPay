@@ -63,7 +63,7 @@ const CreateInvoice = () => {
         {/* Left Section: Header Title */}
         <Box>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Create New Invoice
+          New Invoice
           </Typography>
         </Box>
 

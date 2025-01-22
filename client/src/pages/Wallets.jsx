@@ -177,6 +177,7 @@ const Wallets = () => {
         <Button
           variant="contained"
           startIcon={<MonetizationOnOutlinedIcon />}
+          onClick={() => handleMenuClick("Send Money")}
           sx={{
             backgroundColor: "#007bff",
             color: "#fff",
@@ -188,7 +189,9 @@ const Wallets = () => {
           Send Money
         </Button>
         <Button
-          variant="contained"          
+          variant="contained"     
+          startIcon={<MonetizationOnOutlinedIcon />}  
+          onClick={() => handleMenuClick("Convert Funds")}   
           sx={{
             backgroundColor: "#28a745",
             color: "#fff",
