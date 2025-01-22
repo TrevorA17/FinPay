@@ -11,9 +11,9 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 //Importing dynamic components for QuickActions Menu
-import FundWallet from "../components/FundWallet";
-import ConvertFunds from "../components/ConvertFunds";
-import CreateInvoice from "../components/CreateNewInvoice"
+import FundWallet from "./FundWallet";
+import ConvertFunds from "./ConvertFunds";
+import CreateInvoice from "./CreateNewInvoice"
 
 const SendMoney = () => {
   const [anchorEl, setAnchorEl] = useState(null);
