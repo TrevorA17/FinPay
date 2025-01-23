@@ -44,6 +44,10 @@ const ConvertFunds = () => {
     setAnchorEl(null);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
     handleClose();       // Close the dropdown
@@ -75,6 +79,14 @@ const ConvertFunds = () => {
     navigate("/dashboard"); // Navigate to the dashboard route
   };
 
+  switch (activePage) {
+    case "Send Money":
+      return <SendMoney />;
+    case "Fund Wallet":
+      return <FundWallet />;
+    case "Create Invoice":
+      return <CreateInvoice />;
+    default:
   return (
     <Box>
       {/* Top Bar */}
@@ -272,5 +284,5 @@ const ConvertFunds = () => {
     </Box>
   );
 };
-
+};
 export default ConvertFunds;
