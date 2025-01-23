@@ -452,6 +452,8 @@ const DashboardContent = () => {
                 backgroundColor: "#007bff",
                 color: "#fff",
                 textTransform: "none",
+                width: "80%",
+                padding: "10px"
               }}
             >
               Create New Card

@@ -140,17 +140,29 @@ const TransactionsPage = () => {
           Quick Actions
         </Button>
         <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => handleMenuClick("Send Money")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
             </ListItemIcon>
             Send Money
           </MenuItem>
-          <MenuItem onClick={handleClose}>
+          <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
             </ListItemIcon>
             Fund Wallet
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create New Invoice
           </MenuItem>
         </Menu>
       </Box>
