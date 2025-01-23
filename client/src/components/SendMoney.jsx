@@ -18,8 +18,10 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FundWallet from "./FundWallet";
 import ConvertFunds from "./ConvertFunds";
 import CreateInvoice from "./CreateNewInvoice";
+import { useNavigate } from "react-router-dom";
 
 const SendMoney = () => {
+  const navigate = useNavigate(); 
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
 
@@ -37,7 +39,7 @@ const SendMoney = () => {
   };
 
   const handleGoBack = () => {
-    setActivePage(null); // Go back to the main dashboard
+    navigate("/dashboard"); // Go back to the main dashboard
   };
 
   const handleContinue = () => {
