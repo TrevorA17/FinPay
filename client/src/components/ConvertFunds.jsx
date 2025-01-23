@@ -76,7 +76,7 @@ const ConvertFunds = () => {
   };
 
   const handleGoBack = () => {
-    navigate("/dashboard"); // Navigate to the dashboard route
+    navigate("/transactions"); // Navigate to the dashboard route
   };
 
   switch (activePage) {
