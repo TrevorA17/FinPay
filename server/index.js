@@ -13,7 +13,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-
 // Test endpoint (to check if server is running)
 app.get('/', (req, res) => {
   res.send('Server is running');
