@@ -250,6 +250,7 @@ const DashboardContent = () => {
           <Button
             variant="contained"
             startIcon={<MonetizationOnOutlinedIcon />}
+            onClick={() => handleMenuClick("Send Money")}
             sx={{
               flex: 0.4,
               backgroundColor: "#007bff",
@@ -263,6 +264,7 @@ const DashboardContent = () => {
           </Button>
           <Button
             variant="contained"
+            onClick={() => handleMenuClick("Convert Funds")}
             sx={{
               flex: 0.4,
               backgroundColor: "#28a745",
@@ -276,6 +278,7 @@ const DashboardContent = () => {
           <Button
             variant="contained"
             startIcon={<ReceiptOutlinedIcon />}
+            onClick={() => handleMenuClick("Create Invoice")}
             sx={{
               flex: 0.4,
               backgroundColor: "#ffc107",
