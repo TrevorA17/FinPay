@@ -163,8 +163,8 @@ const ConvertFunds = () => {
       <Box
         sx={{
           padding: "30px",
-          maxWidth: "600px",
-          margin: "0 auto",
+          maxWidth: "500px",
+          margin: "12px",
           backgroundColor: "#fff",
           borderRadius: "8px",
           boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
