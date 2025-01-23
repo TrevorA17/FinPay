@@ -12,22 +12,25 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import { DataGrid } from "@mui/x-data-grid"; // Importing MUI DataGrid
 import axios from "axios";
 
 import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
-import CreateInvoice from "../components/CreateNewInvoice"
+import CreateInvoice from "../components/CreateNewInvoice";
 
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElFilter, setAnchorElFilter] = useState(null); // For filter dropdown
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [filterCategory, setFilterCategory] = useState(""); // For filtering by category
 
   // Fetch products from API
   useEffect(() => {
@@ -35,7 +38,7 @@ const TransactionsPage = () => {
       setLoading(true);
       try {
         const response = await axios.get("https://fakestoreapi.com/products");
-        setProducts(response.data.slice(0,10));
+        setProducts(response.data);
         setLoading(false);
       } catch (err) {
         setError("Failed to fetch products. Please try again later.");
@@ -56,13 +59,26 @@ const TransactionsPage = () => {
 
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
-    handleClose();       // Close the dropdown
+    handleClose(); // Close the dropdown
   };
 
-  // Handle search filter
-  const filteredProducts = products.filter((product) =>
-    product.title.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleFilterClick = (event) => {
+    setAnchorElFilter(event.currentTarget);
+  };
+
+  const handleFilterClose = (category) => {
+    setAnchorElFilter(null);
+    setFilterCategory(category || ""); // Set the selected category or reset the filter
+  };
+
+  // Handle search and filter
+  const filteredProducts = products
+    .filter((product) =>
+      product.title.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .filter((product) =>
+      filterCategory ? product.category === filterCategory : true
+    );
 
   // Define columns for DataGrid
   const columns = [
@@ -89,7 +105,9 @@ const TransactionsPage = () => {
   const handleViewDetails = async (id) => {
     setLoading(true);
     try {
-      const response = await axios.get(`https://fakestoreapi.com/products/${id}`);
+      const response = await axios.get(
+        `https://fakestoreapi.com/products/${id}`
+      );
       setSelectedProduct(response.data);
       setLoading(false);
     } catch (err) {
@@ -102,136 +120,177 @@ const TransactionsPage = () => {
     case "Send Money":
       return <SendMoney />;
     case "Fund Wallet":
-      return <FundWallet />
+      return <FundWallet />;
     case "Convert Funds":
-      return <ConvertFunds />
+      return <ConvertFunds />;
     case "Create Invoice":
-      return <CreateInvoice />     
-       
-  default:
-       
-  return (
-    <Box>
-      {/* Welcome Box */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          padding: "35px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-          marginBottom: "20px",
-        }}
-      >
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Transactions
-        </Typography>
-        <Button
-          variant="contained"
-          onClick={handleClick}
-          startIcon={<ArrowDropDownIcon />}
-          sx={{
-            backgroundColor: "#fff",
-            color: "#000",
-            textTransform: "none",
-          }}
-        >
-          Quick Actions
-        </Button>
-        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
-          <MenuItem onClick={() => handleMenuClick("Send Money")}>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Send Money
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Fund Wallet
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Convert Funds
-          </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Create New Invoice
-          </MenuItem>
-        </Menu>
-      </Box>
+      return <CreateInvoice />;
 
-      {/* Search Bar */}
-      <Box sx={{ backgroundColor: "#f9f9f9", padding: "20px", borderRadius: "8px" }}>
-        <TextField
-          fullWidth
-          variant="outlined"
-          placeholder="Search for a transaction"
-          onChange={(e) => setSearchTerm(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <Box sx={{ display: "flex", alignItems: "center", marginRight: "10px" }}>
-                <SearchIcon />
-              </Box>
-            ),
-          }}
-          sx={{ marginBottom: "20px" }}
-        />
+    default:
+      return (
+        <Box>
+          {/* Welcome Box */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              backgroundColor: "#fff",
+              padding: "35px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              marginBottom: "20px",
+            }}
+          >
+            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+              Transactions
+            </Typography>
+            <Button
+              variant="contained"
+              onClick={handleClick}
+              startIcon={<ArrowDropDownIcon />}
+              sx={{
+                backgroundColor: "#fff",
+                color: "#000",
+                textTransform: "none",
+              }}
+            >
+              Quick Actions
+            </Button>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => handleMenuClick("Send Money")}>
+                <ListItemIcon>
+                  <DashboardIcon fontSize="small" />
+                </ListItemIcon>
+                Send Money
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+                <ListItemIcon>
+                  <DashboardIcon fontSize="small" />
+                </ListItemIcon>
+                Fund Wallet
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
+                <ListItemIcon>
+                  <DashboardIcon fontSize="small" />
+                </ListItemIcon>
+                Convert Funds
+              </MenuItem>
+              <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
+                <ListItemIcon>
+                  <DashboardIcon fontSize="small" />
+                </ListItemIcon>
+                Create New Invoice
+              </MenuItem>
+            </Menu>
+          </Box>
 
-        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
-          Recent Transactions
-        </Typography>
-
-        {/* DataGrid */}
-        {loading ? (
-          <Typography>Loading...</Typography>
-        ) : error ? (
-          <Typography color="error">{error}</Typography>
-        ) : (
-          <Paper>
-            <DataGrid
-              rows={filteredProducts}
-              columns={columns}
-              pageSize={[5]}
-              rowsPerPageOptions={[5]}              
-              disableSelectionOnClick
-              sx={{ backgroundColor: "#fff" }}
+          {/* Search and Filter Section */}
+          <Box
+            sx={{
+              backgroundColor: "#f9f9f9",
+              padding: "20px",
+              borderRadius: "8px",
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <TextField
+              fullWidth
+              variant="outlined"
+              placeholder="Search for a transaction"
+              onChange={(e) => setSearchTerm(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginRight: "10px",
+                    }}
+                  >
+                    <SearchIcon />
+                  </Box>
+                ),
+              }}
             />
-          </Paper>
-        )}
-      </Box>
+            <Button
+              variant="outlined"
+              startIcon={<FilterListIcon />}
+              onClick={handleFilterClick}
+            >
+              Filter
+            </Button>
+            <Menu
+              anchorEl={anchorElFilter}
+              open={Boolean(anchorElFilter)}
+              onClose={() => handleFilterClose()}
+            >
+              <MenuItem onClick={() => handleFilterClose("")}>All</MenuItem>
+              <MenuItem onClick={() => handleFilterClose("electronics")}>
+                Electronics
+              </MenuItem>
+              <MenuItem onClick={() => handleFilterClose("jewelery")}>
+                Jewelery
+              </MenuItem>
+              <MenuItem onClick={() => handleFilterClose("men's clothing")}>
+                Men's Clothing
+              </MenuItem>
+              <MenuItem onClick={() => handleFilterClose("women's clothing")}>
+                Women's Clothing
+              </MenuItem>
+            </Menu>
+          </Box>
 
-      {/* Product Details Modal */}
-      {selectedProduct && (
-        <Box
-          sx={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "#fff",
-            padding: "30px",
-            borderRadius: "8px",
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-            zIndex: 10,
-          }}
-        >
-          <Typography variant="h6">{selectedProduct.title}</Typography>
-          <Typography>Price: ${selectedProduct.price}</Typography>
-          <Typography>Category: {selectedProduct.category}</Typography>
-          <Typography>Description: {selectedProduct.description}</Typography>
-          <Button onClick={() => setSelectedProduct(null)}>Close</Button>
+          {/* DataGrid */}
+          <Box sx={{ marginTop: "20px" }}>
+            {loading ? (
+              <Typography>Loading...</Typography>
+            ) : error ? (
+              <Typography color="error">{error}</Typography>
+            ) : (
+              <Paper>
+                <DataGrid
+                  rows={filteredProducts}
+                  columns={columns}
+                  pageSize={5}
+                  rowsPerPageOptions={[5]}
+                  disableSelectionOnClick
+                  sx={{ backgroundColor: "#fff" }}
+                />
+              </Paper>
+            )}
+          </Box>
+
+          {/* Product Details Modal */}
+          {selectedProduct && (
+            <Box
+              sx={{
+                position: "fixed",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                backgroundColor: "#fff",
+                padding: "30px",
+                borderRadius: "8px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                zIndex: 10,
+              }}
+            >
+              <Typography variant="h6">{selectedProduct.title}</Typography>
+              <Typography>Price: ${selectedProduct.price}</Typography>
+              <Typography>Category: {selectedProduct.category}</Typography>
+              <Typography>Description: {selectedProduct.description}</Typography>
+              <Button onClick={() => setSelectedProduct(null)}>Close</Button>
+            </Box>
+          )}
         </Box>
-      )}
-    </Box>
-  );
-};
+      );
+  }
 };
 
 export default TransactionsPage;

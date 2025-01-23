@@ -264,7 +264,7 @@ const DashboardContent = () => {
             Send Money
           </Button>
           <Button
-            variant="contained"
+            variant="outlined"
             onClick={() => handleMenuClick("Convert Funds")}
             sx={{
               flex: 0.4,
@@ -277,7 +277,7 @@ const DashboardContent = () => {
             Convert Funds
           </Button>
           <Button
-            variant="contained"
+            variant="outlined"
             startIcon={<ReceiptOutlinedIcon />}
             onClick={() => handleMenuClick("Create Invoice")}
             sx={{
