@@ -236,10 +236,10 @@ const DashboardContent = () => {
           marginLeft: "40px",
         }}
       >
-        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
+        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 0 }}>
           Quick Actions
         </Typography>
-        <Divider sx={{ marginY: 2 }} />
+        <Divider sx={{ marginY: 1.5 }} />
         <Box
           sx={{
             display: "flex",
@@ -248,7 +248,7 @@ const DashboardContent = () => {
           }}
         >
           <Button
-            variant="contained"
+            variant="outlined"
             startIcon={<MonetizationOnOutlinedIcon />}
             onClick={() => handleMenuClick("Send Money")}
             sx={{
@@ -257,7 +257,8 @@ const DashboardContent = () => {
               color: "#fff",
               textTransform: "none",
               fontWeight: "bold",
-              padding: "2px",
+              paddingBottom: "20px",
+              paddingTop: "20px"
             }}
           >
             Send Money
