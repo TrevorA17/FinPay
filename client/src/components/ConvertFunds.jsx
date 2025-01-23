@@ -5,49 +5,79 @@ import {
   Button,
   Menu,
   MenuItem,
+  TextField,
+  InputAdornment,
+  Divider,
   ListItemIcon,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-//Importing dynamic components for QuickActions Menu
+// Import other components for Quick Actions menu
 import SendMoney from "./SendMoney";
-import CreateInvoice from "./CreateNewInvoice";
 import FundWallet from "./FundWallet";
+import CreateInvoice from "./CreateNewInvoice";
 
 const ConvertFunds = () => {
-  const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate function
 
-  const [activePage, setActivePage] = useState(null); // Declare activePage state
+  const [anchorEl, setAnchorEl] = useState(null); // For the top bar menu
+  const [anchorElFrom, setAnchorElFrom] = useState(null); // For the "Amount to Convert" dropdown
+  const [anchorElTo, setAnchorElTo] = useState(null); // For the "You'll Receive" dropdown
+  const [fromCurrency, setFromCurrency] = useState("USD");
+  const [toCurrency, setToCurrency] = useState("USD");
+  const [amount, setAmount] = useState("");
+  const [exchangeRate, setExchangeRate] = useState(1.12); // Example exchange rate
+
+  const currencies = ["USD", "EURO", "YEN"];
+  const [activePage, setActivePage] = useState(null);
   
-  const handleClick = (event) => {
+
+  const handleTopBarClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
+  const handleTopBarClose = () => {
     setAnchorEl(null);
   };
+
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
     handleClose();       // Close the dropdown
   };
 
-  switch (activePage) {
-    case "Send Money":
-      return <SendMoney />;
-    case "Convert Funds":
-      return <ConvertFunds />;
-    case "Fund Wallet":
-      return <FundWallet />;
-    case "Create Invoice":
-      return <CreateInvoice />;      
-      
-    default:
-      
- 
+  const handleOpenFromMenu = (event) => {
+    setAnchorElFrom(event.currentTarget);
+  };
+
+  const handleCloseFromMenu = (currency) => {
+    setAnchorElFrom(null);
+    if (currency) setFromCurrency(currency);
+  };
+
+  const handleOpenToMenu = (event) => {
+    setAnchorElTo(event.currentTarget);
+  };
+
+  const handleCloseToMenu = (currency) => {
+    setAnchorElTo(null);
+    if (currency) setToCurrency(currency);
+  };
+
+  const handleConvert = () => {
+    console.log("Converting funds...");
+  };
+
+  const handleGoBack = () => {
+    navigate("/dashboard"); // Navigate to the dashboard route
+  };
+
   return (
     <Box>
-      {/* Header Card */}
+      {/* Top Bar */}
       <Box
         sx={{
           display: "flex",
@@ -63,7 +93,7 @@ const ConvertFunds = () => {
         {/* Left Section: Header Title */}
         <Box>
           <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-          Convert Funds
+            Convert Funds
           </Typography>
         </Box>
 
@@ -71,7 +101,7 @@ const ConvertFunds = () => {
         <Box>
           <Button
             variant="contained"
-            onClick={handleClick}
+            onClick={handleTopBarClick}
             startIcon={<ArrowDropDownIcon />}
             sx={{
               backgroundColor: "#fff",
@@ -86,7 +116,7 @@ const ConvertFunds = () => {
           <Menu
             anchorEl={anchorEl}
             open={Boolean(anchorEl)}
-            onClose={handleClose}
+            onClose={handleTopBarClose}
             sx={{ mt: "-45px" }}
           >
             <MenuItem onClick={() => handleMenuClick("Send Money")}>
@@ -120,20 +150,127 @@ const ConvertFunds = () => {
       {/* Main Content */}
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "20px",
-          minHeight: "calc(100vh - 96px)", // Adjust height to fit below the header
-          backgroundColor: "#f9f9f9",
+          padding: "30px",
+          maxWidth: "600px",
+          margin: "0 auto",
+          backgroundColor: "#fff",
+          borderRadius: "8px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
         }}
-      >                          
-        </Box>
-      </Box>
+      >
+        <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
+          Convert Funds
+        </Typography>
+        <Divider sx={{ mb: 3 }} />
 
+        {/* Amount to Convert */}
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="subtitle1" sx={{ mb: 1 }}>
+            Amount to Convert*
+          </Typography>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Enter amount"
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button
+                    variant="text"
+                    onClick={handleOpenFromMenu}
+                    endIcon={<ArrowDropDownIcon />}
+                  >
+                    {fromCurrency}
+                  </Button>
+                  <Menu
+                    anchorEl={anchorElFrom}
+                    open={Boolean(anchorElFrom)}
+                    onClose={() => handleCloseFromMenu()}
+                  >
+                    {currencies.map((currency) => (
+                      <MenuItem
+                        key={currency}
+                        onClick={() => handleCloseFromMenu(currency)}
+                      >
+                        {currency}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Box>
+
+        {/* You'll Receive */}
+        <Box sx={{ mb: 2 }}>
+          <Typography variant="subtitle1" sx={{ mb: 1 }}>
+            You'll Receive*
+          </Typography>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Converted amount"
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Button
+                    variant="text"
+                    onClick={handleOpenToMenu}
+                    endIcon={<ArrowDropDownIcon />}
+                  >
+                    {toCurrency}
+                  </Button>
+                  <Menu
+                    anchorEl={anchorElTo}
+                    open={Boolean(anchorElTo)}
+                    onClose={() => handleCloseToMenu()}
+                  >
+                    {currencies.map((currency) => (
+                      <MenuItem
+                        key={currency}
+                        onClick={() => handleCloseToMenu(currency)}
+                      >
+                        {currency}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                </InputAdornment>
+              ),
+            }}
+            disabled
+          />
+        </Box>
+
+        {/* Exchange Rate */}
+        <Typography variant="body2" sx={{ mb: 3 }}>
+          Exchange Rate: 1 {fromCurrency} = {exchangeRate} {toCurrency}
+        </Typography>
+
+        {/* Convert Funds Button */}
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={<CurrencyExchangeIcon />}
+          onClick={handleConvert}
+        >
+          Convert Funds
+        </Button>
+
+        {/* Go Back Button */}
+        <Button
+          variant="text"
+          startIcon={<ArrowBackIcon />}
+          sx={{ mt: 2 }}
+          onClick={handleGoBack}
+        >
+          Go Back
+        </Button>
+      </Box>
+    </Box>
   );
-};
 };
 
 export default ConvertFunds;
