@@ -189,7 +189,7 @@ const CreateInvoice = () => {
                 fullWidth
                 variant="outlined"
                 placeholder="Enter item description"
-                sx={{ mb: 3, height:"80px"}}
+                sx={{ mb: 3, height:"0px"}}
               />
               <Divider sx={{ my: 2 }} />
               <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "bold" }}>
