@@ -7,8 +7,11 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import WalletIcon from "@mui/icons-material/Wallet";
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
+import { useNavigate } from "react-router-dom";
+
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Menu items data
@@ -151,6 +154,7 @@ const Sidebar = () => {
               },
               cursor: "pointer", // Pointer on hover
             }}
+            onClick={() => navigate("/profile")}
           >
             <OpenInNewOutlinedIcon/>
           </Button>
