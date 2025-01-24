@@ -8,6 +8,8 @@ import {
   ListItemIcon,
   TextField,
   Divider,
+  Checkbox,
+  FormControlLabel,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -19,7 +21,7 @@ import FundWallet from "./FundWallet";
 
 const CreateInvoice = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [activePage, setActivePage] = useState(null); // Declare activePage state
+  const [activePage, setActivePage] = useState(null);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -30,8 +32,8 @@ const CreateInvoice = () => {
   };
 
   const handleMenuClick = (page) => {
-    setActivePage(page); // Set the active page dynamically
-    handleClose(); // Close the dropdown
+    setActivePage(page);
+    handleClose();
   };
 
   switch (activePage) {
@@ -43,7 +45,6 @@ const CreateInvoice = () => {
       return <FundWallet />;
     case "Create Invoice":
       return <CreateInvoice />;
-
     default:
       return (
         <Box>
@@ -60,14 +61,11 @@ const CreateInvoice = () => {
               height: "76px",
             }}
           >
-            {/* Left Section: Header Title */}
             <Box>
               <Typography variant="h4" sx={{ fontWeight: "bold" }}>
                 New Invoice
               </Typography>
             </Box>
-
-            {/* Right Section: Quick Actions Button */}
             <Box>
               <Button
                 variant="contained"
@@ -82,7 +80,6 @@ const CreateInvoice = () => {
               >
                 Quick Actions
               </Button>
-
               <Menu
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
@@ -121,32 +118,30 @@ const CreateInvoice = () => {
           <Box
             sx={{
               display: "flex",
+              flexDirection: "column",
               gap: "20px",
               padding: "20px",
               backgroundColor: "#f9f9f9",
             }}
           >
-            {/* Left Box: Create Invoice */}
+            {/* Create Invoice */}
             <Box
               sx={{
-                flex: 1,
                 backgroundColor: "#fff",
                 padding: "20px",
-                borderRadius: "8px",
+                borderRadius: "0px",
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                height:"20%"
+                width:"40%"
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 Create Invoice
               </Typography>
               <Divider sx={{ my: 2 }} />
-
               <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: "bold" }}>
                 Customer's Name
               </Typography>
               <Divider sx={{ my: 2 }} />
-
               <Box
                 sx={{
                   display: "flex",
@@ -167,51 +162,134 @@ const CreateInvoice = () => {
               </Box>
             </Box>
 
-            {/* Right Box: Item Description */}
+            {/* Invoice Information */}
             <Box
               sx={{
-                flex: 1,
+                backgroundColor: "#fff",
+                padding: "20px",
+                borderRadius: "0px",
+                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                width: "40%"
+              }}
+            >
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                Invoice Information
+              </Typography>
+              <Divider sx={{ my: 2 }} />
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1">Currency</Typography>
+                <Button
+                  variant="outlined"
+                  startIcon={<ArrowDropDownIcon />}
+                  sx={{ textTransform: "none" }}
+                >
+                  Select Currency
+                </Button>
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1">Issue Date</Typography>
+                <TextField
+                  type="date"
+                  fullWidth
+                  variant="outlined"
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle1">Invoice Due Date</Typography>
+                <TextField
+                  type="date"
+                  fullWidth
+                  variant="outlined"
+                  sx={{ mt: 1 }}
+                />
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 2,
+                }}
+              >
+                <Typography>Subtotal</Typography>
+                <Typography>$0.00</Typography>
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  mt: 2,
+                }}
+              >
+                <Typography>Total</Typography>
+                <Typography>$0.00</Typography>
+              </Box>
+            </Box>
+
+            {/* Item Description */}
+            <Box
+              sx={{
                 backgroundColor: "#fff",
                 padding: "20px",
                 borderRadius: "8px",
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                marginLeft: "450px",
+                marginTop: "-710px"
               }}
             >
-              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                Item Description
+              <Typography variant="h7" >
+                Item Description*
               </Typography>
               <Divider sx={{ my: 2 }} />
-
-              <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "bold" }}>
-                Item Description
-              </Typography>
               <TextField
                 fullWidth
                 variant="outlined"
                 placeholder="Enter item description"
-                sx={{ mb: 3, height:"80px"}}
               />
               <Divider sx={{ my: 2 }} />
-              <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "bold" }}>
-                Quantity
+              <Typography variant="h7" sx={{ mt: 2 }}>
+                Quantity*
               </Typography>
+              <Divider sx={{ my: 2 }} />
               <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Enter quantity"
-                sx={{ mb: 3 }}
+                placeholder="Enter item description"
               />
               <Divider sx={{ my: 2 }} />
-              <Typography variant="subtitle1" sx={{ mb: 1, fontWeight: "bold" }}>
-                Amount (Per Quantity)
+              <Typography variant="h7" sx={{ mt: 2 }}>
+                Amount Per Quantity*
               </Typography>
+              <Divider sx={{ my: 2 }} />
               <TextField
                 fullWidth
                 variant="outlined"
-                placeholder="Enter amount per quantity"
+                placeholder="Enter item description"
+              />
+              <Divider sx={{ my: 2 }} />
+              <Typography variant="h7" sx={{ mt: 2 }}>
+                VAT Information
+              </Typography>
+              <Divider sx={{ my: 2 }} />
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Should VAT be included?"
               />
             </Box>
           </Box>
+           {/* Send Invoice Button */}
+           <Button
+              variant="contained"
+              color="primary"
+              sx={{
+                width: "75%",
+                mt: 20,
+                display: "block",
+                mx: "auto",
+            }}
+            >
+             Send Invoice
+        </Button>
         </Box>
       );
   }
