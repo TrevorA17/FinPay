@@ -28,7 +28,7 @@ const App = () => {
 
       {/* Private Routes (Sidebar with Dashboard, Invoices, etc.) */}
       <Route element={<PrivateRouteLayout />}>
-        <Route path="/" element={<Sidebar />} />
+        <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/invoices" element={<Invoices />} />
         <Route path="/cards" element={<Cards />} />

@@ -47,7 +47,7 @@ const Profile = () => {
     setIsEditingAddress(false);
   };
   const handleGoBack = () => {
-    navigate("/transactions"); // Go back to the main dashboard
+    navigate("/"); // Go back to the main dashboard
   };
 
   switch (activePage) {

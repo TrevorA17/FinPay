@@ -40,7 +40,7 @@ const CreateInvoice = () => {
     handleClose();
   };
   const handleGoBack = () => {
-    navigate("/transactions"); // Navigate to the dashboard route
+    navigate("/"); // Navigate to the dashboard route
   };
 
   switch (activePage) {

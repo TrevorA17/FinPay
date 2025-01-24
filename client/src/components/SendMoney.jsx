@@ -39,7 +39,7 @@ const SendMoney = () => {
   };
 
   const handleGoBack = () => {
-    navigate("/transactions"); // Go back to the main dashboard
+    navigate("/"); // Go back to the main dashboard
   };
 
   const handleContinue = () => {
