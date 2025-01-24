@@ -22,7 +22,9 @@ const Sidebar = () => {
     { text: "Wallets", icon: <WalletIcon />, path: "/wallets" },
     { text: "Transactions", icon: <CompareArrowsOutlinedIcon />, path: "/transactions" },
     { text:"My Profile", icon: <DashboardIcon />, path:"/profile"},
-    { text: "Beneficiaries", icon: <DashboardIcon />, path:"/beneficiaries"}
+    { text: "Beneficiaries", icon: <DashboardIcon />, path:"/beneficiaries"},
+    { text: "Security", icon: <DashboardIcon />, path:"/security"},
+    { text: "Identification", icon: <DashboardIcon />, path:"/identification"}
   ];
 
   // Handle button click to update selected item
