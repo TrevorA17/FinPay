@@ -142,10 +142,10 @@ const Profile = () => {
 
           {/* Go Back Button */}
           <Button
-            variant="contained"
+            variant="outlined"
             sx={{
               marginTop: "20px",
-              backgroundColor: "#1976d2",
+              backgroundColor: "#fff",
               marginLeft:"65px"
             }}
           >
