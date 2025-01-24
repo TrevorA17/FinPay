@@ -21,6 +21,7 @@ const Sidebar = () => {
     { text: "Cards", icon: <CreditCardIcon />, path: "/cards" },
     { text: "Wallets", icon: <WalletIcon />, path: "/wallets" },
     { text: "Transactions", icon: <CompareArrowsOutlinedIcon />, path: "/transactions" },
+    { text:"My Profile", icon: <DashboardIcon />, path:"/profile"}
   ];
 
   // Handle button click to update selected item
