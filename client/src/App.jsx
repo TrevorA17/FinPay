@@ -13,7 +13,7 @@ import Cards from "./pages/Cards";
 import Wallets from "./pages/Wallets";        
 import Transactions from "./pages/Transactions"; 
 import Profile from "./pages/Profile";
-
+import Beneficiaries from "./pages/Beneficiaries"
 const App = () => {
   return (
     <Routes>
@@ -31,7 +31,8 @@ const App = () => {
         <Route path="/cards" element={<Cards />} />
         <Route path="/wallets" element={<Wallets />} />
         <Route path="/transactions" element={<Transactions />} />
-        <Route path="/profile" element={<Profile />} />                 
+        <Route path="/profile" element={<Profile />} /> 
+        <Route path="/beneficiaries" element={<Beneficiaries />}/>            
       </Route>
 
       {/* Catch-all route to redirect to login if not matched */}
