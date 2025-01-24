@@ -222,8 +222,8 @@ const Profile = () => {
 
           {/* Go Back Button */}
           <Button
-            variant="contained"
-            sx={{ marginTop: "20px", backgroundColor: "#1976d2" }}
+            variant="outlined"
+            sx={{ marginTop: "20px", backgroundColor: "#fff" }}
             onClick={handleGoBack}
           >
             Go Back
