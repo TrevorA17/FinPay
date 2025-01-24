@@ -3,14 +3,39 @@ import { Box,  ListItemIcon,Typography, Button, Menu, MenuItem } from "@mui/mate
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
+import SendMoney from "../components/SendMoney";
+import FundWallet from "../components/FundWallet";
+import ConvertFunds from "../components/ConvertFunds";
+import CreateInvoice from "../components/CreateNewInvoice";
+
 const Profile = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [activePage, setActivePage] = useState(null); // Declare activePage state
+  
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleMenuClick = (page) => {
+    setActivePage(page); // Set the active page dynamically
+    handleClose(); // Close the dropdown
+  };
+
+  switch (activePage) {
+    case "Send Money":
+      return <SendMoney />;
+    case "Fund Wallet":
+      return <FundWallet />;
+    case "Convert Funds":
+      return <ConvertFunds />;
+    case "Create Invoice":
+      return <CreateInvoice />;
+    
+      default:  
   return (
     <Box>
     {/* Welcome Box */}
@@ -73,6 +98,7 @@ const Profile = () => {
     </Box>
     </Box>
   );
+};
 };
 
 export default Profile;
