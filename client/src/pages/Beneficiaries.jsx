@@ -136,7 +136,7 @@ const Beneficiaries = () => {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          sx={{ whiteSpace: "nowrap" }}
+          sx={{ whiteSpace: "nowrap", padding:" 15px 15px" }}
         >
           Add Beneficiary
         </Button>
