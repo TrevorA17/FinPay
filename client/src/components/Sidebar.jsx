@@ -7,6 +7,10 @@ import CreditCardIcon from "@mui/icons-material/CreditCard";
 import WalletIcon from "@mui/icons-material/Wallet";
 import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
 import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
+import PersonIcon from '@mui/icons-material/Person';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
+import SecurityIcon from '@mui/icons-material/Security';
+import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import { useNavigate } from "react-router-dom";
 
 
@@ -21,10 +25,10 @@ const Sidebar = () => {
     { text: "Cards", icon: <CreditCardIcon />, path: "/cards" },
     { text: "Wallets", icon: <WalletIcon />, path: "/wallets" },
     { text: "Transactions", icon: <CompareArrowsOutlinedIcon />, path: "/transactions" },
-    { text:"My Profile", icon: <DashboardIcon />, path:"/profile"},
-    { text: "Beneficiaries", icon: <DashboardIcon />, path:"/beneficiaries"},
-    { text: "Security", icon: <DashboardIcon />, path:"/security"},
-    { text: "Identification", icon: <DashboardIcon />, path:"/identification"}
+    { text:"My Profile", icon: <PersonIcon />, path:"/profile"},
+    { text: "Beneficiaries", icon: <Diversity1Icon />, path:"/beneficiaries"},
+    { text: "Security", icon: <SecurityIcon />, path:"/security"},
+    { text: "Identification", icon: <FingerprintIcon />, path:"/identification"}
   ];
 
   // Handle button click to update selected item
