@@ -237,6 +237,10 @@ const CreateInvoice = () => {
                 marginTop: "-710px"
               }}
             >
+              <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                Item Description
+              </Typography>
+              <Divider sx={{ my: 2 }} />
               <Typography variant="h7" >
                 Item Description*
               </Typography>
@@ -277,6 +281,7 @@ const CreateInvoice = () => {
               />
             </Box>
           </Box>
+          
            {/* Send Invoice Button */}
            <Button
               variant="contained"
