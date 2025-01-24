@@ -288,7 +288,7 @@ const CreateInvoice = () => {
               color="primary"
               sx={{
                 width: "75%",
-                mt: 20,
+                mt: 12,
                 display: "block",
                 mx: "auto",
             }}
