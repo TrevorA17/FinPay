@@ -16,8 +16,11 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import { useNavigate } from "react-router-dom";
+
 
 const Beneficiaries = () => {
+  const navigate = useNavigate(); 
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [beneficiaries, setBeneficiaries] = useState([]);
@@ -63,6 +66,10 @@ const Beneficiaries = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  const handleGoBack = () => {
+    navigate("/"); // Go back to the main dashboard
+  };
+
 
   return (
     <Box sx={{ padding: "20px" }}>
@@ -201,6 +208,14 @@ const Beneficiaries = () => {
           color="primary"
         />
       </Box>
+        {/* Go Back Button */}
+      <Button
+        variant="outlined"
+        sx={{ marginTop: "20px", backgroundColor: "#fff" }}
+        onClick={handleGoBack}
+      >
+        Go Back
+      </Button>
     </Box>
   );
 };
