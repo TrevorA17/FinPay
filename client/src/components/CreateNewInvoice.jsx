@@ -240,7 +240,7 @@ const CreateInvoice = () => {
                 startIcon={<ArrowBackIcon />}
                 sx={{
                   position: "absolute", // Absolute positioning for precise placement
-                  bottom: "-40px",       // Space from the bottom
+                  bottom: "-45px",       // Space from the bottom
                   left: "5px",         // Space from the left
                 }}
                 onClick={handleGoBack}
@@ -310,7 +310,7 @@ const CreateInvoice = () => {
               color="primary"
               sx={{
                 width: "75%",
-                mt: 12,
+                mt: 14,
                 display: "block",
                 mx: "auto",
             }}
