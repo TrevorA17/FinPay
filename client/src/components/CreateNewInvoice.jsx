@@ -12,7 +12,10 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 
 // Importing dynamic components for QuickActions Menu
 import SendMoney from "./SendMoney";
@@ -20,6 +23,7 @@ import ConvertFunds from "../components/ConvertFunds";
 import FundWallet from "./FundWallet";
 
 const CreateInvoice = () => {
+  const navigate = useNavigate(); // Initialize navigate function
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
 
@@ -34,6 +38,9 @@ const CreateInvoice = () => {
   const handleMenuClick = (page) => {
     setActivePage(page);
     handleClose();
+  };
+  const handleGoBack = () => {
+    navigate("/transactions"); // Navigate to the dashboard route
   };
 
   switch (activePage) {
@@ -162,14 +169,16 @@ const CreateInvoice = () => {
               </Box>
             </Box>
 
-            {/* Invoice Information */}
+        {/* Invoice Information */}
             <Box
               sx={{
                 backgroundColor: "#fff",
                 padding: "20px",
                 borderRadius: "0px",
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                width: "40%"
+                width: "40%",
+                position: "relative", // Enables relative positioning for children
+                minHeight: "400px", // Ensures enough height to accommodate the button
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
@@ -224,8 +233,21 @@ const CreateInvoice = () => {
                 <Typography>Total</Typography>
                 <Typography>$0.00</Typography>
               </Box>
-            </Box>
 
+              {/* Go Back Button */}
+              <Button
+                variant="text"
+                startIcon={<ArrowBackIcon />}
+                sx={{
+                  position: "absolute", // Absolute positioning for precise placement
+                  bottom: "-40px",       // Space from the bottom
+                  left: "5px",         // Space from the left
+                }}
+                onClick={handleGoBack}
+              >
+                Go Back
+              </Button>
+            </Box>
             {/* Item Description */}
             <Box
               sx={{
