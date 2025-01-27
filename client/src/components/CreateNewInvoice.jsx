@@ -315,7 +315,7 @@ const CreateInvoice = () => {
                 mx: "auto",
             }}
             >
-             Send Invoice
+             Create Invoice
         </Button>
         </Box>
       );
