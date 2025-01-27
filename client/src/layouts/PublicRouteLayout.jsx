@@ -7,7 +7,7 @@ const PublicRouteLayout = () => {
 
   // If already authenticated, redirect to dashboard (or any other private route)
   if (isAuthenticated) {
-    return <Navigate to="/dashboard" />;
+    return <Navigate to="/dashboard"/>;
   }
 
   return (
