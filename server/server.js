@@ -86,3 +86,7 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 });
+
+// console.log("JWT_SECRET:", process.env.JWT_SECRET);
+// node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
+
