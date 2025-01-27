@@ -73,21 +73,6 @@ const DashboardContent = () => {
     handleClose();       // Close the dropdown
   };
   
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      navigate('/login'); // Redirect to login if not authenticated
-    } else {
-      // Fetch user data or display protected content
-      setUserData({ name: 'John Doe' }); // Example user data
-    }
-  }, [navigate]);
-
-  // const handleLogout = () => {
-  //   localStorage.removeItem('token');
-  //   navigate('/login'); // Redirect to login page after logout
-  // };
-
      switch (activePage) {
       case "Send Money":
         return <SendMoney />;

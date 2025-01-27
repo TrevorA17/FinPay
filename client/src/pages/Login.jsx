@@ -18,14 +18,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-   // Check if the user is already authenticated when the component loads
-   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      navigate('/dashboard'); // Redirect if the user is already logged in
-    }
-  }, [navigate]);
-
+  
   const handleLogin = async (e) => {
     e.preventDefault();
   
