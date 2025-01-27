@@ -15,23 +15,33 @@ const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
-    // Basic form validation
+  
     if (credentials.password !== credentials.confirmPassword) {
       alert("Passwords do not match");
       return;
     }
-
-    // Mock registration logic
-    if (credentials.email && credentials.password && credentials.fullName && credentials.phone) {
-      dispatch(register({ email: credentials.email }));
-      navigate("/login"); // Navigate to login page after successful registration
-    } else {
-      alert("Please fill in all fields");
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(credentials),
+      });
+  
+      const data = await response.json();
+      if (response.ok) {
+        alert(data.message);
+        navigate("/login");
+      } else {
+        alert(data.message || "Registration failed");
+      }
+    } catch (error) {
+      alert("An error occurred. Please try again.");
     }
   };
+  
 
   return (
     <Box
