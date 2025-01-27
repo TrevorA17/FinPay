@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-// import { register } from "../store/authSlice"; // Add registration action 
 import { useNavigate } from "react-router-dom";
 import { Button, TextField, Typography, Container, Box, Paper } from "@mui/material";
 
@@ -12,7 +10,6 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleRegister = async (e) => {
