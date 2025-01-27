@@ -8,7 +8,7 @@ import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 
-const Profile = () => {
+const Security = () => {
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [anchorEl, setAnchorEl] = useState(null);
   
@@ -156,4 +156,4 @@ const Profile = () => {
   }
 };
 
-export default Profile;
+export default Security;
