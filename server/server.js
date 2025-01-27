@@ -3,13 +3,14 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken"); // Ensure jsonwebtoken is required
 require("dotenv").config();
-
+const protectedRoutes = require("./routes/protected")
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const User = require("./models/User")
+const User = require("./models/User");
 
 // Middleware
 app.use(cors());
@@ -25,13 +26,14 @@ mongoose
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+app.use("/api", protectedRoutes);
 
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on port:${PORT}`);
 });
 
-//Registration Endpoint
+// Registration Endpoint
 app.post("/api/register", async (req, res) => {
   const { fullName, email, phone, password } = req.body;
 
@@ -47,7 +49,7 @@ app.post("/api/register", async (req, res) => {
     }
 
     // Hash the password
-    const salt = await bcrypt.genSalt(10); // Generate a salt (higher numbers mean stronger but slower hashing)
+    const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create a new user with the hashed password
@@ -60,7 +62,7 @@ app.post("/api/register", async (req, res) => {
   }
 });
 
-//Login Endpoint
+// Login Endpoint
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -81,12 +83,20 @@ app.post("/api/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-    res.status(200).json({ message: "Login successful" });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", error: error.message });
+    // Generate a JWT
+    const token = jwt.sign(
+      { id: user._id, email: user.email }, // Payload
+      process.env.JWT_SECRET, // Secret key
+      { expiresIn: "1h" } // Token expiration time
+    );
+
+    // Send the token
+    res.status(200).json({
+      message: "Login successful",
+      token,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Server error" });
   }
 });
-
-// console.log("JWT_SECRET:", process.env.JWT_SECRET);
-// node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-
