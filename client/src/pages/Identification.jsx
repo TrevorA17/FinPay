@@ -12,6 +12,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
+import { useNavigate } from "react-router-dom";
+
 
 import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
@@ -19,6 +21,7 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 
 const Profile = () => {
+  const navigate = useNavigate(); 
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -33,6 +36,9 @@ const Profile = () => {
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
     handleClose(); // Close the dropdown
+  };
+  const handleGoBack = () => {
+    navigate("/"); // Go back to the main dashboard
   };
 
   switch (activePage) {
@@ -133,11 +139,11 @@ const Profile = () => {
             <Grid container spacing={3}>
               {[
                 { title: "ID Verification", status: "Approved", approved: true },
-                { title: "Address Verification", status: "Pending", approved: false },
-                { title: "Bank Details", status: "Approved", approved: true },
-                { title: "Phone Verification", status: "Pending", approved: false },
+                { title: "Sending Money", status: "Pending", approved: false },
                 { title: "Email Verification", status: "Approved", approved: true },
-                { title: "KYC Upload", status: "Pending", approved: false },
+                { title: "Daily Transaction Limit", status: "Pending", approved: false },
+                { title: "Compliance Document", status: "Approved", approved: true },
+                { title: "Receiving Funds", status: "Pending", approved: false },
               ].map((item, index) => (
                 <Grid item xs={12} sm={6} key={index}>
                   <Box
@@ -195,6 +201,7 @@ const Profile = () => {
               backgroundColor: "#1976d2",
               color: "#fff",
             }}
+            onClick={handleGoBack}
           >
             Go Back
           </Button>
