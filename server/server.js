@@ -31,6 +31,7 @@ app.listen(PORT, () => {
   console.log(`Server running on port:${PORT}`);
 });
 
+//Registration Endpoint
 app.post("/api/register", async (req, res) => {
   const { fullName, email, phone, password } = req.body;
 
@@ -54,6 +55,33 @@ app.post("/api/register", async (req, res) => {
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+//Login Endpoint
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Compare the password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+
+    res.status(200).json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
