@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -17,18 +18,34 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-
-    // Mock authentication logic
-    if (credentials.email === "admin@example.com" && credentials.password === "password") {
-      // Dispatch the login action (using a Boolean)
-      dispatch(login(true));
-
-      // Navigate to the dashboard
-      navigate("/dashboard");
-    } else {
-      setError("Invalid email or password. Please try again.");
+  
+    // Basic validation
+    if (!credentials.email || !credentials.password) {
+      setError("Email and password are required");
+      return;
+    }
+  
+    try {
+      // Make POST request to backend login API
+      const response = await axios.post("http://localhost:5000/api/login", {
+        email: credentials.email,
+        password: credentials.password,
+      });
+  
+      // On successful login, dispatch the login action and navigate to the dashboard
+      if (response.status === 200) {
+        dispatch(login(true)); // Update Redux store
+        navigate("/dashboard"); // Navigate to the dashboard
+      }
+    } catch (err) {
+      console.error(err); // Log the full error object for debugging
+      if (err.response) {
+        setError(err.response.data.message || "Something went wrong");
+      } else {
+        setError("Server error. Please try again later.");
+      }
     }
   };
 
