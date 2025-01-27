@@ -7,8 +7,11 @@ import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
+import { useNavigate } from "react-router-dom";
+
 
 const Security = () => {
+  const navigate = useNavigate(); 
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [anchorEl, setAnchorEl] = useState(null);
   
@@ -23,6 +26,9 @@ const Security = () => {
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
     handleClose(); // Close the dropdown
+  };
+  const handleGoBack = () => {
+    navigate("/"); // Go back to the main dashboard
   };
 
   switch (activePage) {
@@ -148,6 +154,7 @@ const Security = () => {
               backgroundColor: "#fff",
               marginLeft:"65px"
             }}
+            onClick={handleGoBack}
           >
             Go Back
           </Button>
