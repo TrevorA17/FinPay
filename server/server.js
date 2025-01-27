@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 
@@ -44,8 +45,12 @@ app.post("/api/register", async (req, res) => {
       return res.status(400).json({ message: "Email already in use" });
     }
 
-    // Create a new user
-    const newUser = new User({ fullName, email, phone, password });
+    // Hash the password
+    const salt = await bcrypt.genSalt(10); // Generate a salt (higher numbers mean stronger but slower hashing)
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create a new user with the hashed password
+    const newUser = new User({ fullName, email, phone, password: hashedPassword });
     await newUser.save();
 
     res.status(201).json({ message: "User registered successfully" });
