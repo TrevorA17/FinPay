@@ -23,10 +23,10 @@ router.post("/generate-otp", async (req, res) => {
 
   // Save the OTP in the database
   const newOtp = new Otp({ email, otp: hashedOtp });
-  await newOtp.save();
 
   try {
     await newOtp.save();
+    // console.log(`Generated OTP: ${otp} for email: ${email} `);
 
     // Send the OTP via email
     const mailOptions = {
