@@ -4,47 +4,46 @@ const Otp = require("../models/Otp"); // Import the OTP schema
 const bcrypt = require("bcryptjs");
 const transporter = require("../utils/nodemailer"); // Import the nodemailer transporter
 
-// Endpoint to generate OTP
 router.post("/generate-otp", async (req, res) => {
   const { email } = req.body;
 
-  if (!email) {
-    return res
-      .status(400)
-      .json({ status: "FAILED", message: "Email is required" });
-  }
-
-  // Generate a random 4-digit OTP
-  const otp = Math.floor(1000 + Math.random() * 9000).toString();
-
-  // Hash the OTP for secure storage
-  const saltRounds = 10;
-  const hashedOtp = await bcrypt.hash(otp, saltRounds);
-
-  // Save the OTP in the database
-  const newOtp = new Otp({ email, otp: hashedOtp });
-
   try {
-    await newOtp.save();
-    // console.log(`Generated OTP: ${otp} for email: ${email} `);
+    // Generate a 4-digit OTP
+    const otp = Math.floor(1000 + Math.random() * 9000).toString();
+    const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes from now
 
-    // Send the OTP via email
+    // Save OTP to the database
+    const newOtp = new Otp({ email, otp, expiresAt }); // Fix: Use 'Otp' instead of 'OTP'
+
+    console.log("Attempting to save OTP to the database:", {
+      email,
+      otp,
+      expiresAt,
+    });
+    await newOtp.save();
+
+    console.log("OTP saved successfully:", newOtp);
+
+    // Send OTP via email
     const mailOptions = {
-      from: process.env.AUTH_EMAIL,
+      from: process.env.EMAIL_USER,
       to: email,
       subject: "Your OTP Code",
-      html: `
-                <h1>Your OTP Code</h1>
-                <p>Your OTP code is <strong>${otp}</strong>. It is valid for 5 minutes.</p>
-            `,
+      text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
     };
 
-    await transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return res.status(500).json({ message: "Error sending OTP email." });
+      }
 
-    res.status(200).json({ status: "SUCCESS", message: "OTP sent to email" });
+      console.log("OTP email sent:", info.response);
+      res.status(200).json({ message: "OTP sent successfully." });
+    });
   } catch (error) {
-    console.error("Error generating OTP:", error);
-    res.status(500).json({ status: "FAILED", message: "Error generating OTP" });
+    console.error("Error generating OTP:", error.message);
+    res.status(500).json({ message: "Server error. Please try again later." });
   }
 });
 
@@ -54,7 +53,7 @@ router.post("/validate-otp", async (req, res) => {
 
   try {
     // Check if the email and OTP exist in the database
-    const otpEntry = await Otp.findOne({ email, otp });
+    const otpEntry = await Otp.findOne({ email, otp }); // Fix: Use 'Otp' instead of 'OTP'
 
     if (!otpEntry) {
       return res.status(400).json({ message: "Invalid OTP or email." });
