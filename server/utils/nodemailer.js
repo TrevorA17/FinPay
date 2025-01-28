@@ -18,3 +18,6 @@ transporter.verify((error, success) => {
 });
 
 module.exports = transporter;
+
+console.log("AUTH_EMAIL:", process.env.AUTH_EMAIL);
+console.log("AUTH_PASS:", process.env.AUTH_PASS);

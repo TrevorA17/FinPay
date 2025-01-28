@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Otp = require("../models/Otp"); // Import the OTP schema
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const transporter = require("../utils/nodemailer"); // Import the nodemailer transporter
 
 // Endpoint to generate OTP
