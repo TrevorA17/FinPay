@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRouteLayout from "./layouts/PrivateRouteLayout";
 import PublicRouteLayout from "./layouts/PublicRouteLayout";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Sidebar from "./components/Sidebar";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import {login} from "./store/authSlice"
 
 //Sidebar imports
 import Dashboard from "./pages/DashboardContent";      
@@ -18,6 +20,33 @@ import Security from "./pages/Security";
 import Identification from "./pages/Identification";
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const validateToken = async () => {
+      const token = localStorage.getItem("authToken");
+
+      if (token) {
+        try {
+          const response = await axios.get("http://localhost:5000/api/protected", {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+
+          if (response.status === 200) {
+            // Token is valid; update Redux state
+            dispatch(login(true));
+          }
+        } catch (err) {
+          console.error("Token validation failed:", err.message);
+          localStorage.removeItem("authToken"); // Clear invalid token
+        }
+      }
+    };
+
+    validateToken();
+  }, [dispatch]);
+
+
   return (
     <Routes>
       {/* Public Routes (Login, Register) */}
@@ -47,3 +76,10 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
+
+

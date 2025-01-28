@@ -5,9 +5,10 @@ import Sidebar from "../components/Sidebar";
 
 const PrivateRouteLayout = () => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated); // Check auth state
+  const authToken = localStorage.getItem("authToken");
 
   // If not authenticated, redirect to login page
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !authToken) {
     return <Navigate to="/login" />;
   }
 
@@ -18,8 +19,14 @@ const PrivateRouteLayout = () => {
         <Outlet />
       </div>
     </div>
-  );
+    
+  )
 };
 
 export default PrivateRouteLayout;
+
+
+
+
+
 

@@ -100,3 +100,25 @@ app.post("/api/login", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
+// Middleware to verify the JWT
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization?.split(" ")[1]; // Extract token from the "Authorization" header
+
+  if (!token) {
+    return res.status(401).json({ message: "Access denied. No token provided." });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded; // Add the decoded token data (user info) to the request object
+    next();
+  } catch (err) {
+    res.status(403).json({ message: "Invalid or expired token." });
+  }
+};
+
+// Example usage for a protected route
+app.get("/api/protected", verifyToken, (req, res) => {
+  res.status(200).json({ message: "Welcome to the protected route!", user: req.user });
+});

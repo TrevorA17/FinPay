@@ -12,10 +12,16 @@ import Diversity1Icon from '@mui/icons-material/Diversity1';
 import SecurityIcon from '@mui/icons-material/Security';
 import FingerprintIcon from '@mui/icons-material/Fingerprint';
 import { useNavigate } from "react-router-dom";
+import { logout } from "../store/authSlice";
+import { useDispatch } from "react-redux";
+
+
 
 
 const Sidebar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   // Menu items data
@@ -34,6 +40,12 @@ const Sidebar = () => {
   // Handle button click to update selected item
   const handleListItemClick = (index) => {
     setSelectedIndex(index);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Clear the token
+    dispatch(logout()); // Update Redux state
+    navigate("/login"); // Redirect to login
   };
 
   return (
@@ -162,7 +174,7 @@ const Sidebar = () => {
               },
               cursor: "pointer", // Pointer on hover
             }}
-            onClick={() => navigate("/profile")}
+            onClick={handleLogout}
           >
             <OpenInNewOutlinedIcon/>
           </Button>
@@ -173,3 +185,9 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+
+
+
+
+
+
