@@ -118,7 +118,7 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-// Example usage for a protected route
+// Usage for a protected route
 app.get("/api/protected", verifyToken, (req, res) => {
   res.status(200).json({ message: "Welcome to the protected route!", user: req.user });
 });
