@@ -1,5 +1,7 @@
 const Otp = require("../models/Otp");
+const User = require("../models/User");
 const transporter = require("../utils/nodemailer");
+const bcrypt = require("bcryptjs");
 
 // Generate OTP
 exports.generateOtp = async (req, res) => {
@@ -37,9 +39,17 @@ exports.generateOtp = async (req, res) => {
   }
 };
 
-// Validate OTP
+// Validate OTP and Register User
 exports.validateOtp = async (req, res) => {
-  const { email, otp } = req.body;
+  const { email, otp, password, fullName, phone } = req.body; // Ensure OTP is destructured here
+  console.log(req.body); // Debugging step to see if OTP, email, and password are being sent
+
+  // Validate required fields
+  if (!email || !otp || !password || !fullName || !phone) {
+    return res.status(400).json({
+      message: "Email, OTP, password, full name, and phone are required.",
+    });
+  }
 
   try {
     // Check if the email and OTP exist in the database
@@ -55,10 +65,41 @@ exports.validateOtp = async (req, res) => {
       return res.status(400).json({ message: "OTP has expired." });
     }
 
-    // OTP is valid
-    return res.status(200).json({ message: "OTP validated successfully." });
+    // OTP is valid; proceed to register the user
+    // Check if the email is already registered
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already registered." });
+    }
+
+    // Hash the password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Create the new user
+    const newUser = new User({
+      fullName,
+      email,
+      phone,
+      password: hashedPassword, // Store hashed password
+      isVerified: true, // Mark user as verified
+    });
+
+    // Save the new user to the database
+    await newUser.save();
+
+    // Clean up: Remove the used OTP from the database
+    await Otp.deleteOne({ email, otp });
+
+    // Respond with success
+    res
+      .status(201)
+      .json({ message: "User registered and verified successfully." });
   } catch (error) {
-    console.error("Error validating OTP:", error.message);
+    console.error(
+      "Error during OTP validation and registration:",
+      error.message
+    );
     return res
       .status(500)
       .json({ message: "Server error. Please try again later." });

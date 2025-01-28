@@ -62,6 +62,8 @@ const Register = () => {
             email: credentials.email,
             otp,
             password: credentials.password,
+            fullName: credentials.fullName, // Include fullName
+            phone: credentials.phone, // Include phone
           }),
         }
       );
