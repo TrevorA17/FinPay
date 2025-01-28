@@ -18,9 +18,8 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
 
-
 const Beneficiaries = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [beneficiaries, setBeneficiaries] = useState([]);
@@ -70,7 +69,6 @@ const Beneficiaries = () => {
     navigate("/"); // Go back to the main dashboard
   };
 
-
   return (
     <Box sx={{ padding: "20px" }}>
       {/* Welcome Box */}
@@ -100,7 +98,11 @@ const Beneficiaries = () => {
         >
           Quick Actions
         </Button>
-        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
           <MenuItem>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
@@ -136,7 +138,7 @@ const Beneficiaries = () => {
         <Button
           variant="outlined"
           startIcon={<AddIcon />}
-          sx={{ whiteSpace: "nowrap", padding:" 15px 15px" }}
+          sx={{ whiteSpace: "nowrap", padding: " 15px 15px" }}
         >
           Add Beneficiary
         </Button>
@@ -153,7 +155,10 @@ const Beneficiaries = () => {
           overflow: "hidden",
         }}
       >
-        <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold", marginBottom: "20px" }}
+        >
           Manage Beneficiaries
         </Typography>
         <Grid container spacing={2}>
@@ -180,7 +185,10 @@ const Beneficiaries = () => {
                   >
                     {item.title}
                   </Typography>
-                  <Typography color="text.secondary" sx={{ marginBottom: "5px" }}>
+                  <Typography
+                    color="text.secondary"
+                    sx={{ marginBottom: "5px" }}
+                  >
                     {item.category}
                   </Typography>
                   <Typography variant="body1" sx={{ fontWeight: "bold" }}>
@@ -208,7 +216,7 @@ const Beneficiaries = () => {
           color="primary"
         />
       </Box>
-        {/* Go Back Button */}
+      {/* Go Back Button */}
       <Button
         variant="outlined"
         sx={{ marginTop: "20px", backgroundColor: "#fff" }}

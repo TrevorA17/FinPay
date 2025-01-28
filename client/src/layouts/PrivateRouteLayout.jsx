@@ -19,14 +19,7 @@ const PrivateRouteLayout = () => {
         <Outlet />
       </div>
     </div>
-    
-  )
+  );
 };
 
 export default PrivateRouteLayout;
-
-
-
-
-
-

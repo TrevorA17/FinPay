@@ -24,6 +24,4 @@ export const { login, logout, clear } = authSlice.actions;
 
 export default authSlice.reducer;
 
-
-
 //create backend project - login, reg, 2 factor auth

@@ -18,35 +18,38 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  
   const handleLogin = async (e) => {
     e.preventDefault();
-  
+
     if (!credentials.email || !credentials.password) {
       setError("Email and password are required");
       return;
     }
-  
+
     try {
-      const response = await axios.post("http://localhost:5000/api/login", credentials);
-  
+      const response = await axios.post(
+        "http://localhost:5000/api/login",
+        credentials
+      );
+
       if (response.status === 200) {
         const { token } = response.data;
-  
+
         // Save token to local storage
         localStorage.setItem("authToken", token);
-  
+
         // Dispatch the login action to Redux (or update state)
         dispatch(login(true));
-  
+
         // Navigate to the dashboard
         navigate("/dashboard");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Server error. Please try again.");
+      setError(
+        err.response?.data?.message || "Server error. Please try again."
+      );
     }
   };
-  
 
   return (
     <Box
@@ -109,7 +112,9 @@ const Login = () => {
                 setCredentials({ ...credentials, password: e.target.value })
               }
             />
-            <Box sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}>
+            <Box
+              sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
+            >
               <Button
                 type="submit"
                 variant="contained"

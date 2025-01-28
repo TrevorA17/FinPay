@@ -1,22 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
-import { Avatar, Box, List, ListItemButton, ListItemIcon, ListItemText, Typography, Button } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  List,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+  Typography,
+  Button,
+} from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import WalletIcon from "@mui/icons-material/Wallet";
-import CompareArrowsOutlinedIcon from '@mui/icons-material/CompareArrowsOutlined';
-import OpenInNewOutlinedIcon from '@mui/icons-material/OpenInNewOutlined';
-import PersonIcon from '@mui/icons-material/Person';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
-import SecurityIcon from '@mui/icons-material/Security';
-import FingerprintIcon from '@mui/icons-material/Fingerprint';
+import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined";
+import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
+import PersonIcon from "@mui/icons-material/Person";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
+import SecurityIcon from "@mui/icons-material/Security";
+import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice";
 import { useDispatch } from "react-redux";
-
-
-
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -30,11 +36,19 @@ const Sidebar = () => {
     { text: "Invoices", icon: <DescriptionOutlinedIcon />, path: "/invoices" },
     { text: "Cards", icon: <CreditCardIcon />, path: "/cards" },
     { text: "Wallets", icon: <WalletIcon />, path: "/wallets" },
-    { text: "Transactions", icon: <CompareArrowsOutlinedIcon />, path: "/transactions" },
-    { text:"My Profile", icon: <PersonIcon />, path:"/profile"},
-    { text: "Beneficiaries", icon: <Diversity1Icon />, path:"/beneficiaries"},
-    { text: "Security", icon: <SecurityIcon />, path:"/security"},
-    { text: "Identification", icon: <FingerprintIcon />, path:"/identification"}
+    {
+      text: "Transactions",
+      icon: <CompareArrowsOutlinedIcon />,
+      path: "/transactions",
+    },
+    { text: "My Profile", icon: <PersonIcon />, path: "/profile" },
+    { text: "Beneficiaries", icon: <Diversity1Icon />, path: "/beneficiaries" },
+    { text: "Security", icon: <SecurityIcon />, path: "/security" },
+    {
+      text: "Identification",
+      icon: <FingerprintIcon />,
+      path: "/identification",
+    },
   ];
 
   // Handle button click to update selected item
@@ -53,21 +67,30 @@ const Sidebar = () => {
       {/* Header Box */}
       <Box
         sx={{
-          backgroundColor: "#8833da",  // Blue background
-          color: "#fff",               // White text
-          width: "260px",              // Full width
-          height: "125px",             // Fixed height for the header
-          display: "flex",             // Flex container
-          alignItems: "center",        // Center text vertically
-          justifyContent: "center",    // Center text horizontally
-          position: "absolute",        // Fix the header's position
-          top: 0,                      // Align it to the top
-          left: 0,                     // Align it to the left
-          zIndex: 1000,                // Ensure the header is above other elements
+          backgroundColor: "#8833da", // Blue background
+          color: "#fff", // White text
+          width: "260px", // Full width
+          height: "125px", // Fixed height for the header
+          display: "flex", // Flex container
+          alignItems: "center", // Center text vertically
+          justifyContent: "center", // Center text horizontally
+          position: "absolute", // Fix the header's position
+          top: 0, // Align it to the top
+          left: 0, // Align it to the left
+          zIndex: 1000, // Ensure the header is above other elements
           borderTopRightRadius: "15px", // Rounded corner on the top-right
         }}
       >
-        <h1 style={{ margin: 0, fontSize: '30px', fontWeight: 'bold', fontFamily:"Verdana, Helvetica, sans-serif" }}>FinPay</h1>
+        <h1
+          style={{
+            margin: 0,
+            fontSize: "30px",
+            fontWeight: "bold",
+            fontFamily: "Verdana, Helvetica, sans-serif",
+          }}
+        >
+          FinPay
+        </h1>
       </Box>
 
       {/* Sidebar Menu */}
@@ -89,7 +112,11 @@ const Sidebar = () => {
       >
         <List sx={{ width: "100%" }}>
           {menuItems.map((item, index) => (
-            <Link to={item.path} key={index} style={{ textDecoration: "none", width: "100%", color: "#fff" }}>
+            <Link
+              to={item.path}
+              key={index}
+              style={{ textDecoration: "none", width: "100%", color: "#fff" }}
+            >
               <ListItemButton
                 selected={selectedIndex === index}
                 onClick={() => handleListItemClick(index)}
@@ -139,7 +166,7 @@ const Sidebar = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginTop: "350px"
+            marginTop: "350px",
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
@@ -176,7 +203,7 @@ const Sidebar = () => {
             }}
             onClick={handleLogout}
           >
-            <OpenInNewOutlinedIcon/>
+            <OpenInNewOutlinedIcon />
           </Button>
         </Box>
       </Box>
@@ -185,9 +212,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-
-
-
-
-
-

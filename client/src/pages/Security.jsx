@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, ListItemIcon, Typography, Button, Menu, MenuItem, Divider } from "@mui/material";
+import {
+  Box,
+  ListItemIcon,
+  Typography,
+  Button,
+  Menu,
+  MenuItem,
+  Divider,
+} from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
@@ -9,12 +17,11 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
 
-
 const Security = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [anchorEl, setAnchorEl] = useState(null);
-  
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -40,8 +47,8 @@ const Security = () => {
       return <ConvertFunds />;
     case "Create Invoice":
       return <CreateInvoice />;
-    
-    default:  
+
+    default:
       return (
         <Box>
           {/* Welcome Box */}
@@ -107,35 +114,50 @@ const Security = () => {
           <Box
             sx={{
               backgroundColor: "#fff",
-              padding: "30px",  // Increased padding
+              padding: "30px", // Increased padding
               boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
               borderRadius: "8px",
               marginBottom: "20px",
-              width: "80%",  // Increased box size
+              width: "80%", // Increased box size
               marginLeft: "auto",
               marginRight: "auto",
             }}
           >
-            <Typography variant="h5" sx={{ fontWeight: "bold", marginBottom: "20px" }}>
+            <Typography
+              variant="h5"
+              sx={{ fontWeight: "bold", marginBottom: "20px" }}
+            >
               Manage Security
             </Typography>
             <Divider sx={{ marginBottom: "20px" }} />
 
-
             {/* Password Section */}
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "20px" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingBottom: "20px",
+              }}
+            >
               <Typography variant="h7" sx={{ marginBottom: "10px" }}>
-                Password <br/>
+                Password <br />
                 Set a unique password to protect your account.
               </Typography>
               <Button variant="outlined" sx={{ alignSelf: "flex-start" }}>
-                Change Password <br/>
+                Change Password <br />
               </Button>
-              
             </Box>
             <Divider sx={{ marginBottom: "20px" }} />
             {/* Auth Method Section */}
-            <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: "20px" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingBottom: "20px",
+              }}
+            >
               <Typography variant="h7" sx={{ marginBottom: "10px" }}>
                 Reset or Change Auth Method
               </Typography>
@@ -152,7 +174,7 @@ const Security = () => {
             sx={{
               marginTop: "20px",
               backgroundColor: "#fff",
-              marginLeft:"65px"
+              marginLeft: "65px",
             }}
             onClick={handleGoBack}
           >

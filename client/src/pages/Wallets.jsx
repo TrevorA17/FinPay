@@ -23,13 +23,13 @@ import axios from "axios";
 import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
-import CreateInvoice from "../components/CreateNewInvoice"
+import CreateInvoice from "../components/CreateNewInvoice";
 
 const Wallets = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [products, setProducts] = useState([]);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
-  
+
   const [transactions, setTransactions] = useState([]);
 
   const handleClick = (event) => {
@@ -42,7 +42,7 @@ const Wallets = () => {
 
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
-    handleClose();       // Close the dropdown
+    handleClose(); // Close the dropdown
   };
 
   // Fetch dummy data from API
@@ -84,207 +84,225 @@ const Wallets = () => {
     case "Fund Wallet":
       return <FundWallet />;
     case "Create Invoice":
-      return <CreateInvoice/>
-            
+      return <CreateInvoice />;
+
     default:
-     
-  return (
-    <Box>
-      {/* Top Bar */}
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          padding: "20px",
-          borderRadius: "0px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
-          marginBottom: "20px",
-          height: "76px",
-          marginLeft: "-5px",
-        }}
-      >
-        {/* Left Section: Welcome Message */}
+      return (
         <Box>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-            Wallets
-          </Typography>
-        </Box>
-
-        {/* Right Section: Quick Actions Button */}
-        <Box>
-          <Button
-            variant="contained"
-            onClick={handleClick}
-            startIcon={<ArrowDropDownIcon />}
+          {/* Top Bar */}
+          <Box
             sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
               backgroundColor: "#fff",
-              padding: "10px",
-              color: "#000",
-              textTransform: "none",
-              fontSize: "15px",
+              padding: "20px",
+              borderRadius: "0px",
+              boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
+              marginBottom: "20px",
+              height: "76px",
+              marginLeft: "-5px",
             }}
           >
-            Quick Actions
-          </Button>
+            {/* Left Section: Welcome Message */}
+            <Box>
+              <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+                Wallets
+              </Typography>
+            </Box>
 
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+            {/* Right Section: Quick Actions Button */}
+            <Box>
+              <Button
+                variant="contained"
+                onClick={handleClick}
+                startIcon={<ArrowDropDownIcon />}
+                sx={{
+                  backgroundColor: "#fff",
+                  padding: "10px",
+                  color: "#000",
+                  textTransform: "none",
+                  fontSize: "15px",
+                }}
+              >
+                Quick Actions
+              </Button>
+
+              <Menu
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                sx={{
+                  mt: "-45px",
+                }}
+              >
+                <MenuItem onClick={() => handleMenuClick("Send Money")}>
+                  <ListItemIcon>
+                    <DashboardIcon fontSize="small" />
+                  </ListItemIcon>
+                  Send Money
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+                  <ListItemIcon>
+                    <DescriptionOutlinedIcon fontSize="small" />
+                  </ListItemIcon>
+                  Fund Wallet
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
+                  <ListItemIcon>
+                    <DashboardIcon fontSize="small" />
+                  </ListItemIcon>
+                  Convert Funds
+                </MenuItem>
+                <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
+                  <ListItemIcon>
+                    <DashboardIcon fontSize="small" />
+                  </ListItemIcon>
+                  Create New Invoice
+                </MenuItem>
+              </Menu>
+            </Box>
+          </Box>
+
+          {/* Buttons */}
+          <Box
             sx={{
-              mt: "-45px",
+              display: "flex",
+              gap: 2,
+              marginBottom: 3,
+              marginLeft: "10px",
             }}
           >
-            <MenuItem onClick={() => handleMenuClick("Send Money")}>
-              <ListItemIcon>
-                <DashboardIcon fontSize="small" />
-              </ListItemIcon>
-              Send Money
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
-              <ListItemIcon>
-                <DescriptionOutlinedIcon fontSize="small" />
-              </ListItemIcon>
-              Fund Wallet
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
-              <ListItemIcon>
-                <DashboardIcon fontSize="small" />
-              </ListItemIcon>
-              Convert Funds
-            </MenuItem>
-            <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
-              <ListItemIcon>
-                <DashboardIcon fontSize="small" />
-              </ListItemIcon>
-              Create New Invoice
-            </MenuItem>
-          </Menu>
-        </Box>
-      </Box>
-
-      {/* Buttons */}
-      <Box
-        sx={{
-          display: "flex",
-          gap: 2,
-          marginBottom: 3,
-          marginLeft: "10px",
-        }}
-      >
-        <Button
-          variant="contained"
-          startIcon={<MonetizationOnOutlinedIcon />}
-          onClick={() => handleMenuClick("Send Money")}
-          sx={{
-            backgroundColor: "#007bff",
-            color: "#fff",
-            textTransform: "none",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          Send Money
-        </Button>
-        <Button
-          variant="contained"     
-          startIcon={<MonetizationOnOutlinedIcon />}  
-          onClick={() => handleMenuClick("Convert Funds")}   
-          sx={{
-            backgroundColor: "#28a745",
-            color: "#fff",
-            textTransform: "none",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          Convert Funds
-        </Button>
-      </Box>
-
-      {/* Horizontal Cards */}
-      <Box
-        sx={{
-          display: "flex",
-          gap: 3,
-          marginBottom: 4,
-          marginLeft: "10px",
-          flexWrap: "none",
-        }}
-      >
-        {/* Currency */}
-        <Card sx={{ width: "30%", minWidth: "25px", padding: 2 }}>
-          <CardContent>
-            <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
-              Currency
-            </Typography>
-            <Divider/>
-            <Box
+            <Button
+              variant="contained"
+              startIcon={<MonetizationOnOutlinedIcon />}
+              onClick={() => handleMenuClick("Send Money")}
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
+                backgroundColor: "#007bff",
+                color: "#fff",
+                textTransform: "none",
+                fontWeight: "bold",
+                padding: "10px 20px",
               }}
             >
-              <Typography variant="body1">USD</Typography>
-              <IconButton variant="outlined">
-                <SwapVertIcon />
-              </IconButton>
-            </Box>
-          </CardContent>
-        </Card>
+              Send Money
+            </Button>
+            <Button
+              variant="contained"
+              startIcon={<MonetizationOnOutlinedIcon />}
+              onClick={() => handleMenuClick("Convert Funds")}
+              sx={{
+                backgroundColor: "#28a745",
+                color: "#fff",
+                textTransform: "none",
+                fontWeight: "bold",
+                padding: "10px 20px",
+              }}
+            >
+              Convert Funds
+            </Button>
+          </Box>
 
-        {/* Receiving Account */}
-        <Card sx={{ width: "30%", minWidth: "250px", padding: 2 }}>
-          <CardContent>
-            <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
-              Receiving Account
-            </Typography>
-            <Divider/>
-            <Typography variant="body1">Account Name: John Doe</Typography>
-            <Typography variant="body1">Account Number: 123456789</Typography>
-            <Typography variant="body1">Bank: Demo Bank</Typography>
-          </CardContent>
-        </Card>
+          {/* Horizontal Cards */}
+          <Box
+            sx={{
+              display: "flex",
+              gap: 3,
+              marginBottom: 4,
+              marginLeft: "10px",
+              flexWrap: "none",
+            }}
+          >
+            {/* Currency */}
+            <Card sx={{ width: "30%", minWidth: "25px", padding: 2 }}>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", marginBottom: 2 }}
+                >
+                  Currency
+                </Typography>
+                <Divider />
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <Typography variant="body1">USD</Typography>
+                  <IconButton variant="outlined">
+                    <SwapVertIcon />
+                  </IconButton>
+                </Box>
+              </CardContent>
+            </Card>
 
-        {/* Expenses */}
-        <Card sx={{ width: "30%", minWidth: "250px", padding: 2 }}>
-          <CardContent>
-            <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
-              Expenses
-            </Typography>
-            <Divider/>
-            <Typography variant="body1">$1,230.45</Typography>
-            <Typography variant="body2" color="textSecondary">
-              This month
-            </Typography>
-          </CardContent>
-        </Card>
-      </Box>
+            {/* Receiving Account */}
+            <Card sx={{ width: "30%", minWidth: "250px", padding: 2 }}>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", marginBottom: 2 }}
+                >
+                  Receiving Account
+                </Typography>
+                <Divider />
+                <Typography variant="body1">Account Name: John Doe</Typography>
+                <Typography variant="body1">
+                  Account Number: 123456789
+                </Typography>
+                <Typography variant="body1">Bank: Demo Bank</Typography>
+              </CardContent>
+            </Card>
 
-      {/* Recent Transactions */}
-      <Box
-        sx={{
-          padding: 3,
-          backgroundColor: "#fff",
-          borderRadius: "8px",
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-          marginLeft: "10px",
-        }}
-      >
-        <Typography variant="h6" sx={{ fontWeight: "bold", marginBottom: 2 }}>
-          Recent Transactions
-        </Typography>
-        <Divider sx={{ marginBottom: 2 }} />
-        <div style={{ height: 400, width: "100%" }}>
-          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} />
-        </div>
-      </Box>
-    </Box>
-  );
-};
+            {/* Expenses */}
+            <Card sx={{ width: "30%", minWidth: "250px", padding: 2 }}>
+              <CardContent>
+                <Typography
+                  variant="h6"
+                  sx={{ fontWeight: "bold", marginBottom: 2 }}
+                >
+                  Expenses
+                </Typography>
+                <Divider />
+                <Typography variant="body1">$1,230.45</Typography>
+                <Typography variant="body2" color="textSecondary">
+                  This month
+                </Typography>
+              </CardContent>
+            </Card>
+          </Box>
+
+          {/* Recent Transactions */}
+          <Box
+            sx={{
+              padding: 3,
+              backgroundColor: "#fff",
+              borderRadius: "8px",
+              boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+              marginLeft: "10px",
+            }}
+          >
+            <Typography
+              variant="h6"
+              sx={{ fontWeight: "bold", marginBottom: 2 }}
+            >
+              Recent Transactions
+            </Typography>
+            <Divider sx={{ marginBottom: 2 }} />
+            <div style={{ height: 400, width: "100%" }}>
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                pageSize={5}
+                rowsPerPageOptions={[5]}
+              />
+            </div>
+          </Box>
+        </Box>
+      );
+  }
 };
 
 export default Wallets;

@@ -18,9 +18,8 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
 
-
 const Profile = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
   const [isEditingAddress, setIsEditingAddress] = useState(false);
@@ -89,7 +88,11 @@ const Profile = () => {
             >
               Quick Actions
             </Button>
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
               <MenuItem onClick={() => handleMenuClick("Send Money")}>
                 <ListItemIcon>
                   <DashboardIcon fontSize="small" />
@@ -164,7 +167,7 @@ const Profile = () => {
 
             {/* TextFields */}
             <Box display="flex" flexWrap="wrap" gap={8}>
-              {[ 
+              {[
                 "First Name",
                 "Last Name",
                 "Email Address",

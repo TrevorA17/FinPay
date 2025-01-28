@@ -21,7 +21,7 @@ import CreateInvoice from "./CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
 
 const SendMoney = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
 
@@ -35,7 +35,7 @@ const SendMoney = () => {
 
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
-    handleClose();       // Close the dropdown
+    handleClose(); // Close the dropdown
   };
 
   const handleGoBack = () => {
@@ -167,7 +167,9 @@ const SendMoney = () => {
               <Divider sx={{ marginBottom: "20px" }} />
 
               {/* Options */}
-              <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <Box
+                sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
+              >
                 <Button
                   variant="outlined"
                   startIcon={<AccountBalanceIcon />}
@@ -211,7 +213,7 @@ const SendMoney = () => {
                   marginTop: "20px",
                   textTransform: "none",
                   backgroundColor: "#007bff",
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 Continue

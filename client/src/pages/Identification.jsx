@@ -14,14 +14,13 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { useNavigate } from "react-router-dom";
 
-
 import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 
 const Identification = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -138,12 +137,32 @@ const Identification = () => {
             {/* Icons with Titles and Status (Two by Two) */}
             <Grid container spacing={3}>
               {[
-                { title: "ID Verification", status: "Approved", approved: true },
+                {
+                  title: "ID Verification",
+                  status: "Approved",
+                  approved: true,
+                },
                 { title: "Sending Money", status: "Pending", approved: false },
-                { title: "Email Verification", status: "Approved", approved: true },
-                { title: "Daily Transaction Limit", status: "Pending", approved: false },
-                { title: "Compliance Document", status: "Approved", approved: true },
-                { title: "Receiving Funds", status: "Pending", approved: false },
+                {
+                  title: "Email Verification",
+                  status: "Approved",
+                  approved: true,
+                },
+                {
+                  title: "Daily Transaction Limit",
+                  status: "Pending",
+                  approved: false,
+                },
+                {
+                  title: "Compliance Document",
+                  status: "Approved",
+                  approved: true,
+                },
+                {
+                  title: "Receiving Funds",
+                  status: "Pending",
+                  approved: false,
+                },
               ].map((item, index) => (
                 <Grid item xs={12} sm={6} key={index}>
                   <Box
@@ -169,11 +188,7 @@ const Identification = () => {
                         marginRight: "10px",
                       }}
                     >
-                      {item.approved ? (
-                        <CheckCircleIcon />
-                      ) : (
-                        <CancelIcon />
-                      )}
+                      {item.approved ? <CheckCircleIcon /> : <CancelIcon />}
                     </Box>
                     <Box>
                       <Typography variant="subtitle1">{item.title}</Typography>

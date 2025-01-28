@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PrivateRouteLayout from "./layouts/PrivateRouteLayout";
 import PublicRouteLayout from "./layouts/PublicRouteLayout";
@@ -6,14 +6,14 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import {login} from "./store/authSlice"
+import { login } from "./store/authSlice";
 
 //Sidebar imports
-import Dashboard from "./pages/DashboardContent";      
-import Invoices from "./pages/Invoices";      
-import Cards from "./pages/Cards";            
-import Wallets from "./pages/Wallets";        
-import Transactions from "./pages/Transactions"; 
+import Dashboard from "./pages/DashboardContent";
+import Invoices from "./pages/Invoices";
+import Cards from "./pages/Cards";
+import Wallets from "./pages/Wallets";
+import Transactions from "./pages/Transactions";
 import Profile from "./pages/Profile";
 import Beneficiaries from "./pages/Beneficiaries";
 import Security from "./pages/Security";
@@ -28,9 +28,12 @@ const App = () => {
 
       if (token) {
         try {
-          const response = await axios.get("http://localhost:5000/api/protected", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
+          const response = await axios.get(
+            "http://localhost:5000/api/protected",
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
 
           if (response.status === 200) {
             // Token is valid; update Redux state
@@ -45,7 +48,6 @@ const App = () => {
 
     validateToken();
   }, [dispatch]);
-
 
   return (
     <Routes>
@@ -63,10 +65,10 @@ const App = () => {
         <Route path="/cards" element={<Cards />} />
         <Route path="/wallets" element={<Wallets />} />
         <Route path="/transactions" element={<Transactions />} />
-        <Route path="/profile" element={<Profile />} /> 
-        <Route path="/beneficiaries" element={<Beneficiaries />}/> 
-        <Route path="/security" element={<Security/>}   />
-        <Route path="/identification" element={<Identification />} />  
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/beneficiaries" element={<Beneficiaries />} />
+        <Route path="/security" element={<Security />} />
+        <Route path="/identification" element={<Identification />} />
       </Route>
 
       {/* Catch-all route to redirect to login if not matched */}
@@ -76,10 +78,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-

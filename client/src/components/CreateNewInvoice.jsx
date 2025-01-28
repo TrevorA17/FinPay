@@ -16,7 +16,6 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 
-
 // Importing dynamic components for QuickActions Menu
 import SendMoney from "./SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
@@ -138,14 +137,17 @@ const CreateInvoice = () => {
                 padding: "20px",
                 borderRadius: "0px",
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-                width:"40%"
+                width: "40%",
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 Create Invoice
               </Typography>
               <Divider sx={{ my: 2 }} />
-              <Typography variant="subtitle1" sx={{ mb: 2, fontWeight: "bold" }}>
+              <Typography
+                variant="subtitle1"
+                sx={{ mb: 2, fontWeight: "bold" }}
+              >
                 Customer's Name
               </Typography>
               <Divider sx={{ my: 2 }} />
@@ -169,7 +171,7 @@ const CreateInvoice = () => {
               </Box>
             </Box>
 
-        {/* Invoice Information */}
+            {/* Invoice Information */}
             <Box
               sx={{
                 backgroundColor: "#fff",
@@ -240,8 +242,8 @@ const CreateInvoice = () => {
                 startIcon={<ArrowBackIcon />}
                 sx={{
                   position: "absolute", // Absolute positioning for precise placement
-                  bottom: "-45px",       // Space from the bottom
-                  left: "5px",         // Space from the left
+                  bottom: "-45px", // Space from the bottom
+                  left: "5px", // Space from the left
                 }}
                 onClick={handleGoBack}
               >
@@ -256,16 +258,14 @@ const CreateInvoice = () => {
                 borderRadius: "8px",
                 boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                 marginLeft: "450px",
-                marginTop: "-710px"
+                marginTop: "-710px",
               }}
             >
               <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                 Item Description
               </Typography>
               <Divider sx={{ my: 2 }} />
-              <Typography variant="h7" >
-                Item Description*
-              </Typography>
+              <Typography variant="h7">Item Description*</Typography>
               <Divider sx={{ my: 2 }} />
               <TextField
                 fullWidth
@@ -303,20 +303,20 @@ const CreateInvoice = () => {
               />
             </Box>
           </Box>
-          
-           {/* Send Invoice Button */}
-           <Button
-              variant="contained"
-              color="primary"
-              sx={{
-                width: "75%",
-                mt: 14,
-                display: "block",
-                mx: "auto",
+
+          {/* Send Invoice Button */}
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              width: "75%",
+              mt: 14,
+              display: "block",
+              mx: "auto",
             }}
-            >
-             Create Invoice
-        </Button>
+          >
+            Create Invoice
+          </Button>
         </Box>
       );
   }

@@ -284,7 +284,9 @@ const TransactionsPage = () => {
               <Typography variant="h6">{selectedProduct.title}</Typography>
               <Typography>Price: ${selectedProduct.price}</Typography>
               <Typography>Category: {selectedProduct.category}</Typography>
-              <Typography>Description: {selectedProduct.description}</Typography>
+              <Typography>
+                Description: {selectedProduct.description}
+              </Typography>
               <Button onClick={() => setSelectedProduct(null)}>Close</Button>
             </Box>
           )}
