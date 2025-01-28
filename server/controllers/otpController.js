@@ -42,7 +42,7 @@ exports.generateOtp = async (req, res) => {
 // Validate OTP and Register User
 exports.validateOtp = async (req, res) => {
   const { email, otp, password, fullName, phone } = req.body; // Ensure OTP is destructured here
-  console.log(req.body); // Debugging step to see if OTP, email, and password are being sent
+  // console.log(req.body); // Debugging step to see if OTP, email, and password are being sent
 
   // Validate required fields
   if (!email || !otp || !password || !fullName || !phone) {
