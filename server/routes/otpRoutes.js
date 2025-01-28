@@ -15,14 +15,14 @@ router.post("/generate-otp", async (req, res) => {
     // Save OTP to the database
     const newOtp = new Otp({ email, otp, expiresAt }); // Fix: Use 'Otp' instead of 'OTP'
 
-    console.log("Attempting to save OTP to the database:", {
-      email,
-      otp,
-      expiresAt,
-    });
+    // console.log("Attempting to save OTP to the database:", {
+    //   email,
+    //   otp,
+    //   expiresAt,
+    // });
     await newOtp.save();
 
-    console.log("OTP saved successfully:", newOtp);
+    // console.log("OTP saved successfully:", newOtp);
 
     // Send OTP via email
     const mailOptions = {
