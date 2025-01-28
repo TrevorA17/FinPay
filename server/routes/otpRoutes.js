@@ -23,6 +23,7 @@ router.post("/generate-otp", async (req, res) => {
 
   // Save the OTP in the database
   const newOtp = new Otp({ email, otp: hashedOtp });
+  await newOtp.save();
 
   try {
     await newOtp.save();
@@ -44,6 +45,34 @@ router.post("/generate-otp", async (req, res) => {
   } catch (error) {
     console.error("Error generating OTP:", error);
     res.status(500).json({ status: "FAILED", message: "Error generating OTP" });
+  }
+});
+
+// Validate OTP
+router.post("/validate-otp", async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    // Check if the email and OTP exist in the database
+    const otpEntry = await Otp.findOne({ email, otp });
+
+    if (!otpEntry) {
+      return res.status(400).json({ message: "Invalid OTP or email." });
+    }
+
+    // Check if the OTP has expired
+    const now = Date.now();
+    if (otpEntry.expiresAt < now) {
+      return res.status(400).json({ message: "OTP has expired." });
+    }
+
+    // OTP is valid
+    return res.status(200).json({ message: "OTP validated successfully." });
+  } catch (error) {
+    console.error("Error validating OTP:", error.message);
+    return res
+      .status(500)
+      .json({ message: "Server error. Please try again later." });
   }
 });
 
