@@ -156,7 +156,7 @@ const Sidebar = () => {
             />
             <Box>
               <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                Olivia Rhye
+                Travis Scott
               </Typography>
               <Typography variant="body2" color="rgba(255, 255, 255, 0.8)">
                 olivia@untitledui.com
