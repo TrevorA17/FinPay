@@ -53,15 +53,18 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/validate-otp", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: credentials.email,
-          otp,
-          password: credentials.password,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/otp/validate-otp",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: credentials.email,
+            otp,
+            password: credentials.password,
+          }),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
