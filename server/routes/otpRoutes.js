@@ -4,6 +4,7 @@ const Otp = require("../models/Otp"); // Import the OTP schema
 const bcrypt = require("bcryptjs");
 const transporter = require("../utils/nodemailer"); // Import the nodemailer transporter
 
+//Generate OTP
 router.post("/generate-otp", async (req, res) => {
   const { email } = req.body;
 
