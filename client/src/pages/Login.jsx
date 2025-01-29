@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../utils/api"; // Import the API instance
 import { useDispatch } from "react-redux";
 import { login } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +11,6 @@ import {
   Box,
   Paper,
 } from "@mui/material";
-
-const API_URL = import.meta.env.VITE_API_URL; // Use the API URL from .env
 
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
@@ -32,7 +30,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/login`, credentials);
+      const response = await api.post("/login", credentials); // Use `api`
 
       if (response.status === 200) {
         setOtpSent(true); // Move to OTP verification step
@@ -54,7 +52,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${API_URL}/otp/verifyOtpForLogin`, {
+      const response = await api.post("/otp/verifyOtpForLogin", {
         email: credentials.email, // Pass email to verify OTP
         otp,
       });
