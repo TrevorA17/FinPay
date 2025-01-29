@@ -35,8 +35,9 @@ const Login = () => {
       if (response.status === 200) {
         const { token } = response.data;
 
-        // Save token to local storage
+        // Save token and full name to local storage
         localStorage.setItem("authToken", token);
+        localStorage.setItem("fullName", data.fullName);
 
         // Dispatch the login action to Redux (or update state)
         dispatch(login(true));
