@@ -16,7 +16,7 @@ const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [otp, setOtp] = useState(""); // For OTP input
   const [error, setError] = useState(""); // For displaying errors
-  const [isOtpSent, setIsOtpSent] = useState(false); // Tracks OTP step
+  const [otpSent, setOtpSent] = useState(false); // Tracks OTP step
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -36,7 +36,7 @@ const Login = () => {
       );
 
       if (response.status === 200) {
-        setIsOtpSent(true); // Move to OTP verification step
+        setOtpSent(true); // Move to OTP verification step
       }
     } catch (err) {
       setError(
@@ -103,7 +103,7 @@ const Login = () => {
           }}
         >
           <Typography variant="h5" component="h1" gutterBottom>
-            {isOtpSent ? "Verify OTP" : "Login to Your Account"}
+            {otpSent ? "Verify OTP" : "Login to Your Account"}
           </Typography>
 
           {error && (
@@ -116,7 +116,7 @@ const Login = () => {
             </Typography>
           )}
 
-          {!isOtpSent ? (
+          {!otpSent ? (
             // Step 1: Email & Password Login Form
             <form onSubmit={handleLogin} style={{ width: "100%" }}>
               <TextField
