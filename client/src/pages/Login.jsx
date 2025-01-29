@@ -56,7 +56,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/otp/verify",
+        "http://localhost:5000/api/otp/verifyOtpForLogin",
         {
           email: credentials.email, // Pass email to verify OTP
           otp,
