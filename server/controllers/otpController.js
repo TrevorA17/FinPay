@@ -139,11 +139,19 @@ exports.verifyOtpForLogin = async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email }, // Payload
+      process.env.JWT_SECRET, // Secret key
+      { expiresIn: "1h" } // Token expiration time
+    );
+
     // Delete OTP after successful verification
     await Otp.deleteOne({ email });
 
     res.status(200).json({
       message: "OTP verified successfully. Login successful!",
+      token,
     });
   } catch (error) {
     console.error("OTP Verification Error:", error);
