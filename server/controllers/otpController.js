@@ -2,6 +2,7 @@ const Otp = require("../models/Otp");
 const User = require("../models/User");
 const transporter = require("../utils/nodemailer");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 // Generate OTP
 exports.generateOtp = async (req, res) => {
@@ -116,7 +117,7 @@ exports.verifyOtpForLogin = async (req, res) => {
 
   try {
     // Find the OTP entry in the database
-    const otpRecord = await OTP.findOne({ email, otp });
+    const otpRecord = await Otp.findOne({ email, otp });
 
     if (!otpRecord) {
       return res
@@ -146,7 +147,7 @@ exports.verifyOtpForLogin = async (req, res) => {
     );
 
     // Delete OTP after successful verification
-    await OTP.deleteOne({ email });
+    await Otp.deleteOne({ email });
 
     res.status(200).json({
       message: "OTP verified successfully. Login successful!",
