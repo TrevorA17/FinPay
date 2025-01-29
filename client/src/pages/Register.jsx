@@ -9,6 +9,8 @@ import {
   Paper,
 } from "@mui/material";
 
+const API_URL = import.meta.env.VITE_API_URL; // Use the API URL from .env
+
 const Register = () => {
   const [credentials, setCredentials] = useState({
     fullName: "",
@@ -31,7 +33,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:5000/api/register", {
+      const response = await fetch(`${API_URL}/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
@@ -53,20 +55,17 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "http://localhost:5000/api/otp/validate-otp",
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: credentials.email,
-            otp,
-            password: credentials.password,
-            fullName: credentials.fullName, // Include fullName
-            phone: credentials.phone, // Include phone
-          }),
-        }
-      );
+      const response = await fetch(`${API_URL}/validate-otp`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: credentials.email,
+          otp,
+          password: credentials.password,
+          fullName: credentials.fullName, // Include fullName
+          phone: credentials.phone, // Include phone
+        }),
+      });
 
       const data = await response.json();
       if (response.ok) {
