@@ -113,7 +113,7 @@ const Login = () => {
           )}
 
           {!otpSent ? (
-            // Step 1: Email & Password Login Form
+            // Email & Password Login Form
             <form onSubmit={handleLogin} style={{ width: "100%" }}>
               <TextField
                 label="Email"
@@ -154,7 +154,7 @@ const Login = () => {
               </Box>
             </form>
           ) : (
-            // Step 2: OTP Verification Form
+            // OTP Verification Form
             <form onSubmit={handleVerifyOtp} style={{ width: "100%" }}>
               <TextField
                 label="Enter OTP"
