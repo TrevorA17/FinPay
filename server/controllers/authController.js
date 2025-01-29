@@ -56,10 +56,11 @@ const login = async (req, res) => {
       { expiresIn: "1h" } // Token expiration time
     );
 
-    // Send the token
+    // Send the token and full name in the response
     res.status(200).json({
       message: "Login successful",
       token,
+      fullName: user.fullName, // Include full name in the response
     });
   } catch (err) {
     console.error(err);
