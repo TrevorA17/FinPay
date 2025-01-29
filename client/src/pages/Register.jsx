@@ -55,7 +55,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`${API_URL}/validate-otp`, {
+      const response = await fetch(`${API_URL}/otp/validate-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
