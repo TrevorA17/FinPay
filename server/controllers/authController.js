@@ -60,7 +60,6 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Login successful",
       token,
-      fullName: user.fullName, // Include full name in the response
     });
   } catch (err) {
     console.error(err);
