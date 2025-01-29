@@ -12,6 +12,8 @@ import {
   Paper,
 } from "@mui/material";
 
+const API_URL = import.meta.env.VITE_API_URL; // Use the API URL from .env
+
 const Login = () => {
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [otp, setOtp] = useState(""); // For OTP input
@@ -30,10 +32,7 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/login",
-        credentials
-      );
+      const response = await axios.post(`${API_URL}/login`, credentials);
 
       if (response.status === 200) {
         setOtpSent(true); // Move to OTP verification step
@@ -55,13 +54,10 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/otp/verifyOtpForLogin",
-        {
-          email: credentials.email, // Pass email to verify OTP
-          otp,
-        }
-      );
+      const response = await axios.post(`${API_URL}/otp/verifyOtpForLogin`, {
+        email: credentials.email, // Pass email to verify OTP
+        otp,
+      });
 
       if (response.status === 200) {
         const { token } = response.data;
