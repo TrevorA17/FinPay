@@ -105,3 +105,55 @@ exports.validateOtp = async (req, res) => {
       .json({ message: "Server error. Please try again later." });
   }
 };
+
+//Validate and login user
+exports.verifyOtpForLogin = async (req, res) => {
+  const { email, otp } = req.body;
+
+  if (!email || !otp) {
+    return res.status(400).json({ message: "Email and OTP are required" });
+  }
+
+  try {
+    // Find the OTP entry in the database
+    const otpRecord = await OTP.findOne({ email, otp });
+
+    if (!otpRecord) {
+      return res
+        .status(400)
+        .json({ message: "Invalid OTP. Please try again." });
+    }
+
+    // Check if OTP is expired
+    const currentTime = new Date();
+    if (otpRecord.expiresAt < currentTime) {
+      return res
+        .status(400)
+        .json({ message: "OTP has expired. Please request a new one." });
+    }
+
+    // Find the user
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Generate a JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email }, // Payload
+      process.env.JWT_SECRET, // Secret key
+      { expiresIn: "1h" } // Token expiration time
+    );
+
+    // Delete OTP after successful verification
+    await OTP.deleteOne({ email });
+
+    res.status(200).json({
+      message: "OTP verified successfully. Login successful!",
+      token,
+    });
+  } catch (error) {
+    console.error("OTP Verification Error:", error);
+    res.status(500).json({ message: "Server error. Please try again later." });
+  }
+};
