@@ -102,7 +102,7 @@ const DashboardContent = () => {
           >
             <Box>
               <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Welcome Olivia
+                Welcome Travis
               </Typography>
               <Typography variant="body1" sx={{ color: "rgba(0, 0, 0, 0.7)" }}>
                 Good morning, have a great day!
