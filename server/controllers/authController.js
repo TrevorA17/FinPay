@@ -49,6 +49,9 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    // Generate OTP and send it to email for verification
+    await axios.post("http://localhost:5000/api/otp/generate-otp", { email });
+
     // Generate a JWT
     const token = jwt.sign(
       { id: user._id, email: user.email }, // Payload
@@ -56,9 +59,9 @@ const login = async (req, res) => {
       { expiresIn: "1h" } // Token expiration time
     );
 
-    // Send the token in the response
+    // Return the OTP request message and JWT token
     res.status(200).json({
-      message: "Login successful",
+      message: "OTP sent to your email. Please verify.",
       token,
     });
   } catch (err) {
@@ -66,5 +69,4 @@ const login = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-
 module.exports = { register, login };
