@@ -20,7 +20,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Handle login (Step 1)
+  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -45,7 +45,7 @@ const Login = () => {
     }
   };
 
-  // Handle OTP verification (Step 2)
+  // Handle OTP verification
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
 
