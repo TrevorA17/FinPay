@@ -82,6 +82,7 @@ const DashboardContent = () => {
     case "Create Invoice":
       return <CreateInvoice />;
     default:
+      //Use container MUI to prevent screen overflow
       return (
         <Box>
           {/* Top Bar */}
@@ -97,7 +98,7 @@ const DashboardContent = () => {
               marginBottom: "20px",
               height: "76px",
               marginLeft: "-5px",
-              width: "100%",
+              width: "80%",
             }}
           >
             <Box>
@@ -166,8 +167,8 @@ const DashboardContent = () => {
               backgroundColor: "#fff",
               borderRadius: "2px",
               marginBottom: "20px",
-              width: "90%",
-              marginLeft: "40px",
+              width: "80%",
+              marginLeft: "0px",
             }}
           >
             <Typography
@@ -193,7 +194,7 @@ const DashboardContent = () => {
                     flexDirection: "column",
                     alignItems: "center",
                     padding: 2,
-                    width: "150px",
+                    width: "200px",
                     boxShadow: "0 4px 4px rgba(0, 0, 0.1, 0.1)",
                     borderRadius: "0px",
                   }}
@@ -233,8 +234,8 @@ const DashboardContent = () => {
               padding: 1.6,
               backgroundColor: "#fff",
               borderRadius: "0px",
-              width: "90%",
-              marginLeft: "40px",
+              width: "80%",
+              marginLeft: "0px",
             }}
           >
             <Typography
@@ -298,7 +299,7 @@ const DashboardContent = () => {
           </Paper>
 
           {/* Receive Payments & Invoices */}
-          <Box sx={{ display: "flex", gap: 3 }}>
+          <Box sx={{ display: "flex", gap: 7 }}>
             <Paper
               elevation={3}
               sx={{
@@ -306,7 +307,7 @@ const DashboardContent = () => {
                 backgroundColor: "#fff",
                 borderRadius: "0px",
                 width: "35%",
-                margin: "40px 40px",
+                margin: "40px 0px",
               }}
             >
               <Typography
@@ -341,7 +342,7 @@ const DashboardContent = () => {
                 padding: 2,
                 backgroundColor: "#fff",
                 borderRadius: "2px",
-                width: "48%",
+                width: "39%",
                 margin: "40px -40px",
               }}
             >
@@ -387,7 +388,7 @@ const DashboardContent = () => {
               display: "flex",
               gap: 3,
               marginTop: 4,
-              marginLeft: "40px",
+              marginLeft: "0px",
               marginRight: "40px",
             }}
           >
@@ -397,7 +398,7 @@ const DashboardContent = () => {
                 padding: 2,
                 backgroundColor: "#fff",
                 borderRadius: "0px",
-                width: "50%",
+                width: "38%",
                 margin: "-45px 0px",
               }}
             >
@@ -431,7 +432,7 @@ const DashboardContent = () => {
                 padding: 2,
                 backgroundColor: "#fff",
                 borderRadius: "2px",
-                width: "50%",
+                width: "39%",
                 margin: "-45px 0px",
               }}
             >
