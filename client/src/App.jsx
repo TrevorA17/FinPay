@@ -21,6 +21,7 @@ import Identification from "./pages/Identification";
 
 const App = () => {
   const dispatch = useDispatch();
+  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
 
   useEffect(() => {
     const validateToken = async () => {
@@ -28,12 +29,9 @@ const App = () => {
 
       if (token) {
         try {
-          const response = await axios.get(
-            "http://localhost:5000/api/protected",
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
+          const response = await axios.get(`${API_URL}/protected`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
 
           if (response.status === 200) {
             // Token is valid; update Redux state
