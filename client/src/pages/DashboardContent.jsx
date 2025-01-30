@@ -82,23 +82,33 @@ const DashboardContent = () => {
     case "Create Invoice":
       return <CreateInvoice />;
     default:
-      //Use container MUI to prevent screen overflow
       return (
-        <Box>
+        <Box
+          sx={{
+            maxWidth: "75vw",
+            overflowX: "hidden",
+            overflowY: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "16px",
+            width: "100%",
+          }}
+        >
           {/* Top Bar */}
           <Box
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              alignItems: "center",
+              alignItems: "left",
               backgroundColor: "#fff",
               padding: "21px",
               borderRadius: "0px",
               boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
               marginBottom: "20px",
               height: "76px",
-              marginLeft: "-5px",
-              width: "80%",
+              marginLeft: "0px",
+              width: "100%",
             }}
           >
             <Box>
@@ -167,7 +177,7 @@ const DashboardContent = () => {
               backgroundColor: "#fff",
               borderRadius: "2px",
               marginBottom: "20px",
-              width: "80%",
+              width: "100%",
               marginLeft: "0px",
             }}
           >
@@ -193,7 +203,7 @@ const DashboardContent = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    padding: 2,
+                    padding: 0.5,
                     width: "200px",
                     boxShadow: "0 4px 4px rgba(0, 0, 0.1, 0.1)",
                     borderRadius: "0px",
@@ -234,7 +244,7 @@ const DashboardContent = () => {
               padding: 1.6,
               backgroundColor: "#fff",
               borderRadius: "0px",
-              width: "80%",
+              width: "100%",
               marginLeft: "0px",
             }}
           >
@@ -299,15 +309,17 @@ const DashboardContent = () => {
           </Paper>
 
           {/* Receive Payments & Invoices */}
-          <Box sx={{ display: "flex", gap: 7 }}>
+          <Box sx={{ display: "flex", gap: 3 }}>
             <Paper
               elevation={3}
               sx={{
                 padding: 3,
                 backgroundColor: "#fff",
                 borderRadius: "0px",
-                width: "35%",
-                margin: "40px 0px",
+                width: "90vh",
+                marginLeft: "0px",
+                marginRight: "30px",
+                marginTop: "15px",
               }}
             >
               <Typography
@@ -342,8 +354,10 @@ const DashboardContent = () => {
                 padding: 2,
                 backgroundColor: "#fff",
                 borderRadius: "2px",
-                width: "39%",
-                margin: "40px -40px",
+                width: "50%",
+                marginLeft: "0px",
+                marginRight: "30px",
+                marginTop: "20px",
               }}
             >
               <Typography
@@ -387,9 +401,10 @@ const DashboardContent = () => {
             sx={{
               display: "flex",
               gap: 3,
-              marginTop: 4,
-              marginLeft: "0px",
-              marginRight: "40px",
+              marginTop: 8,
+              marginLeft: "30px",
+              marginRight: "30px",
+              width: "100%",
             }}
           >
             <Paper
@@ -398,7 +413,7 @@ const DashboardContent = () => {
                 padding: 2,
                 backgroundColor: "#fff",
                 borderRadius: "0px",
-                width: "38%",
+                width: "75vh",
                 margin: "-45px 0px",
               }}
             >
