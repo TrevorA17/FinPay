@@ -12,3 +12,9 @@ router.post("/user/accounts/:userId", addUserAccount);
 router.put("/user/accounts/:userId/:accountId", updateUserAccount);
 
 module.exports = router;
+
+// POST /api/user/accounts/userId
+// Content-Type: application/json
+
+// PUT /api/user/accounts/userId/accountId
+// Content-Type: application/json
