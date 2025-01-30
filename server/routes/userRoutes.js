@@ -13,8 +13,9 @@ router.put("/user/accounts/:userId/:accountId", updateUserAccount);
 
 module.exports = router;
 
-// POST /api/user/accounts/userId
+// Postman URL for testing
+// POST http://localhost:5000/api/user/accounts/userId
 // Content-Type: application/json
 
-// PUT /api/user/accounts/userId/accountId
+// PUT http://localhost:5000/api/user/accounts/userId/accountId
 // Content-Type: application/json
