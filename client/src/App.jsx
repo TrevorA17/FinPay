@@ -7,7 +7,6 @@ import Register from "./pages/Register";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import { login } from "./store/authSlice";
-import Sidebar from "./components/Sidebar";
 
 //Sidebar imports
 import Dashboard from "./pages/DashboardContent";
