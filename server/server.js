@@ -7,6 +7,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const protectedRoutes = require("./routes/protected");
 const otpRoutes = require("./routes/otpRoutes"); // Import OTP routes
+const userRoutes = require("./routes/userRoutes");
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -29,6 +30,8 @@ app.use("/api", authRoutes);
 app.use("/api", protectedRoutes);
 // OTP routes
 app.use("/api/otp", otpRoutes);
+//User routes
+app.use("/api", userRoutes);
 
 // Start the server
 app.listen(port, () => {
