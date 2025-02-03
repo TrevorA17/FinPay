@@ -178,7 +178,7 @@ const DashboardContent = () => {
               backgroundColor: "#fff",
               borderRadius: "2px",
               marginBottom: "18px",
-              width: "100%",
+              width: "99%",
               marginLeft: "0px",
               marginTop: "-5px",
             }}
