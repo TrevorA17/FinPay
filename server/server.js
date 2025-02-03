@@ -26,10 +26,13 @@ mongoose
 app.get("/", (req, res) => {
   res.send("API is running...");
 });
+
 app.use("/api", authRoutes);
 app.use("/api", protectedRoutes);
+
 // OTP routes
 app.use("/api/otp", otpRoutes);
+
 //User routes
 app.use("/api", userRoutes);
 

@@ -21,7 +21,7 @@ router.get("/user/accounts/:userId", getUserAccounts);
 
 module.exports = router;
 
-// Postman URL for testing useraccounts
+// Postman URL for testing user accounts
 // POST http://localhost:5000/api/user/accounts/userId
 // Content-Type: application/json
 
