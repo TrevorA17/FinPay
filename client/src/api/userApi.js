@@ -5,7 +5,7 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 // Fetch all users
 export const fetchUsers = async () => {
   try {
-    const response = await axios.get(`${API_URL}/users`);
+    const response = await axios.get(`${API_URL}/all`);
     return response.data;
   } catch (error) {
     console.error("Error fetching users", error);
@@ -16,7 +16,7 @@ export const fetchUsers = async () => {
 // Fetch accounts for a specific user
 export const fetchUserAccounts = async (userId) => {
   try {
-    const response = await axios.get(`${API_URL}/users/${userId}`);
+    const response = await axios.get(`${API_URL}/${userId}/accounts`);
     return response.data.userAccounts; // Assuming accounts are inside user object
   } catch (error) {
     console.error("Error fetching user accounts", error);
