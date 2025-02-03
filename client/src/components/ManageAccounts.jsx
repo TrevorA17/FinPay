@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import UserDropdown from "../components/UserDropdown";
-import AccountForm from "../components/AccountForm";
+import UserDropdown from "./UserDropdown";
+import AccountForm from "./AccountForm";
 import { Container, Typography } from "@mui/material";
 
 const ManageAccounts = () => {
