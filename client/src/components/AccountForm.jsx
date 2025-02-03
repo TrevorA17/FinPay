@@ -46,7 +46,7 @@ const AccountForm = ({ userId }) => {
     try {
       setLoading(true);
       const userAccounts = await fetchUserAccounts(userId);
-      console.log("API Response:", userAccounts); // ✅ Debug log
+      // console.log("API Response:", userAccounts); // Debug logs
 
       if (!Array.isArray(userAccounts)) {
         throw new Error("Invalid response format from server");
