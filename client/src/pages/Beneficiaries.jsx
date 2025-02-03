@@ -78,9 +78,11 @@ const Beneficiaries = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "35px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          padding: "28px",
+          boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
           marginBottom: "20px",
+          marginLeft: "-25px",
+          width: "99%",
         }}
       >
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>

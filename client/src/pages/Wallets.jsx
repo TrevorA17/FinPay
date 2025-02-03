@@ -100,7 +100,7 @@ const Wallets = () => {
               borderRadius: "0px",
               boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
-              height: "76px",
+              height: "78px",
               marginLeft: "-5px",
             }}
           >
