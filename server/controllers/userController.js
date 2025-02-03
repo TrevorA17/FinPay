@@ -1,5 +1,15 @@
 const User = require("../models/User"); // Import User model
 
+//Get all users
+const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching users", error });
+  }
+};
+
 // Add a new account
 const addUserAccount = async (req, res) => {
   const { userId } = req.params; // Get user ID from request params
@@ -54,16 +64,6 @@ const updateUserAccount = async (req, res) => {
     res.status(200).json({ message: "Account updated successfully", user });
   } catch (error) {
     res.status(500).json({ message: "Error updating account", error });
-  }
-};
-
-//Get all users
-const getAllUsers = async (req, res) => {
-  try {
-    const users = await User.find({});
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching users", error });
   }
 };
 
