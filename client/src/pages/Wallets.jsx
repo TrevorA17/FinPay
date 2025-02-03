@@ -98,7 +98,7 @@ const Wallets = () => {
               backgroundColor: "#fff",
               padding: "20px",
               borderRadius: "0px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
+              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
               height: "76px",
               marginLeft: "-5px",
