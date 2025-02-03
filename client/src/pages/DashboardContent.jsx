@@ -105,7 +105,7 @@ const DashboardContent = () => {
               backgroundColor: "#fff",
               padding: "22px",
               borderRadius: "0px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
+              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
               height: "10vh",
               marginLeft: "0px",
@@ -384,6 +384,7 @@ const DashboardContent = () => {
               <Button
                 variant="contained"
                 startIcon={<AddCircleOutlineIcon />}
+                onClick={() => handleMenuClick("Create Invoice")}
                 sx={{
                   marginTop: "16px",
                   backgroundColor: "#007bff",
