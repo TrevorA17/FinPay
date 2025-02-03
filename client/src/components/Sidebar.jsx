@@ -49,7 +49,7 @@ const Sidebar = () => {
       icon: <FingerprintIcon />,
       path: "/identification",
     },
-    { text: "Manage Security", icon: <SecurityIcon />, path: "/accounts" },
+    { text: "Manage Accounts", icon: <SecurityIcon />, path: "/accounts" },
   ];
 
   // Handle button click to update selected item
