@@ -8,7 +8,7 @@ const ManageAccounts = () => {
 
   return (
     <Container>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Manage User Accounts
       </Typography>
       <UserDropdown onSelect={setSelectedUserId} />

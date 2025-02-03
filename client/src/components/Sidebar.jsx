@@ -23,6 +23,7 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice";
 import { useDispatch } from "react-redux";
+import WarningIcon from "@mui/icons-material/Warning";
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Sidebar = () => {
       icon: <FingerprintIcon />,
       path: "/identification",
     },
-    { text: "Manage Accounts", icon: <SecurityIcon />, path: "/accounts" },
+    { text: "Manage Accounts", icon: <WarningIcon />, path: "/accounts" },
   ];
 
   // Handle button click to update selected item
