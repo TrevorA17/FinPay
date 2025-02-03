@@ -93,6 +93,7 @@ const DashboardContent = () => {
             alignItems: "center",
             padding: "16px",
             width: "100%",
+            height: "250%",
           }}
         >
           {/* Top Bar */}
@@ -102,11 +103,11 @@ const DashboardContent = () => {
               justifyContent: "space-between",
               alignItems: "left",
               backgroundColor: "#fff",
-              padding: "21px",
+              padding: "22px",
               borderRadius: "0px",
               boxShadow: "0 4px 6px rgba(0, 0, 0.9, 0.1)",
               marginBottom: "20px",
-              height: "76px",
+              height: "10vh",
               marginLeft: "0px",
               width: "100%",
             }}
@@ -176,9 +177,10 @@ const DashboardContent = () => {
               padding: 2,
               backgroundColor: "#fff",
               borderRadius: "2px",
-              marginBottom: "20px",
+              marginBottom: "18px",
               width: "100%",
               marginLeft: "0px",
+              marginTop: "-5px",
             }}
           >
             <Typography
@@ -203,10 +205,10 @@ const DashboardContent = () => {
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
-                    padding: 0.5,
+                    padding: 0,
                     width: "200px",
-                    boxShadow: "0 4px 4px rgba(0, 0, 0.1, 0.1)",
-                    borderRadius: "0px",
+                    boxShadow: "0 0px 4px rgba(0, 0, 0.1, 0.1)",
+                    borderRadius: "10px",
                   }}
                 >
                   <Avatar
@@ -309,7 +311,7 @@ const DashboardContent = () => {
           </Paper>
 
           {/* Receive Payments & Invoices */}
-          <Box sx={{ display: "flex", gap: 3 }}>
+          <Box sx={{ display: "flex", gap: 0 }}>
             <Paper
               elevation={3}
               sx={{
@@ -317,7 +319,7 @@ const DashboardContent = () => {
                 backgroundColor: "#fff",
                 borderRadius: "0px",
                 width: "90vh",
-                marginLeft: "0px",
+                marginLeft: "-45px",
                 marginRight: "30px",
                 marginTop: "15px",
               }}
@@ -402,7 +404,7 @@ const DashboardContent = () => {
               display: "flex",
               gap: 3,
               marginTop: 8,
-              marginLeft: "30px",
+              marginLeft: "15px",
               marginRight: "30px",
               width: "100%",
             }}
