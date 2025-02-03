@@ -57,7 +57,7 @@ const ManageAccounts = () => {
               padding: "38px",
               boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
-              marginLeft: "-5px",
+              marginLeft: "-25px",
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
