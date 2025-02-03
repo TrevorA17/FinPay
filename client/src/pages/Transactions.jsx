@@ -136,9 +136,10 @@ const TransactionsPage = () => {
               justifyContent: "space-between",
               alignItems: "center",
               backgroundColor: "#fff",
-              padding: "35px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+              padding: "38px",
+              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
+              marginLeft: "-5px",
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
@@ -277,7 +278,7 @@ const TransactionsPage = () => {
                 backgroundColor: "#fff",
                 padding: "30px",
                 borderRadius: "8px",
-                boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
                 zIndex: 10,
               }}
             >

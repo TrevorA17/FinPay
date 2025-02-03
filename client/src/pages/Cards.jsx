@@ -58,6 +58,7 @@ const CardsPage = () => {
               boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
               height: "76px",
+              marginLeft: "-5px",
             }}
           >
             {/* Left Section: Header Title */}
