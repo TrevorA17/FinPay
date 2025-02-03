@@ -3,6 +3,7 @@ const {
   addUserAccount,
   updateUserAccount,
   getAllUsers,
+  getUserAccounts,
 } = require("../controllers/userController");
 const router = express.Router();
 
@@ -12,7 +13,11 @@ router.post("/user/accounts/:userId", addUserAccount);
 // Route to update an existing user account
 router.put("/user/accounts/:userId/:accountId", updateUserAccount);
 
+//get all users
 router.get("/all", getAllUsers);
+
+//get user accounts
+router.get("/user/accounts/:userId", getUserAccounts);
 
 module.exports = router;
 
