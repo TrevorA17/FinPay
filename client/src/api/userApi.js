@@ -20,7 +20,7 @@ export const fetchUserAccounts = async (userId) => {
     );
 
     // Log the raw response to ensure it's correct
-    console.log("Raw API response:", response);
+    // console.log("Raw API response:", response);
 
     // Check if response.data is an array
     if (!Array.isArray(response.data)) {
