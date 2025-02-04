@@ -52,7 +52,7 @@ const login = async (req, res) => {
     }
 
     // Generate OTP and send it to email for verification
-    await axios.post("http://localhost:5000/api/otp/generate-otp", { email });
+    await axios.post(`${API_URL}/otp/generate-otp`, { email });
 
     // Generate a JWT
     const token = jwt.sign(
