@@ -3,6 +3,8 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const axios = require("axios"); // For making HTTP requests
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 // Register Controller
 const register = async (req, res) => {
   const { fullName, email, phone, password } = req.body;
@@ -19,7 +21,7 @@ const register = async (req, res) => {
     }
 
     // Generate OTP and send it to email for verification
-    await axios.post("http://localhost:5000/api/otp/generate-otp", { email });
+    await axios.post(`${API_URL}/otp/generate-otp`, { email });
 
     // Return response indicating that OTP was sent
     res.status(200).json({ message: "OTP sent to your email. Please verify." });
