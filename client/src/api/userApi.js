@@ -15,9 +15,7 @@ export const fetchUsers = async () => {
 
 export const fetchUserAccounts = async (userId) => {
   try {
-    const response = await axios.get(
-      `http://localhost:5000/api/user/accounts/${userId}`
-    );
+    const response = await axios.get(`${API_URL}/user/accounts/${userId}`);
 
     // Log the raw response to ensure it's correct
     // console.log("Raw API response:", response);
@@ -38,7 +36,7 @@ export const fetchUserAccounts = async (userId) => {
 export const addUserAccount = async (userId, accountData) => {
   try {
     const response = await axios.post(
-      `http://localhost:5000/api/user/accounts/${userId}`,
+      `${API_URL}/user/accounts/${userId}`,
       accountData
     );
     return response.data;
@@ -52,7 +50,7 @@ export const addUserAccount = async (userId, accountData) => {
 export const updateUserAccount = async (userId, accountId, updatedData) => {
   try {
     const response = await axios.put(
-      `http://localhost:5000/api/user/accounts/${userId}/${accountId}`,
+      `${API_URL}/user/accounts/${userId}/${accountId}`,
       updatedData
     );
     return response.data;
