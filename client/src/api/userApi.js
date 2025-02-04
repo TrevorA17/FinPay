@@ -46,7 +46,7 @@ export const addUserAccount = async (userId, accountData) => {
   }
 };
 
-// Update an existing account
+// Update an existing account for user
 export const updateUserAccount = async (userId, accountId, updatedData) => {
   try {
     const response = await axios.put(

@@ -12,6 +12,7 @@ import CreateInvoice from "../components/CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const ManageAccounts = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -112,6 +113,18 @@ const ManageAccounts = () => {
           </Typography>
           <UserDropdown onSelect={setSelectedUserId} />
           {selectedUserId && <AccountForm userId={selectedUserId} />}
+          {/* Go Back Button */}
+          <Button
+            startIcon={<ArrowBackIcon />}
+            onClick={handleGoBack}
+            sx={{
+              alignSelf: "flex-start",
+              marginBottom: "20px",
+              textTransform: "none",
+            }}
+          >
+            Go Back
+          </Button>
         </Container>
       );
   }
