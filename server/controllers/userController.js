@@ -1,14 +1,6 @@
 const User = require("../models/User"); // Import User model
 
 //Get user's details
-// const getAllUsers = async (req, res) => {
-//   try {
-//     const users = await User.find({});
-//     res.status(200).json(users);
-//   } catch (error) {
-//     res.status(500).json({ message: "Error fetching users", error });
-//   }
-// };
 const getUserDetails = async (req, res) => {
   try {
     const userId = req.user.id; // Get logged-in user ID from request
