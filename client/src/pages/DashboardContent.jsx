@@ -85,14 +85,12 @@ const DashboardContent = () => {
       return (
         <Box
           sx={{
-            maxWidth: "75vw",
-            overflowX: "hidden",
-            overflowY: "hidden",
+            width: "100%",
+            overflow: "hidden",
             display: "flex",
             flexDirection: "column",
-            alignItems: "center",
-            padding: "16px",
-            width: "100%",
+            alignItems: "right",
+            padding: "5px",
             height: "250%",
           }}
         >
@@ -107,7 +105,7 @@ const DashboardContent = () => {
               borderRadius: "0px",
               boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",
-              height: "10vh",
+              height: "11vh",
               marginLeft: "0px",
               width: "100%",
             }}
@@ -311,17 +309,16 @@ const DashboardContent = () => {
           </Paper>
 
           {/* Receive Payments & Invoices */}
-          <Box sx={{ display: "flex", gap: 0 }}>
+          <Box sx={{ display: "flex", gap: 2, marginRight: "250px" }}>
             <Paper
               elevation={3}
               sx={{
                 padding: 3,
                 backgroundColor: "#fff",
                 borderRadius: "0px",
-                width: "90vh",
-                marginLeft: "-45px",
-                marginRight: "30px",
+                width: "90%",
                 marginTop: "15px",
+                marginRight: "250px",
               }}
             >
               <Typography
@@ -356,10 +353,9 @@ const DashboardContent = () => {
                 padding: 2,
                 backgroundColor: "#fff",
                 borderRadius: "2px",
-                width: "50%",
-                marginLeft: "0px",
-                marginRight: "30px",
+                width: "70%",
                 marginTop: "20px",
+                marginLeft: "-250px",
               }}
             >
               <Typography
@@ -405,7 +401,7 @@ const DashboardContent = () => {
               display: "flex",
               gap: 3,
               marginTop: 8,
-              marginLeft: "15px",
+              marginLeft: "3px",
               marginRight: "30px",
               width: "100%",
             }}
