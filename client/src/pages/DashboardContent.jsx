@@ -31,9 +31,11 @@ import SendMoney from "../components/SendMoney";
 import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
+import { fetchLoggedInUser } from "../api/userApi";
 
 const DashboardContent = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [user, setUser] = useState(null); // State for logged-in user
   const [products, setProducts] = useState([]);
   const [payments, setPayments] = useState([]);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
@@ -56,7 +58,17 @@ const DashboardContent = () => {
       }
     };
 
+    const fetchUser = async () => {
+      try {
+        const userData = await fetchLoggedInUser();
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
     fetchData();
+    fetchUser();
   }, []);
 
   const handleClick = (event) => {
@@ -112,7 +124,7 @@ const DashboardContent = () => {
           >
             <Box>
               <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-                Welcome Travis
+                Welcome {user ? user.fullName : "Loading..."}
               </Typography>
               <Typography variant="body1" sx={{ color: "rgba(0, 0, 0, 0.7)" }}>
                 Good morning, have a great day!
