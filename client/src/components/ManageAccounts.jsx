@@ -48,7 +48,7 @@ const ManageAccounts = () => {
 
     default:
       return (
-        <Container>
+        <Box>
           <Box
             sx={{
               display: "flex",
@@ -108,24 +108,26 @@ const ManageAccounts = () => {
               </MenuItem>
             </Menu>
           </Box>
-          <Typography variant="h6" gutterBottom>
-            Manage User Accounts
-          </Typography>
-          <UserDropdown onSelect={setSelectedUserId} />
-          {selectedUserId && <AccountForm userId={selectedUserId} />}
-          {/* Go Back Button */}
-          <Button
-            startIcon={<ArrowBackIcon />}
-            onClick={handleGoBack}
-            sx={{
-              alignSelf: "flex-start",
-              marginBottom: "20px",
-              textTransform: "none",
-            }}
-          >
-            Go Back
-          </Button>
-        </Container>
+          <Container>
+            <Typography variant="h6" gutterBottom>
+              Manage User Accounts
+            </Typography>
+            <UserDropdown onSelect={setSelectedUserId} />
+            {selectedUserId && <AccountForm userId={selectedUserId} />}
+            {/* Go Back Button */}
+            <Button
+              startIcon={<ArrowBackIcon />}
+              onClick={handleGoBack}
+              sx={{
+                alignSelf: "flex-start",
+                marginBottom: "20px",
+                textTransform: "none",
+              }}
+            >
+              Go Back
+            </Button>
+          </Container>
+        </Box>
       );
   }
 };
