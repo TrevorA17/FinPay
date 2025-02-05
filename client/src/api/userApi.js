@@ -3,18 +3,9 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 // Fetch logged in user
-// export const fetchUsers = async () => {
-//   try {
-//     const response = await axios.get(`${API_URL}/all`);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching users", error);
-//     return [];
-//   }
-// };
 export const fetchLoggedInUser = async () => {
   try {
-    const token = localStorage.getItem("token"); // Get auth token from storage
+    const token = localStorage.getItem("authToken"); // Get auth token from storage
 
     const response = await axios.get(`${API_URL}/user/profile`, {
       headers: { Authorization: `Bearer ${token}` }, // Send token for authentication
