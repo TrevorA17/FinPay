@@ -86,7 +86,7 @@ const Register = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100%", // Full viewport height
+        height: "100vh", // Full viewport height
         backgroundColor: "#e0e0e0", // Light background for contrast
       }}
     >
