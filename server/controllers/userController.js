@@ -1,12 +1,31 @@
 const User = require("../models/User"); // Import User model
 
-//Get all users
-const getAllUsers = async (req, res) => {
+//Get user's details
+// const getAllUsers = async (req, res) => {
+//   try {
+//     const users = await User.find({});
+//     res.status(200).json(users);
+//   } catch (error) {
+//     res.status(500).json({ message: "Error fetching users", error });
+//   }
+// };
+const getUserDetails = async (req, res) => {
   try {
-    const users = await User.find({});
-    res.status(200).json(users);
+    const userId = req.user.id; // Get logged-in user ID from request
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is missing" });
+    }
+
+    const user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(user);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching users", error });
+    res.status(500).json({ message: "Error fetching user details", error });
   }
 };
 
@@ -87,6 +106,6 @@ const getUserAccounts = async (req, res) => {
 module.exports = {
   addUserAccount,
   updateUserAccount,
-  getAllUsers,
+  getUserDetails,
   getUserAccounts,
 };
