@@ -1,35 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { fetchUsers } from "../api/userApi";
+import { fetchLoggedInUser } from "../api/userApi";
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const UserDropdown = ({ onSelect }) => {
-  const [users, setUsers] = useState([]);
-  const [selectedUser, setSelectedUser] = useState("");
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const loadUsers = async () => {
-      const userData = await fetchUsers();
-      setUsers(userData);
+    const loadUser = async () => {
+      const userData = await fetchLoggedInUser();
+      if (userData) {
+        setUser(userData);
+        onSelect(userData._id); // Automatically select the logged-in user
+      }
     };
 
-    loadUsers();
-  }, []);
-
-  const handleChange = (event) => {
-    const userId = event.target.value;
-    setSelectedUser(userId);
-    onSelect(userId); // Pass selected user ID to parent
-  };
+    loadUser();
+  }, [onSelect]);
 
   return (
     <FormControl fullWidth>
-      <InputLabel>Select User</InputLabel>
-      <Select value={selectedUser} onChange={handleChange}>
-        {users.map((user) => (
+      <InputLabel>User</InputLabel>
+      <Select value={user ? user._id : ""} disabled>
+        {user && (
           <MenuItem key={user._id} value={user._id}>
             {user.fullName} ({user.email})
           </MenuItem>
-        ))}
+        )}
       </Select>
     </FormControl>
   );
