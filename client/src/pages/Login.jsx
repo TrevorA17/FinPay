@@ -10,6 +10,7 @@ import {
   Container,
   Box,
   Paper,
+  Alert,
 } from "@mui/material";
 
 const Login = () => {
@@ -34,6 +35,7 @@ const Login = () => {
 
       if (response.status === 200) {
         setOtpSent(true); // Move to OTP verification step
+        setError(""); // Clear any previous errors
       }
     } catch (err) {
       setError(
@@ -100,14 +102,24 @@ const Login = () => {
             {otpSent ? "Verify OTP" : "Login to Your Account"}
           </Typography>
 
+          {/* Error Alert */}
           {error && (
-            <Typography
-              variant="body2"
-              color="error"
-              sx={{ marginBottom: 2, textAlign: "center" }}
+            <Alert
+              severity="error"
+              sx={{ width: "100%", marginBottom: 2, textAlign: "center" }}
             >
               {error}
-            </Typography>
+            </Alert>
+          )}
+
+          {/* OTP Sent Alert */}
+          {otpSent && (
+            <Alert
+              severity="success"
+              sx={{ width: "100%", marginBottom: 2, textAlign: "center" }}
+            >
+              OTP sent to your email. Please enter it below.
+            </Alert>
           )}
 
           {!otpSent ? (

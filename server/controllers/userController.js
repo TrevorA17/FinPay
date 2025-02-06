@@ -87,7 +87,7 @@ const getUserAccounts = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    // console.log("Sending user accounts:", user.userAccounts); //  Debug log
+    console.log("Sending user accounts:", user.userAccounts); //  Debug log
 
     res.status(200).json(user.userAccounts); // Return user's accounts
   } catch (error) {
