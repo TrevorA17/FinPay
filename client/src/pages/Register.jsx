@@ -7,6 +7,8 @@ import {
   Container,
   Box,
   Paper,
+  Alert,
+  Snackbar,
 } from "@mui/material";
 
 const API_URL = import.meta.env.VITE_API_URL; // Use the API URL from .env
@@ -19,16 +21,23 @@ const Register = () => {
     password: "",
     confirmPassword: "",
   });
-  const [otp, setOtp] = useState(""); // For OTP input
-  const [otpSent, setOtpSent] = useState(false); // Track if OTP has been sent
-  const [isVerified, setIsVerified] = useState(false); // Track OTP verification
+  const [otp, setOtp] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+  const [alert, setAlert] = useState({ message: "", severity: "success" });
+  const [openSnackbar, setOpenSnackbar] = useState(false);
   const navigate = useNavigate();
+
+  const showAlert = (message, severity) => {
+    setAlert({ message, severity });
+    setOpenSnackbar(true);
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     if (credentials.password !== credentials.confirmPassword) {
-      alert("Passwords do not match");
+      showAlert("Passwords do not match", "error");
       return;
     }
 
@@ -41,13 +50,13 @@ const Register = () => {
 
       const data = await response.json();
       if (response.ok) {
-        setOtpSent(true); // OTP sent successfully
-        alert(data.message);
+        setOtpSent(true);
+        showAlert(data.message, "success");
       } else {
-        alert(data.message || "Registration failed");
+        showAlert(data.message || "Registration failed", "error");
       }
     } catch (error) {
-      alert("An error occurred. Please try again.");
+      showAlert("An error occurred. Please try again.", "error");
     }
   };
 
@@ -62,21 +71,21 @@ const Register = () => {
           email: credentials.email,
           otp,
           password: credentials.password,
-          fullName: credentials.fullName, // Include fullName
-          phone: credentials.phone, // Include phone
+          fullName: credentials.fullName,
+          phone: credentials.phone,
         }),
       });
 
       const data = await response.json();
       if (response.ok) {
-        setIsVerified(true); // OTP is valid, proceed with registration
-        alert(data.message);
+        setIsVerified(true);
+        showAlert(data.message, "success");
         navigate("/login");
       } else {
-        alert(data.message || "OTP verification failed");
+        showAlert(data.message || "OTP verification failed", "error");
       }
     } catch (error) {
-      alert("An error occurred while verifying OTP.");
+      showAlert("An error occurred while verifying OTP.", "error");
     }
   };
 
@@ -86,8 +95,8 @@ const Register = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "100vh", // Full viewport height
-        backgroundColor: "#e0e0e0", // Light background for contrast
+        height: "100vh",
+        backgroundColor: "#e0e0e0",
       }}
     >
       <Container component="main" maxWidth="xs">
@@ -100,12 +109,29 @@ const Register = () => {
             alignItems: "center",
             backgroundColor: "#f5f5f5",
             borderRadius: 3,
-            height: otpSent ? "400px" : "550px", // Adjust height based on OTP state
+            height: otpSent ? "400px" : "550px",
           }}
         >
           <Typography variant="h5" component="h1" gutterBottom>
             Create Your Account
           </Typography>
+
+          {/* MUI Alert Snackbar */}
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }}
+          >
+            <Alert
+              onClose={() => setOpenSnackbar(false)}
+              severity={alert.severity}
+              variant="filled"
+              sx={{ width: "100%" }}
+            >
+              {alert.message}
+            </Alert>
+          </Snackbar>
 
           {!otpSent ? (
             <form onSubmit={handleRegister} style={{ width: "100%" }}>

@@ -19,6 +19,7 @@ import Beneficiaries from "./pages/Beneficiaries";
 import Security from "./pages/Security";
 import Identification from "./pages/Identification";
 import ManageAccounts from "./components/ManageAccounts";
+import Sidebar from "./components/Sidebar";
 
 const App = () => {
   const dispatch = useDispatch();
