@@ -3,7 +3,7 @@ const Customer = require("../models/Customer");
 // Add a new customer
 const addCustomer = async (req, res) => {
   try {
-    const { name, email, phone } = req.body;
+    const { name, email, phone, billingAddress } = req.body;
 
     if (!name || !email || !phone) {
       return res.status(400).json({ message: "All fields are required" });
@@ -14,6 +14,7 @@ const addCustomer = async (req, res) => {
       name,
       email,
       phone,
+      billingAddress,
     });
 
     await newCustomer.save();
