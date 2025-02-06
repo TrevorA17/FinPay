@@ -8,9 +8,9 @@ const {
 const authenticateToken = require("../middlewares/authenticateToken"); // Ensure user is logged in
 
 // Route to add a customer
-router.post("/add", authenticateToken, addCustomer);
+router.post("/", authenticateToken, addCustomer);
 
 // Route to fetch all customers for the logged-in user
-router.get("/all", authenticateToken, getCustomers);
+router.get("/", authenticateToken, getCustomers);
 
 module.exports = router;
