@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import {
   Avatar,
@@ -24,8 +24,10 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import WarningIcon from "@mui/icons-material/Warning";
+import { fetchLoggedInUser } from "../api/userApi";
 
 const Sidebar = () => {
+  const [user, setUser] = useState({ fullName: "", email: "" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,6 +54,15 @@ const Sidebar = () => {
     },
     { text: "Manage Accounts", icon: <WarningIcon />, path: "/accounts" },
   ];
+
+  useEffect(() => {
+    const getUser = async () => {
+      const userData = await fetchLoggedInUser();
+      if (userData) setUser(userData);
+    };
+
+    getUser();
+  }, []);
 
   // Handle button click to update selected item
   const handleListItemClick = (index) => {
@@ -185,10 +196,10 @@ const Sidebar = () => {
             />
             <Box>
               <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-                Travis Scott
+                {user.fullName || "Loading..."}
               </Typography>
               <Typography variant="body2" color="rgba(255, 255, 255, 0.8)">
-                olivia@untitledui.com
+                {user.email || "Loading..."}
               </Typography>
             </Box>
           </Box>
