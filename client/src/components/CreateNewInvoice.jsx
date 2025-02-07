@@ -20,11 +20,18 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import SendMoney from "./SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import FundWallet from "./FundWallet";
+import CustomerDropdown from "./CustomerDropdown";
 
 const CreateInvoice = () => {
   const navigate = useNavigate(); // Initialize navigate function
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
+  const [selectedCustomer, setSelectedCustomer] = useState("");
+
+  const handleCustomerSelect = (customerId) => {
+    console.log("Selected Customer ID:", customerId);
+    setSelectedCustomer(customerId);
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -167,7 +174,11 @@ const CreateInvoice = () => {
                     borderRadius: "50%",
                   }}
                 />
-                <Typography>John Doe</Typography>
+                <div>
+                  <h2>Select a Customer</h2>
+                  <CustomerDropdown onSelect={handleCustomerSelect} />
+                  <p>Selected Customer ID: {selectedCustomer}</p>
+                </div>
               </Box>
             </Box>
 
