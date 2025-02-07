@@ -179,7 +179,7 @@ const Invoices = () => {
             <TableHead>
               <TableRow>
                 <TableCell>Invoice ID</TableCell>
-                <TableCell>Customer</TableCell>
+                <TableCell>Customer ID</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Due Date</TableCell>
@@ -190,7 +190,7 @@ const Invoices = () => {
               {filteredInvoices.map((invoice) => (
                 <TableRow key={invoice._id}>
                   <TableCell>{invoice._id}</TableCell>
-                  <TableCell>{invoice.customerId?.name || "Unknown"}</TableCell>
+                  <TableCell>{invoice.customerId?._id || "Unknown"}</TableCell>
                   <TableCell>${invoice.amount}</TableCell>
                   <TableCell>{invoice.status}</TableCell>
                   <TableCell>
