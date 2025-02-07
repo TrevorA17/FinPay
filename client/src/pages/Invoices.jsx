@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Box,
   Typography,
   Button,
-  TextField,
   Menu,
   MenuItem,
   ListItemIcon,
@@ -15,74 +14,68 @@ import {
   TableHead,
   TableRow,
   Paper,
+  TextField,
 } from "@mui/material";
-import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
-import { useSelector } from "react-redux";
-
-const API_URL = import.meta.env.VITE_API_URL; // Ensure this is set in your .env file
+import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 
 const Invoices = () => {
   const [invoices, setInvoices] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [filteredInvoices, setFilteredInvoices] = useState([]);
+  const [loading, setLoading] = useState(true); // Ensure this is set to true initially
+  const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const token = useSelector((state) => state.auth.token); // Get user token
-
-  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
+    const fetchInvoices = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          console.error("No token found in localStorage");
+          setError("Unauthorized: No token found");
+          setLoading(false);
+          return;
+        }
+
+        console.log("Fetching invoices with token:", token);
+
+        const response = await axios.get("http://localhost:5000/api/invoices", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        console.log("Invoices fetched successfully:", response.data);
+
+        setInvoices(response.data);
+        setFilteredInvoices(response.data);
+        setLoading(false); // Stop loading after successful fetch
+      } catch (error) {
+        console.error(
+          "Error fetching invoices:",
+          error.response?.data || error.message
+        );
+        setError(error.response?.data?.message || "Failed to load invoices");
+        setLoading(false); // Stop loading on error
+      }
+    };
+
     fetchInvoices();
   }, []);
 
-  // Fetch invoices from backend
-  const fetchInvoices = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/invoices`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      setInvoices(response.data);
-      setLoading(false);
-    } catch (error) {
-      setError("Failed to load invoices");
-      setLoading(false);
-    }
-  };
-
-  // Mark an invoice as paid
-  const markAsPaid = async (invoiceId) => {
-    try {
-      await axios.put(
-        `${API_URL}/invoices/${invoiceId}/pay`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
+  // Filtering function
+  useEffect(() => {
+    if (searchQuery.trim() === "") {
+      setFilteredInvoices(invoices);
+    } else {
+      const filtered = invoices.filter((invoice) =>
+        invoice.customerId?.name
+          ?.toLowerCase()
+          .includes(searchQuery.toLowerCase())
       );
-
-      // Update UI immediately
-      setInvoices((prevInvoices) =>
-        prevInvoices.map((invoice) =>
-          invoice._id === invoiceId ? { ...invoice, status: "paid" } : invoice
-        )
-      );
-    } catch (error) {
-      setError("Failed to update invoice");
+      setFilteredInvoices(filtered);
     }
-  };
-
-  // Handle search filter
-  const filteredInvoices = invoices.filter((invoice) =>
-    invoice.customerId?.name?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  }, [searchQuery, invoices]);
 
   return (
     <Box>
@@ -105,7 +98,6 @@ const Invoices = () => {
         </Typography>
         <Button
           variant="contained"
-          onClick={handleClick}
           startIcon={<ArrowDropDownIcon />}
           sx={{
             backgroundColor: "#fff",
@@ -117,37 +109,6 @@ const Invoices = () => {
         >
           Quick Actions
         </Button>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          sx={{ mt: "-45px" }}
-        >
-          <MenuItem>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Send Money
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <DescriptionOutlinedIcon fontSize="small" />
-            </ListItemIcon>
-            Fund Wallet
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Convert Funds
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <DashboardIcon fontSize="small" />
-            </ListItemIcon>
-            Create New Invoice
-          </MenuItem>
-        </Menu>
       </Box>
 
       {/* Search Bar */}
@@ -191,7 +152,7 @@ const Invoices = () => {
       {loading && <Typography>Loading...</Typography>}
       {error && <Typography color="error">{error}</Typography>}
 
-      {filteredInvoices.length === 0 ? (
+      {!loading && filteredInvoices.length === 0 ? (
         <Box sx={{ textAlign: "center", padding: "50px" }}>
           <SentimentDissatisfiedIcon
             sx={{ fontSize: "48px", color: "#ccc", marginBottom: "10px" }}
@@ -237,11 +198,7 @@ const Invoices = () => {
                   </TableCell>
                   <TableCell>
                     {invoice.status === "pending" ? (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => markAsPaid(invoice._id)}
-                      >
+                      <Button variant="contained" color="primary">
                         Mark as Paid
                       </Button>
                     ) : (
