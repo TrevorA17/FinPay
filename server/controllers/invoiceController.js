@@ -40,7 +40,7 @@ const getInvoices = async (req, res) => {
     );
     res.status(200).json(invoices);
   } catch (error) {
-    console.error(error);
+    console.error("Error fetching invoices:", error);
     res.status(500).json({ message: "Error fetching invoices" });
   }
 };
