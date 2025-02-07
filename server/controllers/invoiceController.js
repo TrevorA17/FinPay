@@ -33,4 +33,16 @@ const createInvoice = async (req, res) => {
   }
 };
 
-module.exports = { createInvoice };
+const getInvoices = async (req, res) => {
+  try {
+    const invoices = await Invoice.find({ userId: req.user.id }).populate(
+      "customerId"
+    );
+    res.status(200).json(invoices);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching invoices" });
+  }
+};
+
+module.exports = { createInvoice, getInvoices };
