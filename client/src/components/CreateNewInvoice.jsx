@@ -155,7 +155,7 @@ const CreateInvoice = () => {
                 variant="subtitle1"
                 sx={{ mb: 2, fontWeight: "bold" }}
               >
-                Customer's Name
+                Select Customer
               </Typography>
               <Divider sx={{ my: 2 }} />
               <Box
@@ -175,7 +175,6 @@ const CreateInvoice = () => {
                   }}
                 />
                 <div>
-                  <h2>Select a Customer</h2>
                   <CustomerDropdown onSelect={handleCustomerSelect} />
                   <p>Selected Customer ID: {selectedCustomer}</p>
                 </div>
