@@ -35,9 +35,7 @@ const createInvoice = async (req, res) => {
 
 const getInvoices = async (req, res) => {
   try {
-    const invoices = await Invoice.find({ userId: req.user.id }).populate(
-      "customerId"
-    );
+    const invoices = await Invoice.find({ userId: req.user.id });
     res.status(200).json(invoices);
   } catch (error) {
     console.error("Error fetching invoices:", error);

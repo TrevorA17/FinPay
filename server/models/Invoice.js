@@ -12,6 +12,7 @@ const InvoiceSchema = new mongoose.Schema(
       ref: "Customer",
       required: true,
     },
+
     amount: { type: Number, required: true },
     status: { type: String, enum: ["pending", "paid"], default: "pending" },
     issueDate: { type: Date, default: Date.now }, // Default to now
