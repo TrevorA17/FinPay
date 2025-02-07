@@ -31,12 +31,12 @@ const CustomerDropdown = ({ onSelect }) => {
   };
 
   return (
-    <FormControl fullWidth>
+    <FormControl sx={{ width: "200%" }}>
       <InputLabel>Customer</InputLabel>
       <Select value={selectedCustomer} onChange={handleChange}>
         {customers.map((customer) => (
           <MenuItem key={customer._id} value={customer._id}>
-            {customer.fullName} ({customer.email})
+            {customer.name} ({customer.email})
           </MenuItem>
         ))}
       </Select>
