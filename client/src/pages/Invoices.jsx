@@ -180,6 +180,7 @@ const Invoices = () => {
               <TableRow>
                 <TableCell>Invoice ID</TableCell>
                 <TableCell>Customer ID</TableCell>
+                <TableCell>Customer Name</TableCell>
                 <TableCell>Amount</TableCell>
                 <TableCell>Status</TableCell>
                 <TableCell>Due Date</TableCell>
@@ -191,6 +192,7 @@ const Invoices = () => {
                 <TableRow key={invoice._id}>
                   <TableCell>{invoice._id}</TableCell>
                   <TableCell>{invoice.customerId || "Null"}</TableCell>
+                  <TableCell>{invoice.customerId?.name || "Null"}</TableCell>
                   <TableCell>${invoice.amount}</TableCell>
                   <TableCell>{invoice.status}</TableCell>
                   <TableCell>
