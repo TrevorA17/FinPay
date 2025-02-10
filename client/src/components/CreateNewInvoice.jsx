@@ -135,10 +135,10 @@ const CreateInvoice = () => {
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              New Invoice
+              Create New Invoice
             </Typography>
             <Button
-              variant="contained"
+              variant="outlined"
               onClick={(e) => setAnchorEl(e.currentTarget)}
               startIcon={<ArrowDropDownIcon />}
             >
