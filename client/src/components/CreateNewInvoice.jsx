@@ -77,7 +77,7 @@ const CreateInvoice = () => {
     const parsedQuantity = parseInt(quantity);
     const parsedUnitPrice = parseFloat(unitPrice);
     const total = parsedQuantity * parsedUnitPrice;
-    const vatAmount = includeVAT ? total * 0.15 : 0;
+    const vatAmount = includeVAT ? total * 0.16 : 0;
 
     try {
       await axios.post(
