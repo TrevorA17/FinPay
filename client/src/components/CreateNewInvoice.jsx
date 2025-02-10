@@ -199,13 +199,7 @@ const CreateInvoice = () => {
           <Typography variant="h6" sx={{ fontWeight: "bold" }}>
             Invoice Information
           </Typography>
-          <Divider sx={{ my: 2 }} />
-          <TextField
-            fullWidth
-            label="Currency"
-            variant="outlined"
-            value={currency}
-          />
+          <Divider sx={{ my: 1 }} />
           <TextField
             fullWidth
             type="date"
