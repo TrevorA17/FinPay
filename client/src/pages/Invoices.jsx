@@ -25,7 +25,6 @@ import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
-import { fetchLoggedInUser } from "../api/userApi";
 import CreateCustomer from "./../components/CreateNewCustomer";
 
 const Invoices = () => {
