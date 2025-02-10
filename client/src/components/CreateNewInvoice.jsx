@@ -129,9 +129,9 @@ const CreateInvoice = () => {
               display: "flex",
               justifyContent: "space-between",
               backgroundColor: "#fff",
-              padding: "40px",
+              padding: "38px",
               marginBottom: "20px",
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
             }}
           >
             <Typography variant="h4" sx={{ fontWeight: "bold" }}>
