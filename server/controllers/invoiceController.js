@@ -1,5 +1,6 @@
 const Invoice = require("../models/Invoice");
 
+// Create Invoice
 const createInvoice = async (req, res) => {
   try {
     const { customerId, dueDate, invoiceItems } = req.body;
@@ -33,6 +34,7 @@ const createInvoice = async (req, res) => {
   }
 };
 
+//Fetch Invoices
 const getInvoices = async (req, res) => {
   try {
     const invoices = await Invoice.find({ userId: req.user.id });
