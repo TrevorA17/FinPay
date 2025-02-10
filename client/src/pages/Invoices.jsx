@@ -119,7 +119,7 @@ const Invoices = () => {
               backgroundColor: "#fff",
               padding: "35px",
               borderRadius: "0px",
-              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0, 0.0)",
+              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "30px",
               marginLeft: "-5px",
             }}
