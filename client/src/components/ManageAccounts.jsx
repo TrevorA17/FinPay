@@ -5,9 +5,9 @@ import { Container, Typography } from "@mui/material";
 import { Box, Button, Menu, MenuItem, ListItemIcon } from "@mui/material";
 
 import SendMoney from "../components/SendMoney";
-import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
+import CreateNewCustomer from "./CreateNewCustomer";
 
 import { useNavigate } from "react-router-dom";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
@@ -39,8 +39,8 @@ const ManageAccounts = () => {
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateNewCustomer />;
     case "Convert Funds":
       return <ConvertFunds />;
     case "Create Invoice":

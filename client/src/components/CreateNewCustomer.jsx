@@ -15,7 +15,7 @@ import SendMoney from "./SendMoney";
 import ConvertFunds from "./ConvertFunds";
 import CreateInvoice from "./CreateNewInvoice";
 
-const CreateNewCustomer = () => {
+const CreateCustomer = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [activePage, setActivePage] = useState(null); // Declare activePage state
@@ -132,4 +132,4 @@ const CreateNewCustomer = () => {
   }
 };
 
-export default CreateNewCustomer;
+export default CreateCustomer;

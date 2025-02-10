@@ -13,9 +13,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 
 //Importing dynamic components for QuickActions Menu
 import SendMoney from "../components/SendMoney";
-import FundWallet from "../components/FundWallet";
+import CreateNewCustomer from "../components/CreateNewCustomer";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
+import CreateNewCustomer from "./../components/CreateNewCustomer";
 
 const CardsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -39,8 +40,8 @@ const CardsPage = () => {
       return <SendMoney />;
     case "Convert Funds":
       return <ConvertFunds />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateNewCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
 
