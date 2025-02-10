@@ -7,7 +7,7 @@ const {
 const authenticateToken = require("../middlewares/authenticateToken");
 const { getCustomers } = require("../controllers/customerController");
 
-router.post("/create", authenticateToken, createInvoice);
+router.post("/", authenticateToken, createInvoice);
 router.get("/", authenticateToken, getInvoices);
 
 module.exports = router;

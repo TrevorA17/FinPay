@@ -31,7 +31,7 @@ const CustomerDropdown = ({ onSelect }) => {
   };
 
   return (
-    <FormControl sx={{ width: "200%" }}>
+    <FormControl sx={{ width: "100%" }}>
       <InputLabel>Customer</InputLabel>
       <Select value={selectedCustomer} onChange={handleChange}>
         {customers.map((customer) => (
