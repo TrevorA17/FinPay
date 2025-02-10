@@ -12,10 +12,10 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 
 //Importing dynamic components for QuickActions Menu
 import SendMoney from "./SendMoney";
-import ConvertFunds from "../components/ConvertFunds";
-import CreateInvoice from "../components/CreateNewInvoice";
+import ConvertFunds from "./ConvertFunds";
+import CreateInvoice from "./CreateNewInvoice";
 
-const FundWallet = () => {
+const CreateNewCustomer = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const [activePage, setActivePage] = useState(null); // Declare activePage state
@@ -132,4 +132,4 @@ const FundWallet = () => {
   }
 };
 
-export default FundWallet;
+export default CreateNewCustomer;

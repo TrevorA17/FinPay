@@ -19,7 +19,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
 import SendMoney from "./SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
-import FundWallet from "./FundWallet";
+import FundWallet from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
 
 const CreateInvoice = () => {
@@ -173,11 +173,6 @@ const CreateInvoice = () => {
               </MenuItem>
             </Menu>
           </Box>
-
-          {/* Page Switching */}
-          {activePage === "Send Money" && <SendMoney />}
-          {activePage === "Fund Wallet" && <FundWallet />}
-          {activePage === "Convert Funds" && <ConvertFunds />}
 
           {/* Invoice Form */}
           <Box

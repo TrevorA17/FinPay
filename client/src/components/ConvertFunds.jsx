@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 // Import other components for Quick Actions menu
 import SendMoney from "./SendMoney";
-import FundWallet from "./FundWallet";
+import CreateNewCustomer from "./CreateNewCustomer";
 import CreateInvoice from "./CreateNewInvoice";
 
 const ConvertFunds = () => {
@@ -81,8 +81,8 @@ const ConvertFunds = () => {
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateNewCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
     default:

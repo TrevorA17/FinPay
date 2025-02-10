@@ -15,7 +15,7 @@ import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Importing dynamic components for QuickActions Menu
-import FundWallet from "./FundWallet";
+import FundWallet from "./CreateNewCustomer";
 import ConvertFunds from "./ConvertFunds";
 import CreateInvoice from "./CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
