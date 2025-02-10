@@ -48,6 +48,9 @@ const CreateInvoice = () => {
   const handleTopBarClose = () => {
     setAnchorEl(null);
   };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const handleCreateInvoice = async () => {
     setError("");
@@ -126,7 +129,7 @@ const CreateInvoice = () => {
               display: "flex",
               justifyContent: "space-between",
               backgroundColor: "#fff",
-              padding: "20px",
+              padding: "40px",
               marginBottom: "20px",
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
             }}
