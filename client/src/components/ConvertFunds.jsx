@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 // Import other components for Quick Actions menu
 import SendMoney from "./SendMoney";
-import CreateNewCustomer from "./CreateNewCustomer";
+import CreateCustomer from "./CreateNewCustomer";
 import CreateInvoice from "./CreateNewInvoice";
 
 const ConvertFunds = () => {
@@ -82,7 +82,7 @@ const ConvertFunds = () => {
     case "Send Money":
       return <SendMoney />;
     case "Create Customer":
-      return <CreateNewCustomer />;
+      return <CreateCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
     default:

@@ -21,7 +21,7 @@ import axios from "axios";
 
 //Importing dynamic components for QuickActions Menu
 import SendMoney from "../components/SendMoney";
-import FundWallet from "../components/FundWallet";
+import CreateCustomer from "../components/CreateNewCustomer";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 
@@ -81,8 +81,8 @@ const Wallets = () => {
       return <SendMoney />;
     case "Convert Funds":
       return <ConvertFunds />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
 
@@ -142,11 +142,11 @@ const Wallets = () => {
                   </ListItemIcon>
                   Send Money
                 </MenuItem>
-                <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+                <MenuItem onClick={() => handleMenuClick("Create Customer")}>
                   <ListItemIcon>
                     <DescriptionOutlinedIcon fontSize="small" />
                   </ListItemIcon>
-                  Fund Wallet
+                  Create Customer
                 </MenuItem>
                 <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
                   <ListItemIcon>
