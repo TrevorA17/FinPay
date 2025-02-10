@@ -15,7 +15,7 @@ import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // Importing dynamic components for QuickActions Menu
-import FundWallet from "./CreateNewCustomer";
+import CreateNewCustomer from "./CreateNewCustomer";
 import ConvertFunds from "./ConvertFunds";
 import CreateInvoice from "./CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
@@ -49,8 +49,8 @@ const SendMoney = () => {
   switch (activePage) {
     case "Convert Funds":
       return <ConvertFunds />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateNewCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
     default:
@@ -98,11 +98,11 @@ const SendMoney = () => {
                 onClose={handleClose}
                 sx={{ mt: "-45px" }}
               >
-                <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+                <MenuItem onClick={() => handleMenuClick("Create Customer")}>
                   <ListItemIcon>
                     <DashboardIcon fontSize="small" />
                   </ListItemIcon>
-                  Fund Wallet
+                  Create Customer
                 </MenuItem>
                 <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
                   <ListItemIcon>
