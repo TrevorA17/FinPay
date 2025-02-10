@@ -88,11 +88,11 @@ const ManageAccounts = () => {
                 </ListItemIcon>
                 Send Money
               </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
                 <ListItemIcon>
                   <DashboardIcon fontSize="small" />
                 </ListItemIcon>
-                Fund Wallet
+                Create Customer
               </MenuItem>
               <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
                 <ListItemIcon>
