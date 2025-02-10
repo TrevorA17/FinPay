@@ -19,7 +19,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
 import SendMoney from "./SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
-import CreateNewCustomer from "./CreateNewCustomer";
+import CreateCustomer from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
 
 const CreateInvoice = () => {
@@ -114,7 +114,7 @@ const CreateInvoice = () => {
     case "Send Money":
       return <SendMoney />;
     case "Create Customer":
-      return <CreateNewCustomer />;
+      return <CreateCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
     default:
@@ -153,11 +153,11 @@ const CreateInvoice = () => {
                 </ListItemIcon>
                 Send Money
               </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
                 <ListItemIcon>
                   <DashboardIcon fontSize="small" />
                 </ListItemIcon>
-                Fund Wallet
+                Create Customer
               </MenuItem>
               <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
                 <ListItemIcon>

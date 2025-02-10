@@ -15,9 +15,9 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import { useNavigate } from "react-router-dom";
 
 import SendMoney from "../components/SendMoney";
-import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
+import CreateCustomer from "./../components/CreateNewCustomer";
 
 const Identification = () => {
   const navigate = useNavigate();
@@ -43,8 +43,8 @@ const Identification = () => {
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateCustomer />;
     case "Convert Funds":
       return <ConvertFunds />;
     case "Create Invoice":
@@ -91,11 +91,11 @@ const Identification = () => {
                 </ListItemIcon>
                 Send Money
               </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
                 <ListItemIcon>
                   <DashboardIcon fontSize="small" />
                 </ListItemIcon>
-                Fund Wallet
+                Create Customer
               </MenuItem>
               <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
                 <ListItemIcon>

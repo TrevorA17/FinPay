@@ -13,10 +13,10 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 
 import SendMoney from "../components/SendMoney";
-import FundWallet from "../components/FundWallet";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 import { useNavigate } from "react-router-dom";
+import CreateCustomer from "./../components/CreateNewCustomer";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -52,8 +52,8 @@ const Profile = () => {
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateCustomer />;
     case "Convert Funds":
       return <ConvertFunds />;
     case "Create Invoice":
@@ -100,11 +100,11 @@ const Profile = () => {
                 </ListItemIcon>
                 Send Money
               </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Fund Wallet")}>
+              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
                 <ListItemIcon>
                   <DashboardIcon fontSize="small" />
                 </ListItemIcon>
-                Fund Wallet
+                Create Customer
               </MenuItem>
               <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
                 <ListItemIcon>
