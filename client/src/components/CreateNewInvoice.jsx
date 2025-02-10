@@ -19,7 +19,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
 import SendMoney from "./SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
-import FundWallet from "./CreateNewCustomer";
+import CreateNewCustomer from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
 
 const CreateInvoice = () => {
@@ -113,8 +113,8 @@ const CreateInvoice = () => {
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
-    case "Fund Wallet":
-      return <FundWallet />;
+    case "Create Customer":
+      return <CreateNewCustomer />;
     case "Create Invoice":
       return <CreateInvoice />;
     default:
