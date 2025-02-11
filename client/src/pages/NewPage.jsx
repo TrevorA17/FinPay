@@ -7,7 +7,7 @@ const CustomerList = () => {
   const [customers, setCustomers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1); // 1-based index
+  const [page, setPage] = useState(1); // index
   const [limit, setLimit] = useState(20); // Default page size
   const [totalCustomers, setTotalCustomers] = useState(0); // Total count from API
 
