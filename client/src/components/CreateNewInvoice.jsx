@@ -14,11 +14,10 @@ import {
   Alert,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
+
 import SendMoney from "./SendMoney";
-import ConvertFunds from "../components/ConvertFunds";
 import CreateCustomer from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
 
@@ -27,7 +26,6 @@ const CreateInvoice = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
   const [selectedCustomer, setSelectedCustomer] = useState("");
-  const [currency, setCurrency] = useState("");
   const [issueDate, setIssueDate] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [itemDescription, setItemDescription] = useState("");

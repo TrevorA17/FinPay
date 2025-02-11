@@ -19,8 +19,7 @@ import Beneficiaries from "./pages/Beneficiaries";
 import Security from "./pages/Security";
 import Identification from "./pages/Identification";
 import ManageAccounts from "./components/ManageAccounts";
-import Sidebar from "./components/Sidebar";
-
+import NewPage from "./pages/NewPage";
 const App = () => {
   const dispatch = useDispatch();
   const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
@@ -55,6 +54,7 @@ const App = () => {
       <Route element={<PublicRouteLayout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/newpage" element={<NewPage />} />
       </Route>
 
       {/* Private Routes (Sidebar with Dashboard, Invoices, etc.) */}

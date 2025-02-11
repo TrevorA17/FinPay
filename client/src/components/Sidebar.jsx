@@ -112,7 +112,7 @@ const Sidebar = () => {
           backgroundColor: "#8833da", // Sidebar color
           color: "#fff", // Default text color
           width: "260px", // Sidebar width
-          height: "230%", // Sidebar height
+          height: "300vh", // Sidebar height
           position: "absolute", // Fixed positioning
           top: "126px", // Position below the header
           left: 0, // Align to the left
