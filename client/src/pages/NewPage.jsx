@@ -25,7 +25,7 @@ const CustomerList = () => {
       );
 
       if (response.data.Status === "SUCCESS") {
-        const total = response.data.totalCount || 100; // Total customer count
+        const total = response.data.totalCount || 30; // Total customer count
 
         const formattedCustomers = response.data.data.map((customer) => ({
           id: customer._id,
