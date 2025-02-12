@@ -98,7 +98,7 @@ const DashboardContent = () => {
         <Box
           sx={{
             padding: "5px",
-            maxWidth: "1000px", //overall width of the page
+            maxWidth: "980px", //overall width of the page
             width: "100%",
             overflowX: "hidden",
             overflowY: "hidden",
