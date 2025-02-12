@@ -22,6 +22,7 @@ import CreateCustomer from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
 
 const CreateInvoice = () => {
+  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
@@ -79,7 +80,7 @@ const CreateInvoice = () => {
 
     try {
       await axios.post(
-        "http://localhost:5000/api/invoices",
+        `${API_URL}/invoices`,
         {
           customerId: selectedCustomer,
           issueDate,

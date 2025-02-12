@@ -27,6 +27,8 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 import CreateCustomer from "./../components/CreateNewCustomer";
 
+const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+
 const Invoices = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -34,7 +36,6 @@ const Invoices = () => {
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [loading, setLoading] = useState(true); // Ensure this is set to true initially
   const [error, setError] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -62,11 +63,11 @@ const Invoices = () => {
 
         console.log("Fetching invoices with token:", token);
 
-        const response = await axios.get("http://localhost:5000/api/invoices", {
+        const response = await axios.get(`${API_URL}/invoices`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("Invoices fetched successfully:", response.data);
+        // console.log("Invoices fetched successfully:", response.data); debugging
 
         setInvoices(response.data);
         setFilteredInvoices(response.data);
@@ -83,20 +84,6 @@ const Invoices = () => {
 
     fetchInvoices();
   }, []);
-
-  // Filtering function
-  useEffect(() => {
-    if (searchQuery.trim() === "") {
-      setFilteredInvoices(invoices);
-    } else {
-      const filtered = invoices.filter((invoice) =>
-        invoice.customerId?.name
-          ?.toLowerCase()
-          .includes(searchQuery.toLowerCase())
-      );
-      setFilteredInvoices(filtered);
-    }
-  }, [searchQuery, invoices]);
 
   switch (activePage) {
     case "Send Money":
@@ -189,8 +176,6 @@ const Invoices = () => {
               fullWidth
               placeholder="Search for an invoice"
               variant="outlined"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
               sx={{ marginRight: "10px" }}
             />
             <Button

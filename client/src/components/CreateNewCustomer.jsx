@@ -20,6 +20,7 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 
 const CreateCustomer = () => {
+  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
   const [anchorEl, setAnchorEl] = useState(null);
   const [loading, setLoading] = useState(false);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
@@ -59,13 +60,9 @@ const CreateCustomer = () => {
 
     try {
       const token = localStorage.getItem("authToken"); // Ensure the user is authenticated
-      const response = await axios.post(
-        "http://localhost:5000/api/customers",
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.post(`${API_URL}/customers`, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
       setSuccess(response.data.message);
       setFormData({ name: "", email: "", phone: "", billingAddress: "" });
