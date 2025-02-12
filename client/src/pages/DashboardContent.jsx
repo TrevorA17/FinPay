@@ -97,13 +97,13 @@ const DashboardContent = () => {
       return (
         <Box
           sx={{
-            width: "100%",
-            overflow: "hidden",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "right",
             padding: "5px",
-            height: "250%",
+            maxWidth: "1000px", //overall width of the page
+            width: "100%",
+            overflowX: "hidden",
+            overflowY: "hidden",
+            boxSizing: "border-box",
+            height: "2000px",
           }}
         >
           {/* Top Bar */}
