@@ -23,7 +23,7 @@ import CreateCustomer from "../components/CreateNewCustomer";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-const SIDEBAR_WIDTH = -20; // Adjust if your sidebar has a different width
+const SIDEBAR_WIDTH = -20;
 
 const Invoices = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -110,7 +110,8 @@ const Invoices = () => {
       sx={{
         marginLeft: `${SIDEBAR_WIDTH}px`, // Respect sidebar width
         padding: "20px",
-        width: `calc(100% - ${SIDEBAR_WIDTH}px)`, // Adjusted to prevent overflow
+        maxWidth: "1008px", // Reduce the overall width of the page
+        width: "100%",
         overflowX: "hidden",
         boxSizing: "border-box",
       }}
@@ -122,13 +123,14 @@ const Invoices = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "30px",
+          padding: "28px", // Reduced padding
           boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
-          marginBottom: "30px",
+          marginBottom: "20px",
           flexWrap: "wrap",
+          maxWidth: "100%",
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
           Invoices
         </Typography>
         <Button
@@ -139,7 +141,8 @@ const Invoices = () => {
             backgroundColor: "#fff",
             color: "#000",
             textTransform: "none",
-            fontSize: "15px",
+            fontSize: "14px",
+            padding: "8px 12px",
           }}
         >
           Quick Actions
@@ -182,18 +185,19 @@ const Invoices = () => {
           display: "flex",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "10px 20px",
+          padding: "10px",
           boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-          marginBottom: "20px",
+          marginBottom: "15px",
           gap: "10px",
           flexWrap: "wrap",
+          maxWidth: "100%",
         }}
       >
         <TextField
           fullWidth
           placeholder="Search for an invoice"
           variant="outlined"
-          sx={{ maxWidth: "80%" }}
+          sx={{ maxWidth: "70%" }} // Reduce width
         />
         <Button
           variant="contained"
@@ -202,7 +206,7 @@ const Invoices = () => {
             backgroundColor: "#000",
             color: "#fff",
             fontWeight: "bold",
-            padding: "10px 20px",
+            padding: "8px 12px", // Reduced padding
             "&:hover": { backgroundColor: "#333" },
             whiteSpace: "nowrap",
           }}
@@ -216,13 +220,13 @@ const Invoices = () => {
       {error && <Typography color="error">{error}</Typography>}
 
       {!loading && filteredInvoices.length === 0 ? (
-        <Box sx={{ textAlign: "center", padding: "50px" }}>
+        <Box sx={{ textAlign: "center", padding: "40px" }}>
           <SentimentDissatisfiedIcon
-            sx={{ fontSize: "48px", color: "#ccc", marginBottom: "10px" }}
+            sx={{ fontSize: "40px", color: "#ccc", marginBottom: "10px" }}
           />
           <Typography
             variant="h6"
-            sx={{ marginBottom: "15px", color: "#555", fontWeight: "bold" }}
+            sx={{ marginBottom: "10px", color: "#555", fontWeight: "bold" }}
           >
             No invoices found
           </Typography>
@@ -232,7 +236,8 @@ const Invoices = () => {
           sx={{
             height: 400,
             width: "100%",
-            overflowX: "auto", // Ensures it doesn’t overflow
+            overflowX: "auto",
+            maxWidth: "100%",
           }}
         >
           <DataGrid
