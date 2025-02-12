@@ -129,8 +129,8 @@ const Invoices = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "35px",
-          boxShadow: "0 0.5px 0.5px rgba(0, 0, 0, 0.0)",
+          padding: "38px",
+          boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
           marginBottom: "30px",
         }}
       >
