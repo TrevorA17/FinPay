@@ -7,15 +7,10 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
   Paper,
   TextField,
 } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -33,21 +28,15 @@ const Invoices = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [invoices, setInvoices] = useState([]);
   const [filteredInvoices, setFilteredInvoices] = useState([]);
-  const [activePage, setActivePage] = useState(null); // Declare activePage state
-  const [loading, setLoading] = useState(true); // Ensure this is set to true initially
+  const [activePage, setActivePage] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
+  const handleClose = () => setAnchorEl(null);
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClick = (page) => {
-    setActivePage(page); // Set the active page dynamically
-    handleClose(); // Close the dropdown
+    setActivePage(page);
+    handleClose();
   };
 
   useEffect(() => {
@@ -67,205 +56,201 @@ const Invoices = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        // console.log("Invoices fetched successfully:", response.data); debugging
-
         setInvoices(response.data);
         setFilteredInvoices(response.data);
-        setLoading(false); // Stop loading after successful fetch
+        setLoading(false);
       } catch (error) {
         console.error(
           "Error fetching invoices:",
           error.response?.data || error.message
         );
         setError(error.response?.data?.message || "Failed to load invoices");
-        setLoading(false); // Stop loading on error
+        setLoading(false);
       }
     };
 
     fetchInvoices();
   }, []);
 
-  switch (activePage) {
-    case "Send Money":
-      return <SendMoney />;
-    case "Create Customer":
-      return <CreateCustomer />;
-    case "Convert Funds":
-      return <ConvertFunds />;
-    case "Create Invoice":
-      return <CreateInvoice />;
-    default:
-      return (
-        <Box>
-          {/* Top Bar */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              padding: "35px",
-              borderRadius: "0px",
-              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
-              marginBottom: "30px",
-              marginLeft: "-5px",
-            }}
-          >
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              Invoices
-            </Typography>
-            <Button
-              variant="contained"
-              startIcon={<ArrowDropDownIcon />}
-              onClick={handleClick}
-              sx={{
-                backgroundColor: "#fff",
-                padding: "10px",
-                color: "#000",
-                textTransform: "none",
-                fontSize: "15px",
-              }}
-            >
-              Quick Actions
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={() => handleMenuClick("Send Money")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Send Money
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
-                <ListItemIcon>
-                  <DescriptionOutlinedIcon fontSize="small" />
-                </ListItemIcon>
-                Create Customer
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Convert Funds
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Create Invoice
-              </MenuItem>
-            </Menu>
-          </Box>
-
-          {/* Search Bar */}
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              padding: "10px 20px",
-              borderRadius: "0px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              marginBottom: "20px",
-            }}
-          >
-            <TextField
-              fullWidth
-              placeholder="Search for an invoice"
-              variant="outlined"
-              sx={{ marginRight: "10px" }}
-            />
-            <Button
-              variant="contained"
-              sx={{
-                textTransform: "none",
-                backgroundColor: "#000",
-                color: "#fff",
-                fontWeight: "bold",
-                padding: "20px 20px",
-                "&:hover": {
-                  backgroundColor: "#333",
-                },
-              }}
-            >
-              Filter
-            </Button>
-          </Box>
-
-          {/* Invoice Table */}
-          {loading && <Typography>Loading...</Typography>}
-          {error && <Typography color="error">{error}</Typography>}
-
-          {!loading && filteredInvoices.length === 0 ? (
-            <Box sx={{ textAlign: "center", padding: "50px" }}>
-              <SentimentDissatisfiedIcon
-                sx={{ fontSize: "48px", color: "#ccc", marginBottom: "10px" }}
-              />
-              <Typography
-                variant="h6"
-                sx={{ marginBottom: "15px", color: "#555", fontWeight: "bold" }}
-              >
-                No payments
-              </Typography>
-              <Typography sx={{ marginBottom: "10px", color: "#555" }}>
-                Once you have any payment, the information appears here
-              </Typography>
-              <Button
-                variant="contained"
-                sx={{ backgroundColor: "#007BFF", color: "#fff" }}
-              >
-                New Invoice
-              </Button>
-            </Box>
-          ) : (
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Invoice ID</TableCell>
-                    <TableCell>Customer ID</TableCell>
-                    <TableCell>Customer Name</TableCell>
-                    <TableCell>Amount</TableCell>
-                    <TableCell>Status</TableCell>
-                    <TableCell>Due Date</TableCell>
-                    <TableCell>Actions</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredInvoices.map((invoice) => (
-                    <TableRow key={invoice._id}>
-                      <TableCell>{invoice._id}</TableCell>
-                      <TableCell>{invoice.customerId || "Null"}</TableCell>
-                      <TableCell>
-                        {invoice.customerId?.name || "Null"}
-                      </TableCell>
-                      <TableCell>${invoice.amount}</TableCell>
-                      <TableCell>{invoice.status}</TableCell>
-                      <TableCell>
-                        {new Date(invoice.dueDate).toLocaleDateString()}
-                      </TableCell>
-                      <TableCell>
-                        {invoice.status === "pending" ? (
-                          <Button variant="contained" color="primary">
-                            Mark as Paid
-                          </Button>
-                        ) : (
-                          <Button variant="contained" disabled>
-                            Paid
-                          </Button>
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          )}
-        </Box>
-      );
+  if (activePage) {
+    switch (activePage) {
+      case "Send Money":
+        return <SendMoney />;
+      case "Create Customer":
+        return <CreateCustomer />;
+      case "Convert Funds":
+        return <ConvertFunds />;
+      case "Create Invoice":
+        return <CreateInvoice />;
+      default:
+        break;
+    }
   }
+
+  // DataGrid columns definition
+  const columns = [
+    { field: "_id", headerName: "Invoice ID", width: 200 },
+    { field: "customerId", headerName: "Customer ID", width: 150 },
+    {
+      field: "customerName",
+      headerName: "Customer Name",
+      width: 180,
+    },
+    { field: "amount", headerName: "Amount ($)", width: 120 },
+    { field: "status", headerName: "Status", width: 120 },
+    {
+      field: "dueDate",
+      headerName: "Due Date",
+      width: 150,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 180,
+      renderCell: (params) =>
+        params.row.status === "pending" ? (
+          <Button variant="contained" color="primary">
+            Mark as Paid
+          </Button>
+        ) : (
+          <Button variant="contained" disabled>
+            Paid
+          </Button>
+        ),
+    },
+  ];
+
+  return (
+    <Box>
+      {/* Top Bar */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "#fff",
+          padding: "35px",
+          boxShadow: "0 0.5px 0.5px rgba(0, 0, 0, 0.0)",
+          marginBottom: "30px",
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Invoices
+        </Typography>
+        <Button
+          variant="contained"
+          startIcon={<ArrowDropDownIcon />}
+          onClick={handleClick}
+          sx={{
+            backgroundColor: "#fff",
+            color: "#000",
+            textTransform: "none",
+            fontSize: "15px",
+          }}
+        >
+          Quick Actions
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={() => handleMenuClick("Send Money")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Send Money
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("Create Customer")}>
+            <ListItemIcon>
+              <DescriptionOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            Create Customer
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create Invoice
+          </MenuItem>
+        </Menu>
+      </Box>
+
+      {/* Search Bar */}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          backgroundColor: "#fff",
+          padding: "10px 20px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          marginBottom: "20px",
+        }}
+      >
+        <TextField
+          fullWidth
+          placeholder="Search for an invoice"
+          variant="outlined"
+        />
+        <Button
+          variant="contained"
+          sx={{
+            textTransform: "none",
+            backgroundColor: "#000",
+            color: "#fff",
+            fontWeight: "bold",
+            padding: "10px 20px",
+            "&:hover": { backgroundColor: "#333" },
+          }}
+        >
+          Filter
+        </Button>
+      </Box>
+
+      {/* Invoice Table with DataGrid */}
+      {loading && <Typography>Loading...</Typography>}
+      {error && <Typography color="error">{error}</Typography>}
+
+      {!loading && filteredInvoices.length === 0 ? (
+        <Box sx={{ textAlign: "center", padding: "50px" }}>
+          <SentimentDissatisfiedIcon
+            sx={{ fontSize: "48px", color: "#ccc", marginBottom: "10px" }}
+          />
+          <Typography
+            variant="h6"
+            sx={{ marginBottom: "15px", color: "#555", fontWeight: "bold" }}
+          >
+            No payments
+          </Typography>
+          <Typography sx={{ marginBottom: "10px", color: "#555" }}>
+            Once you have any payment, the information appears here
+          </Typography>
+          <Button
+            variant="contained"
+            sx={{ backgroundColor: "#007BFF", color: "#fff" }}
+          >
+            New Invoice
+          </Button>
+        </Box>
+      ) : (
+        <Paper sx={{ height: 400, width: "100%" }}>
+          <DataGrid
+            rows={filteredInvoices}
+            columns={columns}
+            getRowId={(row) => row._id}
+            pageSize={5}
+            rowsPerPageOptions={[5, 10, 20]}
+          />
+        </Paper>
+      )}
+    </Box>
+  );
 };
+
 export default Invoices;
