@@ -110,7 +110,7 @@ const Invoices = () => {
       sx={{
         marginLeft: `${SIDEBAR_WIDTH}px`, // Respect sidebar width
         padding: "20px",
-        maxWidth: "1008px", // Reduce the overall width of the page
+        maxWidth: "1008px", //overall width of the page
         width: "100%",
         overflowX: "hidden",
         boxSizing: "border-box",
@@ -130,7 +130,7 @@ const Invoices = () => {
           maxWidth: "100%",
         }}
       >
-        <Typography variant="h5" sx={{ fontWeight: "bold" }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
           Invoices
         </Typography>
         <Button
