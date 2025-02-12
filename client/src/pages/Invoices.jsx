@@ -16,13 +16,14 @@ import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 
-// Importing dynamic components for Quick Actions Menu
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
-import CreateCustomer from "./../components/CreateNewCustomer";
+import CreateCustomer from "../components/CreateNewCustomer";
 
-const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+const API_URL = import.meta.env.VITE_API_URL;
+
+const SIDEBAR_WIDTH = -20; // Adjust if your sidebar has a different width
 
 const Invoices = () => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -44,13 +45,10 @@ const Invoices = () => {
       try {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          console.error("No token found in localStorage");
           setError("Unauthorized: No token found");
           setLoading(false);
           return;
         }
-
-        console.log("Fetching invoices with token:", token);
 
         const response = await axios.get(`${API_URL}/invoices`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -60,10 +58,6 @@ const Invoices = () => {
         setFilteredInvoices(response.data);
         setLoading(false);
       } catch (error) {
-        console.error(
-          "Error fetching invoices:",
-          error.response?.data || error.message
-        );
         setError(error.response?.data?.message || "Failed to load invoices");
         setLoading(false);
       }
@@ -87,22 +81,13 @@ const Invoices = () => {
     }
   }
 
-  // DataGrid columns definition
   const columns = [
     { field: "_id", headerName: "Invoice ID", width: 200 },
     { field: "customerId", headerName: "Customer ID", width: 150 },
-    {
-      field: "customerName",
-      headerName: "Customer Name",
-      width: 180,
-    },
+    { field: "customerName", headerName: "Customer Name", width: 180 },
     { field: "amount", headerName: "Amount ($)", width: 120 },
     { field: "status", headerName: "Status", width: 120 },
-    {
-      field: "dueDate",
-      headerName: "Due Date",
-      width: 150,
-    },
+    { field: "dueDate", headerName: "Due Date", width: 150 },
     {
       field: "actions",
       headerName: "Actions",
@@ -121,7 +106,15 @@ const Invoices = () => {
   ];
 
   return (
-    <Box>
+    <Box
+      sx={{
+        marginLeft: `${SIDEBAR_WIDTH}px`, // Respect sidebar width
+        padding: "20px",
+        width: `calc(100% - ${SIDEBAR_WIDTH}px)`, // Adjusted to prevent overflow
+        overflowX: "hidden",
+        boxSizing: "border-box",
+      }}
+    >
       {/* Top Bar */}
       <Box
         sx={{
@@ -129,9 +122,10 @@ const Invoices = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "38px",
+          padding: "30px",
           boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
           marginBottom: "30px",
+          flexWrap: "wrap",
         }}
       >
         <Typography variant="h4" sx={{ fontWeight: "bold" }}>
@@ -158,25 +152,25 @@ const Invoices = () => {
           <MenuItem onClick={() => handleMenuClick("Send Money")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
-            </ListItemIcon>
+            </ListItemIcon>{" "}
             Send Money
           </MenuItem>
           <MenuItem onClick={() => handleMenuClick("Create Customer")}>
             <ListItemIcon>
               <DescriptionOutlinedIcon fontSize="small" />
-            </ListItemIcon>
+            </ListItemIcon>{" "}
             Create Customer
           </MenuItem>
           <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
-            </ListItemIcon>
+            </ListItemIcon>{" "}
             Convert Funds
           </MenuItem>
           <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
-            </ListItemIcon>
+            </ListItemIcon>{" "}
             Create Invoice
           </MenuItem>
         </Menu>
@@ -189,14 +183,17 @@ const Invoices = () => {
           alignItems: "center",
           backgroundColor: "#fff",
           padding: "10px 20px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
           marginBottom: "20px",
+          gap: "10px",
+          flexWrap: "wrap",
         }}
       >
         <TextField
           fullWidth
           placeholder="Search for an invoice"
           variant="outlined"
+          sx={{ maxWidth: "80%" }}
         />
         <Button
           variant="contained"
@@ -207,13 +204,14 @@ const Invoices = () => {
             fontWeight: "bold",
             padding: "10px 20px",
             "&:hover": { backgroundColor: "#333" },
+            whiteSpace: "nowrap",
           }}
         >
           Filter
         </Button>
       </Box>
 
-      {/* Invoice Table with DataGrid */}
+      {/* Invoice Table */}
       {loading && <Typography>Loading...</Typography>}
       {error && <Typography color="error">{error}</Typography>}
 
@@ -226,20 +224,17 @@ const Invoices = () => {
             variant="h6"
             sx={{ marginBottom: "15px", color: "#555", fontWeight: "bold" }}
           >
-            No payments
+            No invoices found
           </Typography>
-          <Typography sx={{ marginBottom: "10px", color: "#555" }}>
-            Once you have any payment, the information appears here
-          </Typography>
-          <Button
-            variant="contained"
-            sx={{ backgroundColor: "#007BFF", color: "#fff" }}
-          >
-            New Invoice
-          </Button>
         </Box>
       ) : (
-        <Paper sx={{ height: 400, width: "100%" }}>
+        <Paper
+          sx={{
+            height: 400,
+            width: "100%",
+            overflowX: "auto", // Ensures it doesn’t overflow
+          }}
+        >
           <DataGrid
             rows={filteredInvoices}
             columns={columns}
