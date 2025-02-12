@@ -138,10 +138,11 @@ const DashboardContent = () => {
                 startIcon={<ArrowDropDownIcon />}
                 sx={{
                   backgroundColor: "#fff",
-                  padding: "10px",
+                  padding: "8px",
                   color: "#000",
                   textTransform: "none",
                   fontSize: "15px",
+                  marginRight: "20px",
                 }}
               >
                 Quick Actions
