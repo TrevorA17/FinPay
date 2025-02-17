@@ -37,17 +37,14 @@ import CreateCustomer from "./../components/CreateNewCustomer";
 const DashboardContent = () => {
   const API_URL = import.meta.env.VITE_API_URL;
   const [filteredInvoices, setFilteredInvoices] = useState([]);
-
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState(null); // State for logged-in user
   const [products, setProducts] = useState([]);
-
   const [payments, setPayments] = useState([]);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [invoices, setInvoices] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-
   const [exchangeRates] = useState([
     { currency: "USD", buying: 750, selling: 760 },
     { currency: "EUR", buying: 820, selling: 830 },
