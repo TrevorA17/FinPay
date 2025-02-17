@@ -47,7 +47,6 @@ const DashboardContent = () => {
   const [invoices, setInvoices] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const token = localStorage.getItem("authToken"); // Get JWT token for authentication
 
   const [exchangeRates] = useState([
     { currency: "USD", buying: 750, selling: 760 },
@@ -399,16 +398,15 @@ const DashboardContent = () => {
           </Paper>
 
           {/* Receive Payments & Invoices */}
-          {/* Receive Payments & Invoices */}
           <Box
             sx={{
               display: "flex",
-              justifyContent: "space-between", // Ensure both components are spaced apart
+              justifyContent: "space-between",
               gap: 2,
               marginTop: "20px",
-              marginBottom: "20px", // Add bottom margin for better spacing
-              paddingLeft: "20px", // Add some left padding to ensure there's space on the sides
-              paddingRight: "20px", // Add some right padding to ensure spacing from the edge
+              marginBottom: "20px",
+              paddingLeft: "20px",
+              paddingRight: "20px",
             }}
           >
             {/* Receive Payments */}
@@ -417,8 +415,7 @@ const DashboardContent = () => {
               sx={{
                 padding: 3,
                 backgroundColor: "#fff",
-                borderRadius: "8px", // Slight rounding for the edges
-                width: "48%", // Adjust width to make it fit side by side
+                width: "48%",
                 marginTop: "15px",
               }}
             >
@@ -454,8 +451,7 @@ const DashboardContent = () => {
               sx={{
                 padding: 2,
                 backgroundColor: "#fff",
-                borderRadius: "8px", // Slight rounding for the edges
-                width: "48%", // Adjust width to make it fit side by side
+                width: "48%",
                 marginTop: "15px",
               }}
             >
