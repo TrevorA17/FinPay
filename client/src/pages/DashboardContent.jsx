@@ -45,6 +45,7 @@ const DashboardContent = () => {
     { currency: "EUR", buying: 820, selling: 830 },
     { currency: "GBP", buying: 910, selling: 920 },
   ]);
+  const [accounts, setAccounts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -55,6 +56,21 @@ const DashboardContent = () => {
         setInvoices(response.data.slice(3, 6)); // Limit to 3 invoices
       } catch (error) {
         console.error("Error fetching data:", error);
+      }
+    };
+
+    const fetchUserAccounts = async () => {
+      try {
+        const userData = await fetchLoggedInUser();
+        setUser(userData);
+
+        // Fetch user accounts by user ID
+        const accountsResponse = await axios.get(
+          `http://localhost:5000/api/user/accounts/${userData._id}`
+        );
+        setAccounts(accountsResponse.data.userAccounts);
+      } catch (error) {
+        console.error("Error fetching user accounts:", error);
       }
     };
 
@@ -69,6 +85,7 @@ const DashboardContent = () => {
 
     fetchData();
     fetchUser();
+    fetchUserAccounts();
   }, []);
 
   const handleClick = (event) => {
@@ -198,7 +215,7 @@ const DashboardContent = () => {
               variant="h6"
               sx={{ fontWeight: "bold", marginBottom: 2 }}
             >
-              Account Balance
+              Accounts
             </Typography>
             <Divider sx={{ marginY: 2 }} />
 
@@ -209,44 +226,49 @@ const DashboardContent = () => {
                 overflowX: "auto",
               }}
             >
-              {products.map((product) => (
-                <Card
-                  key={product.id}
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    padding: 0,
-                    width: "200px",
-                    boxShadow: "0 0px 4px rgba(0, 0, 0.1, 0.1)",
-                    borderRadius: "10px",
-                  }}
-                >
-                  <Avatar
-                    src={product.image}
-                    alt={product.title}
+              {user?.userAccounts && user.userAccounts.length > 0 ? (
+                user.userAccounts.map((account, index) => (
+                  <Card
+                    key={index}
                     sx={{
-                      width: 50,
-                      height: 50,
-                      marginBottom: 1,
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      padding: 0,
+                      width: "200px",
+                      boxShadow: "0 0px 4px rgba(0, 0, 0.1, 0.1)",
+                      borderRadius: "10px",
                     }}
-                  />
-                  <CardContent sx={{ textAlign: "center", padding: 0 }}>
-                    <Typography
-                      variant="body1"
-                      sx={{ fontWeight: "bold", marginBottom: 1 }}
+                  >
+                    <Avatar
+                      sx={{
+                        width: 50,
+                        height: 50,
+                        marginBottom: 1,
+                        backgroundColor: "#007bff",
+                      }}
                     >
-                      {product.title.split(" ").slice(0, 1).join(" ")}
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                      Available Balance
-                    </Typography>
-                    <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-                      ${product.price.toFixed(2)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              ))}
+                      {account.currency}
+                    </Avatar>
+                    <CardContent sx={{ textAlign: "center", padding: 0 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{ fontWeight: "bold", marginBottom: 1 }}
+                      >
+                        {account.bankName}
+                      </Typography>
+                      <Typography variant="body2" color="textSecondary">
+                        {account.accountName}
+                      </Typography>
+                      <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                        {account.accountNumber}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))
+              ) : (
+                <Typography variant="body1">No accounts available.</Typography>
+              )}
             </Box>
           </Paper>
 
