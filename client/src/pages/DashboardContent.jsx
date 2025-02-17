@@ -381,7 +381,7 @@ const DashboardContent = () => {
                 ))}
               </List>
             </Paper>
-
+            {/* Invoices */}
             <Paper
               elevation={3}
               sx={{
