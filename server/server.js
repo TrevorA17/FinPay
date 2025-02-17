@@ -36,7 +36,7 @@ app.use("/api", protectedRoutes);
 app.use("/api/otp", otpRoutes);
 
 //User routes
-app.use("/api", userRoutes);
+app.use("/api/users", userRoutes);
 
 //Customer Routes
 app.use("/api/customers", customerRoutes);

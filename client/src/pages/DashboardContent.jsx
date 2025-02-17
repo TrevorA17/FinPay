@@ -72,7 +72,7 @@ const DashboardContent = () => {
 
         // Fetch user accounts by user ID
         const accountsResponse = await axios.get(
-          `http://localhost:5000/api/user/accounts/${userData._id}`
+          `http://localhost:5000/api/users/user/accounts/${userData._id}`
         );
         setAccounts(accountsResponse.data.userAccounts);
       } catch (error) {

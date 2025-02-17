@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
+import axios from "axios";
 
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
@@ -22,8 +23,56 @@ const Profile = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
-  const [isEditingAddress, setIsEditingAddress] = useState(false);
-  const [address, setAddress] = useState("123 Example St, City, Country");
+  const [isEditing, setIsEditing] = useState(false);
+  const [userDetails, setUserDetails] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+  });
+
+  useEffect(() => {
+    // Fetch user details on component mount
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/users", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        });
+        setUserDetails(response.data);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    };
+    fetchUserDetails();
+  }, []);
+
+  const handleInputChange = (e) => {
+    setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+  };
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = async () => {
+    try {
+      await axios.put(
+        `http://localhost:5000/api/users/${userDetails.userId}`,
+        userDetails,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        }
+      );
+      setIsEditing(false);
+      alert("User details updated successfully!");
+    } catch (error) {
+      console.error("Error updating user details:", error);
+      alert("Failed to update user details");
+    }
+  };
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,13 +87,6 @@ const Profile = () => {
     handleClose();
   };
 
-  const handleEditAddress = () => {
-    setIsEditingAddress(true);
-  };
-
-  const handleSaveAddress = () => {
-    setIsEditingAddress(false);
-  };
   const handleGoBack = () => {
     navigate("/"); // Go back to the main dashboard
   };
@@ -137,91 +179,44 @@ const Profile = () => {
               My Profile
             </Typography>
 
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                marginBottom: "25px",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "50px",
-                  height: "50px",
-                  borderRadius: "50%",
-                  backgroundColor: "#1976d2",
-                  color: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  marginRight: "10px",
-                  fontSize: "18px",
-                  fontWeight: "bold",
-                }}
-              >
-                OR
-              </Box>
-              <Typography variant="h6">Olivia Rhye</Typography>
-            </Box>
-
             <Divider sx={{ marginBottom: "20px" }} />
 
             {/* TextFields */}
             <Box display="flex" flexWrap="wrap" gap={8}>
               {[
-                "First Name",
-                "Last Name",
-                "Email Address",
-                "Phone No",
-                "FinPay Tag",
-                "Country",
-                "DOB",
-                "Occupation",
-                "DOB",
-              ].map((label, index) => (
+                { label: "Full Name", name: "fullName" },
+                { label: "Email Address", name: "email" },
+                { label: "Phone No", name: "phone" },
+              ].map((field, index) => (
                 <TextField
                   key={index}
-                  label={label}
-                  value="John Doe"
-                  InputProps={{ readOnly: true }}
+                  label={field.label}
+                  name={field.name}
+                  value={userDetails[field.name] || ""}
+                  onChange={handleInputChange}
+                  InputProps={{ readOnly: !isEditing }}
                   sx={{ flex: "1 1 45%" }}
                 />
               ))}
-
-              {/* Editable Physical Address */}
-              <Box
-                sx={{
-                  flex: "1 1 45%",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <TextField
-                  label="Physical Address"
-                  value={address}
-                  onChange={(e) => setAddress(e.target.value)}
-                  InputProps={{ readOnly: !isEditingAddress }}
-                  fullWidth
-                />
-                {!isEditingAddress ? (
-                  <Button
-                    onClick={handleEditAddress}
-                    variant="outlined"
-                    sx={{ marginTop: "10px" }}
-                  >
-                    Edit
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleSaveAddress}
-                    variant="contained"
-                    sx={{ marginTop: "10px" }}
-                  >
-                    Save
-                  </Button>
-                )}
-              </Box>
             </Box>
+
+            {!isEditing ? (
+              <Button
+                onClick={handleEdit}
+                variant="outlined"
+                sx={{ marginTop: "10px" }}
+              >
+                Edit
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSave}
+                variant="contained"
+                sx={{ marginTop: "10px" }}
+              >
+                Save
+              </Button>
+            )}
           </Box>
 
           {/* Go Back Button */}

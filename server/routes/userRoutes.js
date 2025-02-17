@@ -10,10 +10,10 @@ const authenticateToken = require("../middlewares/authenticateToken");
 const router = express.Router();
 
 //Route to update an existing user details
-router.put("/user/profile", authenticateToken, updateUserDetails);
+router.put("/:userId", authenticateToken, updateUserDetails);
 
-//get user's details
-router.get("/user/profile", authenticateToken, getUserDetails);
+// Apply the authenticateToken middleware to the GET request
+router.get("/", authenticateToken, getUserDetails);
 
 // Route to update an existing user account
 router.put("/user/accounts/:userId/:accountId", updateUserAccount);
