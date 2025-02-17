@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   addUserAccount,
+  updateUserDetails,
   updateUserAccount,
   getUserAccounts,
   getUserDetails,
@@ -8,14 +9,17 @@ const {
 const authenticateToken = require("../middlewares/authenticateToken");
 const router = express.Router();
 
-// Route to add a new user account
-router.post("/user/accounts/:userId", addUserAccount);
+//Route to update an existing user details
+router.put("/user/profile", authenticateToken, updateUserDetails);
+
+//get user's details
+router.get("/user/profile", authenticateToken, getUserDetails);
 
 // Route to update an existing user account
 router.put("/user/accounts/:userId/:accountId", updateUserAccount);
 
-//get user's details
-router.get("/user/profile", authenticateToken, getUserDetails);
+// Route to add a new user account
+router.post("/user/accounts/:userId", addUserAccount);
 
 //get user accounts
 router.get("/user/accounts/:userId", getUserAccounts);

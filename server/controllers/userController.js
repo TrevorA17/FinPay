@@ -21,6 +21,40 @@ const getUserDetails = async (req, res) => {
   }
 };
 
+//Update user details
+const updateUserDetails = async (req, res) => {
+  try {
+    const userId = req.user.id; // Get logged-in user ID from request
+
+    if (!userId) {
+      return res.status(400).json({ message: "User ID is missing" });
+    }
+
+    const { fullName, phone, email } = req.body;
+
+    if (!fullName && !phone && !email) {
+      return res.status(400).json({ message: "No update fields provided" });
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: { fullName, phone, email } },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User details updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error updating user details", error });
+  }
+};
+
 // Add a new account
 const addUserAccount = async (req, res) => {
   const { userId } = req.params; // Get user ID from request params
@@ -97,6 +131,7 @@ const getUserAccounts = async (req, res) => {
 
 module.exports = {
   addUserAccount,
+  updateUserDetails,
   updateUserAccount,
   getUserDetails,
   getUserAccounts,
