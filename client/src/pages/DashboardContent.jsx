@@ -25,6 +25,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import TrendingUpIcon from "@mui/icons-material/TrendingUp";
 import axios from "axios";
+import { DataGrid } from "@mui/x-data-grid";
 
 // Importing dynamic components for Quick Actions Menu
 import SendMoney from "../components/SendMoney";
@@ -34,12 +35,20 @@ import { fetchLoggedInUser } from "../api/userApi";
 import CreateCustomer from "./../components/CreateNewCustomer";
 
 const DashboardContent = () => {
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [filteredInvoices, setFilteredInvoices] = useState([]);
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [user, setUser] = useState(null); // State for logged-in user
   const [products, setProducts] = useState([]);
+
   const [payments, setPayments] = useState([]);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [invoices, setInvoices] = useState([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("authToken"); // Get JWT token for authentication
+
   const [exchangeRates] = useState([
     { currency: "USD", buying: 750, selling: 760 },
     { currency: "EUR", buying: 820, selling: 830 },
@@ -83,10 +92,56 @@ const DashboardContent = () => {
       }
     };
 
+    const fetchInvoices = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+        if (!token) {
+          setError("Unauthorized: No token found");
+          setLoading(false);
+          return;
+        }
+
+        const response = await axios.get(`${API_URL}/invoices`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        setInvoices(response.data);
+        setFilteredInvoices(response.data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.response?.data?.message || "Failed to load invoices");
+        setLoading(false);
+      }
+    };
     fetchData();
     fetchUser();
     fetchUserAccounts();
+    fetchInvoices();
   }, []);
+
+  const columns = [
+    { field: "_id", headerName: "Invoice ID", width: 200 },
+    { field: "customerId", headerName: "Customer ID", width: 150 },
+    { field: "customerName", headerName: "Customer Name", width: 180 },
+    { field: "amount", headerName: "Amount ($)", width: 120 },
+    { field: "status", headerName: "Status", width: 120 },
+    { field: "dueDate", headerName: "Due Date", width: 150 },
+    {
+      field: "actions",
+      headerName: "Actions",
+      width: 180,
+      renderCell: (params) =>
+        params.row.status === "pending" ? (
+          <Button variant="contained" color="primary">
+            Mark as Paid
+          </Button>
+        ) : (
+          <Button variant="contained" disabled>
+            Paid
+          </Button>
+        ),
+    },
+  ];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -344,16 +399,27 @@ const DashboardContent = () => {
           </Paper>
 
           {/* Receive Payments & Invoices */}
-          <Box sx={{ display: "flex", gap: 2, marginRight: "250px" }}>
+          {/* Receive Payments & Invoices */}
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between", // Ensure both components are spaced apart
+              gap: 2,
+              marginTop: "20px",
+              marginBottom: "20px", // Add bottom margin for better spacing
+              paddingLeft: "20px", // Add some left padding to ensure there's space on the sides
+              paddingRight: "20px", // Add some right padding to ensure spacing from the edge
+            }}
+          >
+            {/* Receive Payments */}
             <Paper
               elevation={3}
               sx={{
                 padding: 3,
                 backgroundColor: "#fff",
-                borderRadius: "0px",
-                width: "90%",
+                borderRadius: "8px", // Slight rounding for the edges
+                width: "48%", // Adjust width to make it fit side by side
                 marginTop: "15px",
-                marginRight: "250px",
               }}
             >
               <Typography
@@ -381,16 +447,16 @@ const DashboardContent = () => {
                 ))}
               </List>
             </Paper>
-            {/* Invoices */}
+
+            {/* Invoice Table */}
             <Paper
               elevation={3}
               sx={{
                 padding: 2,
                 backgroundColor: "#fff",
-                borderRadius: "2px",
-                width: "70%",
-                marginTop: "20px",
-                marginLeft: "-250px",
+                borderRadius: "8px", // Slight rounding for the edges
+                width: "48%", // Adjust width to make it fit side by side
+                marginTop: "15px",
               }}
             >
               <Typography
@@ -400,18 +466,43 @@ const DashboardContent = () => {
                 Invoices
               </Typography>
               <Divider sx={{ marginY: 2 }} />
-              <List>
-                {invoices.map((invoice, index) => (
-                  <ListItem key={index} sx={{ paddingBottom: 1 }}>
-                    <ListItemText
-                      primary={`Invoice #${index + 1}`}
-                      secondary={`Status: Pending | Amount: $${invoice.price.toFixed(
-                        2
-                      )}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
+              {loading ? (
+                <Typography>Loading...</Typography>
+              ) : error ? (
+                <Typography color="error">{error}</Typography>
+              ) : filteredInvoices.length === 0 ? (
+                <Box sx={{ textAlign: "center", padding: "40px" }}>
+                  <SentimentDissatisfiedIcon
+                    sx={{
+                      fontSize: "40px",
+                      color: "#ccc",
+                      marginBottom: "10px",
+                    }}
+                  />
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      marginBottom: "10px",
+                      color: "#555",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    No invoices found
+                  </Typography>
+                </Box>
+              ) : (
+                <Box sx={{ height: 400, width: "100%" }}>
+                  <DataGrid
+                    rows={filteredInvoices}
+                    columns={columns}
+                    pageSize={5}
+                    getRowId={(row) => row._id}
+                    rowsPerPageOptions={[5]}
+                    loading={loading}
+                    disableSelectionOnClick
+                  />
+                </Box>
+              )}
               <Button
                 variant="contained"
                 startIcon={<AddCircleOutlineIcon />}
