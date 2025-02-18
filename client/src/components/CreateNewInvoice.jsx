@@ -22,7 +22,7 @@ import CreateCustomer from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
 
 const CreateInvoice = () => {
-  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);

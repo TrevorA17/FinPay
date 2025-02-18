@@ -3,7 +3,7 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import axios from "axios";
 
 const CustomerDropdown = ({ onSelect }) => {
-  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
   const [customers, setCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState("");

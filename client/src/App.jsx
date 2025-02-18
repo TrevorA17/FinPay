@@ -22,7 +22,7 @@ import ManageAccounts from "./components/ManageAccounts";
 import NewPage from "./pages/NewPage";
 const App = () => {
   const dispatch = useDispatch();
-  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
   useEffect(() => {
     const validateToken = async () => {

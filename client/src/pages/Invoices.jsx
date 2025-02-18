@@ -21,7 +21,7 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 import CreateCustomer from "../components/CreateNewCustomer";
 
-const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const SIDEBAR_WIDTH = -20;
 

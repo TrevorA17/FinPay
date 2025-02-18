@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import CreateCustomer from "./../components/CreateNewCustomer";
 
 const Profile = () => {
-  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
@@ -58,15 +58,11 @@ const Profile = () => {
 
   const handleSave = async () => {
     try {
-      await axios.put(
-        `http://localhost:5000/api/users/${userDetails.userId}`,
-        userDetails,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-          },
-        }
-      );
+      await axios.put(`${API_URL}/users/${userDetails.userId}`, userDetails, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+        },
+      });
       setIsEditing(false);
       alert("User details updated successfully!");
     } catch (error) {

@@ -11,7 +11,7 @@ import {
   Snackbar,
 } from "@mui/material";
 
-const API_URL = import.meta.env.VITE_API_URL; // Use the API URL from .env
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
 const Register = () => {
   const [credentials, setCredentials] = useState({
