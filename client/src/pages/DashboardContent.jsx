@@ -166,13 +166,13 @@ const DashboardContent = () => {
       return (
         <Box
           sx={{
-            padding: "5px",
-            maxWidth: "980px", //overall width of the page
-            width: "100%",
+            //   padding: "5px",
+            maxWidth: "100%", //overall width of the page
+            //   width: "100%",
             overflowX: "hidden",
             overflowY: "hidden",
-            boxSizing: "border-box",
-            height: "2000px",
+            //   boxSizing: "border-box",
+            //   height: "2000px",
           }}
         >
           {/* Top Bar */}
@@ -182,7 +182,7 @@ const DashboardContent = () => {
               justifyContent: "space-between",
               alignItems: "left",
               backgroundColor: "#fff",
-              padding: "22px",
+              padding: "26px",
               borderRadius: "0px",
               boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
               marginBottom: "20px",

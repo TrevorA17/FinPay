@@ -23,8 +23,6 @@ import CreateCustomer from "../components/CreateNewCustomer";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 
-const SIDEBAR_WIDTH = -20;
-
 const Invoices = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [invoices, setInvoices] = useState([]);
@@ -108,12 +106,13 @@ const Invoices = () => {
   return (
     <Box
       sx={{
-        marginLeft: `${SIDEBAR_WIDTH}px`, // Respect sidebar width
-        padding: "20px",
-        maxWidth: "1008px", //overall width of the page
-        width: "100%",
+        //   padding: "5px",
+        maxWidth: "100%", //overall width of the page
+        //   width: "100%",
         overflowX: "hidden",
-        boxSizing: "border-box",
+        overflowY: "hidden",
+        //   boxSizing: "border-box",
+        //   height: "2000px",
       }}
     >
       {/* Top Bar */}
@@ -123,7 +122,7 @@ const Invoices = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "28px", // Reduced padding
+          padding: "38px", // Reduced padding
           boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
           marginBottom: "20px",
           flexWrap: "wrap",
