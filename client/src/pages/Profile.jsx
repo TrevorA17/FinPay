@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 import CreateCustomer from "./../components/CreateNewCustomer";
 
 const Profile = () => {
+  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [activePage, setActivePage] = useState(null);
@@ -34,7 +35,7 @@ const Profile = () => {
     // Fetch user details on component mount
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/users", {
+        const response = await axios.get(`${API_URL}/users`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("authToken")}`,
           },
