@@ -3,19 +3,18 @@ import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import axios from "axios";
 
 const CustomerDropdown = ({ onSelect }) => {
+  const API_URL = import.meta.env.VITE_API_URL; // API URL from the .env
+
   const [customers, setCustomers] = useState([]);
   const [selectedCustomer, setSelectedCustomer] = useState("");
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
-        const token = localStorage.getItem("authToken"); // Assuming you're storing the auth token
-        const response = await axios.get(
-          "http://localhost:5000/api/customers",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
+        const token = localStorage.getItem("authToken");
+        const response = await axios.get(`${API_URL}/customers`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setCustomers(response.data);
       } catch (error) {
         console.error("Error fetching customers:", error);
