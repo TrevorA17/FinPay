@@ -37,7 +37,7 @@ const Sidebar = () => {
   const menuItems = [
     { text: "Dashboard", icon: <DashboardIcon />, path: "/dashboard" },
     { text: "Invoices", icon: <DescriptionOutlinedIcon />, path: "/invoices" },
-    { text: "Cards", icon: <CreditCardIcon />, path: "/cards" },
+    // { text: "Cards", icon: <CreditCardIcon />, path: "/cards" },
     { text: "Wallets", icon: <WalletIcon />, path: "/wallets" },
     {
       text: "Transactions",
@@ -45,7 +45,14 @@ const Sidebar = () => {
       path: "/transactions",
     },
     { text: "My Profile", icon: <PersonIcon />, path: "/profile" },
+    // { text: "Beneficiaries", icon: <Diversity1Icon />, path: "/beneficiaries" },
+    // {
+    //   text: "Identification",
+    //   icon: <FingerprintIcon />,
+    //   path: "/identification",
+    // },
     { text: "Manage Accounts", icon: <FingerprintIcon />, path: "/accounts" },
+    { text: "Security", icon: <SecurityIcon />, path: "/security" },
   ];
 
   useEffect(() => {
@@ -69,13 +76,7 @@ const Sidebar = () => {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-      }}
-    >
+    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
       {/* Header Box */}
       <Box
         sx={{
