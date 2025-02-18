@@ -107,7 +107,7 @@ const Invoices = () => {
     <Box
       sx={{
         //   padding: "5px",
-        maxWidth: "100%", //overall width of the page
+        maxWidth: "77vw", //overall width of the page
         //   width: "100%",
         overflowX: "hidden",
         overflowY: "hidden",
