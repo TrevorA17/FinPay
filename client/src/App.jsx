@@ -15,7 +15,6 @@ import Cards from "./pages/Cards";
 import Wallets from "./pages/Wallets";
 import Transactions from "./pages/Transactions";
 import Profile from "./pages/Profile";
-import Beneficiaries from "./pages/Beneficiaries";
 import Security from "./pages/Security";
 import Identification from "./pages/Identification";
 import ManageAccounts from "./components/ManageAccounts";
@@ -66,7 +65,6 @@ const App = () => {
         <Route path="/wallets" element={<Wallets />} />
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/beneficiaries" element={<Beneficiaries />} />
         <Route path="/security" element={<Security />} />
         <Route path="/identification" element={<Identification />} />
         <Route path="/accounts" element={<ManageAccounts />} />

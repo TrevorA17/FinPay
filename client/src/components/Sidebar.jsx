@@ -45,7 +45,6 @@ const Sidebar = () => {
       path: "/transactions",
     },
     { text: "My Profile", icon: <PersonIcon />, path: "/profile" },
-    { text: "Beneficiaries", icon: <Diversity1Icon />, path: "/beneficiaries" },
     { text: "Security", icon: <SecurityIcon />, path: "/security" },
     {
       text: "Identification",
