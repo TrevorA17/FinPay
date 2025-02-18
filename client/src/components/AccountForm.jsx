@@ -13,10 +13,12 @@ import {
   Select,
   CircularProgress,
   Typography,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 
 const AccountForm = ({ userId }) => {
-  const [accounts, setAccounts] = useState([]); // Ensures accounts is always an array
+  const [accounts, setAccounts] = useState([]);
   const [selectedAccount, setSelectedAccount] = useState(null);
   const [formData, setFormData] = useState({
     currency: "",
@@ -32,7 +34,11 @@ const AccountForm = ({ userId }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch user accounts on mount
+  // Snackbar state
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
   useEffect(() => {
     if (userId) {
       loadAccounts();
@@ -41,12 +47,10 @@ const AccountForm = ({ userId }) => {
     }
   }, [userId]);
 
-  // Load accounts from API
   const loadAccounts = async () => {
     try {
       setLoading(true);
       const userAccounts = await fetchUserAccounts(userId);
-      // console.log("API Response:", userAccounts); // Debug logs
 
       if (!Array.isArray(userAccounts)) {
         throw new Error("Invalid response format from server");
@@ -62,12 +66,10 @@ const AccountForm = ({ userId }) => {
     }
   };
 
-  // Handle form input changes
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  // Handle account selection
   const handleAccountSelect = (event) => {
     const accountId = event.target.value;
     const account = accounts.find((acc) => acc._id === accountId);
@@ -75,22 +77,30 @@ const AccountForm = ({ userId }) => {
     setFormData(account || formData);
   };
 
-  // Handle form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       if (selectedAccount) {
         await updateUserAccount(userId, selectedAccount._id, formData);
-        alert("Account updated successfully!");
+        setSnackbarMessage("Account updated successfully!");
+        setSnackbarSeverity("success");
       } else {
         await addUserAccount(userId, formData);
-        alert("Account added successfully!");
+        setSnackbarMessage("Account added successfully!");
+        setSnackbarSeverity("success");
       }
-      loadAccounts(); // Refresh accounts after update
+      setSnackbarOpen(true);
+      loadAccounts();
     } catch (error) {
       console.error("Error processing request:", error);
-      alert("Error processing request. Please try again.");
+      setSnackbarMessage("Error processing request. Please try again.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
     }
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -120,6 +130,7 @@ const AccountForm = ({ userId }) => {
               </Select>
             </FormControl>
           )}
+
           <TextField
             name="currency"
             label="Currency"
@@ -188,6 +199,21 @@ const AccountForm = ({ userId }) => {
           </Button>
         </form>
       )}
+
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={handleSnackbarClose}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </div>
   );
 };
