@@ -45,13 +45,7 @@ const Sidebar = () => {
       path: "/transactions",
     },
     { text: "My Profile", icon: <PersonIcon />, path: "/profile" },
-    { text: "Security", icon: <SecurityIcon />, path: "/security" },
-    {
-      text: "Identification",
-      icon: <FingerprintIcon />,
-      path: "/identification",
-    },
-    { text: "Manage Accounts", icon: <WarningIcon />, path: "/accounts" },
+    { text: "Manage Accounts", icon: <FingerprintIcon />, path: "/accounts" },
   ];
 
   useEffect(() => {

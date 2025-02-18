@@ -190,7 +190,7 @@ const DashboardContent = () => {
               marginBottom: "20px",
               height: "11vh",
               marginLeft: "0px",
-              maxWidth: "100%",
+              maxWidth: "auto",
             }}
           >
             <Box>
