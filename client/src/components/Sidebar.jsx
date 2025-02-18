@@ -75,7 +75,13 @@ const Sidebar = () => {
   };
 
   return (
-    <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
       {/* Header Box */}
       <Box
         sx={{

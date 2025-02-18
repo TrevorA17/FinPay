@@ -8,6 +8,8 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -31,6 +33,13 @@ const Profile = () => {
     phone: "",
   });
 
+  // Snackbar state
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
+
   useEffect(() => {
     // Fetch user details on component mount
     const fetchUserDetails = async () => {
@@ -43,6 +52,11 @@ const Profile = () => {
         setUserDetails(response.data);
       } catch (error) {
         console.error("Error fetching user details:", error);
+        setSnackbar({
+          open: true,
+          message: "Failed to fetch user details",
+          severity: "error",
+        });
       }
     };
     fetchUserDetails();
@@ -64,11 +78,23 @@ const Profile = () => {
         },
       });
       setIsEditing(false);
-      alert("User details updated successfully!");
+      setSnackbar({
+        open: true,
+        message: "User details updated successfully!",
+        severity: "success",
+      });
     } catch (error) {
       console.error("Error updating user details:", error);
-      alert("Failed to update user details");
+      setSnackbar({
+        open: true,
+        message: "Failed to update user details",
+        severity: "error",
+      });
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   const handleClick = (event) => {
@@ -175,28 +201,20 @@ const Profile = () => {
             >
               My Profile
             </Typography>
-
             <Divider sx={{ marginBottom: "20px" }} />
-
-            {/* TextFields */}
             <Box display="flex" flexWrap="wrap" gap={8}>
-              {[
-                { label: "Full Name", name: "fullName" },
-                { label: "Email Address", name: "email" },
-                { label: "Phone No", name: "phone" },
-              ].map((field, index) => (
+              {["fullName", "email", "phone"].map((field, index) => (
                 <TextField
                   key={index}
-                  label={field.label}
-                  name={field.name}
-                  value={userDetails[field.name] || ""}
+                  label={field.charAt(0).toUpperCase() + field.slice(1)}
+                  name={field}
+                  value={userDetails[field] || ""}
                   onChange={handleInputChange}
                   InputProps={{ readOnly: !isEditing }}
                   sx={{ flex: "1 1 45%" }}
                 />
               ))}
             </Box>
-
             {!isEditing ? (
               <Button
                 onClick={handleEdit}
@@ -215,8 +233,6 @@ const Profile = () => {
               </Button>
             )}
           </Box>
-
-          {/* Go Back Button */}
           <Button
             variant="outlined"
             sx={{ marginTop: "20px", backgroundColor: "#fff" }}
@@ -224,6 +240,21 @@ const Profile = () => {
           >
             Go Back
           </Button>
+          {/* Snackbar */}
+          <Snackbar
+            open={snackbar.open}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+            anchorOrigin={{ vertical: "top", horizontal: "center" }} // Customize position here
+          >
+            <Alert
+              onClose={handleCloseSnackbar}
+              severity={snackbar.severity}
+              sx={{ width: "90%" }}
+            >
+              {snackbar.message}
+            </Alert>
+          </Snackbar>
         </Box>
       );
   }

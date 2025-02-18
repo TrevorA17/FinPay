@@ -171,8 +171,10 @@ const DashboardContent = () => {
             //   width: "100%",
             overflowX: "hidden",
             overflowY: "hidden",
-            //   boxSizing: "border-box",
-            //   height: "2000px",
+            overscrollBehaviorX: "contain",
+
+            // boxSizing: "border-box",
+            height: "2000px",
           }}
         >
           {/* Top Bar */}
@@ -188,7 +190,7 @@ const DashboardContent = () => {
               marginBottom: "20px",
               height: "11vh",
               marginLeft: "0px",
-              width: "100%",
+              maxWidth: "100%",
             }}
           >
             <Box>
@@ -258,9 +260,9 @@ const DashboardContent = () => {
               backgroundColor: "#fff",
               borderRadius: "2px",
               marginBottom: "18px",
-              width: "99%",
-              marginLeft: "0px",
-              marginTop: "-5px",
+              width: "auto",
+              marginLeft: "10px",
+              marginTop: "5px",
             }}
           >
             <Typography
@@ -331,8 +333,8 @@ const DashboardContent = () => {
               padding: 1.6,
               backgroundColor: "#fff",
               borderRadius: "0px",
-              width: "100%",
-              marginLeft: "0px",
+              width: "auto",
+              marginLeft: "10px",
             }}
           >
             <Typography
