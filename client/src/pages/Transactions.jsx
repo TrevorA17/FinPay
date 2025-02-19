@@ -26,6 +26,8 @@ const TransactionsPage = () => {
   const [anchorElFilter, setAnchorElFilter] = useState(null);
   const [activePage, setActivePage] = useState(null);
   const [transactions, setTransactions] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
@@ -46,7 +48,9 @@ const TransactionsPage = () => {
     };
 
     fetchTransactions();
-  }, []);
+  }, [page, limit]);
+
+  const pageSizeOptions = [5, 10, 20, 50, 100];
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -211,11 +215,19 @@ const TransactionsPage = () => {
                 <DataGrid
                   rows={filteredTransactions}
                   columns={columns}
-                  pageSize={5}
-                  rowsPerPageOptions={[5]}
+                  pageSize={limit}
                   getRowId={(row) => row._id}
                   disableSelectionOnClick
                   sx={{ backgroundColor: "#fff" }}
+                  pagination
+                  paginationMode="client"
+                  rowCount={25}
+                  pageSizeOptions={pageSizeOptions}
+                  onPageChange={(newPage) => setPage(newPage)}
+                  onPageSizeChange={(newPageSize) => {
+                    setLimit(newPageSize);
+                    setPage(0);
+                  }}
                 />
               </Paper>
             )}
