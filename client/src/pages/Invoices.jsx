@@ -279,7 +279,7 @@ const Invoices = () => {
             pageSize={limit}
             pagination
             paginationMode="client"
-            rowCount={25}
+            // rowCount={25}
             pageSizeOptions={pageSizeOptions} // Controlled state for page size
             onPageChange={(newPage) => setPage(newPage)} // page handling
             onPageSizeChange={(newPageSize) => {

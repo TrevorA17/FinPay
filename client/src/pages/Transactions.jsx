@@ -221,7 +221,7 @@ const TransactionsPage = () => {
                   sx={{ backgroundColor: "#fff" }}
                   pagination
                   paginationMode="client"
-                  rowCount={25}
+                  // rowCount={25}
                   pageSizeOptions={pageSizeOptions}
                   onPageChange={(newPage) => setPage(newPage)}
                   onPageSizeChange={(newPageSize) => {
