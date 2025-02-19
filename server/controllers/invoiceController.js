@@ -1,4 +1,5 @@
 const Invoice = require("../models/Invoice");
+const Transaction = require("../models/Transaction");
 
 // Create Invoice
 const createInvoice = async (req, res) => {
@@ -45,4 +46,34 @@ const getInvoices = async (req, res) => {
   }
 };
 
-module.exports = { createInvoice, getInvoices };
+// Mark invoice as paid
+const markInvoiceAsPaid = async (req, res) => {
+  try {
+    const invoice = await Invoice.findById(req.params.id);
+    if (!invoice) {
+      return res.status(404).json({ message: "Invoice not found" });
+    }
+
+    // Update invoice status to "paid"
+    invoice.status = "paid";
+    await invoice.save();
+
+    // Create a new transaction record
+    const transaction = new Transaction({
+      invoiceId: invoice._id,
+      customerId: invoice.customerId,
+      amount: invoice.amount,
+    });
+
+    await transaction.save();
+
+    res
+      .status(200)
+      .json({ message: "Invoice marked as paid and transaction created!" });
+  } catch (error) {
+    console.error("Error marking invoice as paid:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+module.exports = { createInvoice, getInvoices, markInvoiceAsPaid };
