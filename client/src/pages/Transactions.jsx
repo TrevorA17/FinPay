@@ -13,40 +13,39 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
-import { DataGrid } from "@mui/x-data-grid"; // Importing MUI DataGrid
+import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
-import CreateCustomer from "./../components/CreateNewCustomer";
+import CreateCustomer from "../components/CreateNewCustomer";
 
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [anchorElFilter, setAnchorElFilter] = useState(null); // For filter dropdown
-  const [activePage, setActivePage] = useState(null); // Declare activePage state
-  const [products, setProducts] = useState([]);
+  const [anchorElFilter, setAnchorElFilter] = useState(null);
+  const [activePage, setActivePage] = useState(null);
+  const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [selectedProduct, setSelectedProduct] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterCategory, setFilterCategory] = useState(""); // For filtering by category
 
-  // Fetch products from API
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchTransactions = async () => {
       setLoading(true);
       try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        setProducts(response.data);
+        const response = await axios.get(
+          "http://localhost:5000/api/transactions"
+        );
+        setTransactions(response.data);
         setLoading(false);
       } catch (err) {
-        setError("Failed to fetch products. Please try again later.");
+        setError("Failed to fetch transactions. Please try again later.");
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchTransactions();
   }, []);
 
   const handleClick = (event) => {
@@ -58,63 +57,29 @@ const TransactionsPage = () => {
   };
 
   const handleMenuClick = (page) => {
-    setActivePage(page); // Set the active page dynamically
-    handleClose(); // Close the dropdown
+    setActivePage(page);
+    handleClose();
   };
 
   const handleFilterClick = (event) => {
     setAnchorElFilter(event.currentTarget);
   };
 
-  const handleFilterClose = (category) => {
+  const handleFilterClose = () => {
     setAnchorElFilter(null);
-    setFilterCategory(category || ""); // Set the selected category or reset the filter
   };
 
-  // Handle search and filter
-  const filteredProducts = products
-    .filter((product) =>
-      product.title.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .filter((product) =>
-      filterCategory ? product.category === filterCategory : true
-    );
+  const filteredTransactions = transactions.filter((transaction) =>
+    transaction.customerName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-  // Define columns for DataGrid
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
-    { field: "title", headerName: "Product Name", flex: 1 },
-    { field: "price", headerName: "Price", width: 150 },
-    { field: "category", headerName: "Category", width: 180 },
-    {
-      field: "action",
-      headerName: "Action",
-      width: 150,
-      renderCell: (params) => (
-        <Button
-          variant="contained"
-          size="small"
-          onClick={() => handleViewDetails(params.row.id)}
-        >
-          View Details
-        </Button>
-      ),
-    },
+    { field: "_id", headerName: "Transaction ID", width: 200 },
+    { field: "customerName", headerName: "Customer Name", flex: 1 },
+    { field: "amount", headerName: "Amount", width: 150 },
+    { field: "status", headerName: "Status", width: 150 },
+    { field: "date", headerName: "Date", width: 180 },
   ];
-
-  const handleViewDetails = async (id) => {
-    setLoading(true);
-    try {
-      const response = await axios.get(
-        `https://fakestoreapi.com/products/${id}`
-      );
-      setSelectedProduct(response.data);
-      setLoading(false);
-    } catch (err) {
-      setError("Failed to fetch product details. Please try again later.");
-      setLoading(false);
-    }
-  };
 
   switch (activePage) {
     case "Send Money":
@@ -129,7 +94,6 @@ const TransactionsPage = () => {
     default:
       return (
         <Box>
-          {/* Welcome Box */}
           <Box
             sx={{
               display: "flex",
@@ -189,7 +153,6 @@ const TransactionsPage = () => {
             </Menu>
           </Box>
 
-          {/* Search and Filter Section */}
           <Box
             sx={{
               backgroundColor: "#f9f9f9",
@@ -229,25 +192,14 @@ const TransactionsPage = () => {
             <Menu
               anchorEl={anchorElFilter}
               open={Boolean(anchorElFilter)}
-              onClose={() => handleFilterClose()}
+              onClose={handleFilterClose}
             >
-              <MenuItem onClick={() => handleFilterClose("")}>All</MenuItem>
-              <MenuItem onClick={() => handleFilterClose("electronics")}>
-                Electronics
-              </MenuItem>
-              <MenuItem onClick={() => handleFilterClose("jewelery")}>
-                Jewelery
-              </MenuItem>
-              <MenuItem onClick={() => handleFilterClose("men's clothing")}>
-                Men's Clothing
-              </MenuItem>
-              <MenuItem onClick={() => handleFilterClose("women's clothing")}>
-                Women's Clothing
+              <MenuItem onClick={() => setSearchTerm("")}>
+                Clear Filter
               </MenuItem>
             </Menu>
           </Box>
 
-          {/* DataGrid */}
           <Box sx={{ marginTop: "20px" }}>
             {loading ? (
               <Typography>Loading...</Typography>
@@ -256,41 +208,17 @@ const TransactionsPage = () => {
             ) : (
               <Paper>
                 <DataGrid
-                  rows={filteredProducts}
+                  rows={filteredTransactions}
                   columns={columns}
                   pageSize={5}
                   rowsPerPageOptions={[5]}
+                  getRowId={(row) => row._id}
                   disableSelectionOnClick
                   sx={{ backgroundColor: "#fff" }}
                 />
               </Paper>
             )}
           </Box>
-
-          {/* Product Details Modal */}
-          {selectedProduct && (
-            <Box
-              sx={{
-                position: "fixed",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                backgroundColor: "#fff",
-                padding: "30px",
-                borderRadius: "8px",
-                boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
-                zIndex: 10,
-              }}
-            >
-              <Typography variant="h6">{selectedProduct.title}</Typography>
-              <Typography>Price: ${selectedProduct.price}</Typography>
-              <Typography>Category: {selectedProduct.category}</Typography>
-              <Typography>
-                Description: {selectedProduct.description}
-              </Typography>
-              <Button onClick={() => setSelectedProduct(null)}>Close</Button>
-            </Box>
-          )}
         </Box>
       );
   }
