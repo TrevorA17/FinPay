@@ -60,6 +60,7 @@ const Invoices = () => {
         )
       );
     } catch (error) {
+      hh;
       console.error("Error marking invoice as paid", error);
       alert("Failed to mark invoice as paid!");
     }
