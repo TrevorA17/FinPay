@@ -56,7 +56,7 @@ const App = () => {
         <Route path="/newpage" element={<NewPage />} />
       </Route>
 
-      {/* Private Routes (Sidebar with Dashboard, Invoices, etc.) */}
+      {/* Private Routes (Dashboard, Invoices, etc.) */}
       <Route element={<PrivateRouteLayout />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/dashboard" element={<Dashboard />} />

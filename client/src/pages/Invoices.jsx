@@ -30,6 +30,8 @@ const Invoices = () => {
   const [activePage, setActivePage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   const handleClose = () => setAnchorEl(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -62,7 +64,9 @@ const Invoices = () => {
     };
 
     fetchInvoices();
-  }, []);
+  }, [page, limit]);
+
+  const pageSizeOptions = [5, 10, 20, 50, 100];
 
   if (activePage) {
     switch (activePage) {
@@ -243,8 +247,16 @@ const Invoices = () => {
             rows={filteredInvoices}
             columns={columns}
             getRowId={(row) => row._id}
-            pageSize={5}
-            rowsPerPageOptions={[5, 10, 20]}
+            pageSize={limit}
+            pagination
+            paginationMode="client"
+            rowCount={20}
+            pageSizeOptions={pageSizeOptions} // Controlled state for page size
+            onPageChange={(newPage) => setPage(newPage)} // page handling
+            onPageSizeChange={(newPageSize) => {
+              setLimit(newPageSize); //  Update page size
+              setPage(0); // Reset page to avoid issues
+            }}
           />
         </Paper>
       )}

@@ -6,7 +6,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
-  Grid,
+  Grid2,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -135,8 +135,8 @@ const Identification = () => {
               Complete any pending process by clicking an uncompleted stage.
             </Typography>
 
-            {/* Icons with Titles and Status (Two by Two) */}
-            <Grid container spacing={3}>
+            {/* Icons with Title and Status*/}
+            <Grid2 container spacing={3}>
               {[
                 {
                   title: "ID Verification",
@@ -165,7 +165,7 @@ const Identification = () => {
                   approved: false,
                 },
               ].map((item, index) => (
-                <Grid item xs={12} sm={6} key={index}>
+                <Grid2 item xs={12} sm={6} key={index}>
                   <Box
                     sx={{
                       display: "flex",
@@ -204,9 +204,9 @@ const Identification = () => {
                       </Typography>
                     </Box>
                   </Box>
-                </Grid>
+                </Grid2>
               ))}
-            </Grid>
+            </Grid2>
           </Box>
 
           {/* Go Back Button */}

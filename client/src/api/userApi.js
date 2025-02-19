@@ -44,7 +44,7 @@ export const fetchUserAccounts = async (userId) => {
 export const addUserAccount = async (userId, accountData) => {
   try {
     const response = await axios.post(
-      `${API_URL}/users/user/accounts/${userId}`, // Adjusted to match /api/users/accounts/:userId route
+      `${API_URL}/users/user/accounts/${userId}`, // Adjusted to match /api/users/user/accounts/:userId route
       accountData
     );
     return response.data;
@@ -58,7 +58,7 @@ export const addUserAccount = async (userId, accountData) => {
 export const updateUserAccount = async (userId, accountId, updatedData) => {
   try {
     const response = await axios.put(
-      `${API_URL}/users/user/accounts/${userId}/${accountId}`, // Adjusted to match /api/users/accounts/:userId/:accountId route
+      `${API_URL}/users/user/accounts/${userId}/${accountId}`, // Adjusted to match /api/users/user/accounts/:userId/:accountId route
       updatedData
     );
     return response.data;

@@ -7,7 +7,7 @@ import {
   Card,
   CardContent,
   CardMedia,
-  Grid,
+  Grid2,
   Menu,
   MenuItem,
   ListItemIcon,
@@ -163,9 +163,9 @@ const Beneficiaries = () => {
         >
           Manage Beneficiaries
         </Typography>
-        <Grid container spacing={2}>
+        <Grid2 container spacing={2}>
           {paginatedBeneficiaries.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item.id}>
+            <Grid2 item xs={12} sm={6} md={4} key={item.id}>
               <Card
                 sx={{
                   display: "flex",
@@ -198,9 +198,9 @@ const Beneficiaries = () => {
                   </Typography>
                 </CardContent>
               </Card>
-            </Grid>
+            </Grid2>
           ))}
-        </Grid>
+        </Grid2>
       </Box>
 
       {/* Pagination */}

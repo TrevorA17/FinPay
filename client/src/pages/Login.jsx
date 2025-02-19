@@ -31,7 +31,7 @@ const Login = () => {
     }
 
     try {
-      const response = await api.post("/login", credentials); // Use `api`
+      const response = await api.post("/login", credentials); // plug in `api`
 
       if (response.status === 200) {
         setOtpSent(true); // Move to OTP verification step
