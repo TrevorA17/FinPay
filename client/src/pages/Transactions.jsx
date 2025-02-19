@@ -70,15 +70,16 @@ const TransactionsPage = () => {
   };
 
   const filteredTransactions = transactions.filter((transaction) =>
-    transaction.customerName.toLowerCase().includes(searchTerm.toLowerCase())
+    (transaction.customerName || "")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
   );
 
   const columns = [
     { field: "_id", headerName: "Transaction ID", width: 200 },
-    { field: "customerName", headerName: "Customer Name", flex: 1 },
+    { field: "customerId", headerName: "Customer ID", flex: 1 },
     { field: "amount", headerName: "Amount", width: 150 },
     { field: "status", headerName: "Status", width: 150 },
-    { field: "date", headerName: "Date", width: 180 },
   ];
 
   switch (activePage) {
