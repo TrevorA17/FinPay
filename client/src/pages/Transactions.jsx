@@ -21,6 +21,8 @@ import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 import CreateCustomer from "../components/CreateNewCustomer";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElFilter, setAnchorElFilter] = useState(null);
@@ -36,9 +38,7 @@ const TransactionsPage = () => {
     const fetchTransactions = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(
-          "http://localhost:5000/api/transactions"
-        );
+        const response = await axios.get(`${API_URL}/transactions`);
         setTransactions(response.data);
         setLoading(false);
       } catch (err) {
