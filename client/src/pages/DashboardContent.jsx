@@ -44,6 +44,8 @@ const DashboardContent = () => {
   const [payments, setPayments] = useState([]);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [invoices, setInvoices] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10); //Default page size
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [exchangeRates] = useState([
@@ -114,7 +116,9 @@ const DashboardContent = () => {
     fetchUser();
     fetchUserAccounts();
     fetchInvoices();
-  }, []);
+  }, [page, limit]);
+
+  const pageSizeOptions = [5, 10, 20, 50, 100];
 
   const columns = [
     { field: "_id", headerName: "Invoice ID", width: 200 },
@@ -491,11 +495,19 @@ const DashboardContent = () => {
                   <DataGrid
                     rows={filteredInvoices}
                     columns={columns}
-                    pageSize={5}
+                    pageSize={limit}
                     getRowId={(row) => row._id}
-                    rowsPerPageOptions={[5]}
                     loading={loading}
                     disableSelectionOnClick
+                    pagination
+                    paginationMode="client"
+                    rowCount={25}
+                    pageSizeOptions={pageSizeOptions}
+                    onPageChange={(newPage) => setPage(newPage)}
+                    onPageSizeChange={(newPageSize) => {
+                      setLimit(newPageSize);
+                      setPage(0);
+                    }}
                   />
                 </Box>
               )}

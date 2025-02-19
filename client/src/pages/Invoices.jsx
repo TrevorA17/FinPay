@@ -31,7 +31,7 @@ const Invoices = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(20); //Default page size
 
   const handleClose = () => setAnchorEl(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
@@ -250,7 +250,7 @@ const Invoices = () => {
             pageSize={limit}
             pagination
             paginationMode="client"
-            rowCount={20}
+            rowCount={25}
             pageSizeOptions={pageSizeOptions} // Controlled state for page size
             onPageChange={(newPage) => setPage(newPage)} // page handling
             onPageSizeChange={(newPageSize) => {
