@@ -40,6 +40,31 @@ const Invoices = () => {
     handleClose();
   };
 
+  const markInvoiceAsPaid = async (invoiceId) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      await axios.post(
+        `${API_URL}/invoices/mark-as-paid/${invoiceId}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // Update UI state - set invoice to 'paid'
+      setFilteredInvoices((prevInvoices) =>
+        prevInvoices.map((invoice) =>
+          invoice._id === invoiceId ? { ...invoice, status: "paid" } : invoice
+        )
+      );
+    } catch (error) {
+      console.error("Error marking invoice as paid", error);
+      alert("Failed to mark invoice as paid!");
+    }
+  };
+
   useEffect(() => {
     const fetchInvoices = async () => {
       try {
@@ -96,7 +121,11 @@ const Invoices = () => {
       width: 180,
       renderCell: (params) =>
         params.row.status === "pending" ? (
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => markInvoiceAsPaid(params.row._id)}
+          >
             Mark as Paid
           </Button>
         ) : (
