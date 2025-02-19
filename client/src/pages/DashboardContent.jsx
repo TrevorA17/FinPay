@@ -45,7 +45,7 @@ const DashboardContent = () => {
   const [activePage, setActivePage] = useState(null); // Declare activePage state
   const [invoices, setInvoices] = useState([]);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10); //Default page size
+  const [limit, setLimit] = useState(5); //Default page size
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [exchangeRates] = useState([
@@ -133,7 +133,11 @@ const DashboardContent = () => {
       width: 180,
       renderCell: (params) =>
         params.row.status === "pending" ? (
-          <Button variant="contained" color="primary">
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => markInvoiceAsPaid(params.row._id)}
+          >
             Mark as Paid
           </Button>
         ) : (
