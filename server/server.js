@@ -10,6 +10,7 @@ const otpRoutes = require("./routes/otpRoutes"); // Import OTP routes
 const userRoutes = require("./routes/userRoutes");
 const customerRoutes = require("./routes/customerRoutes");
 const invoiceRoutes = require("./routes/invoiceRoutes");
+const transactionRoutes = require("./routes/transactionRoutes");
 
 const app = express();
 const port = process.env.PORT || 8000;
@@ -43,6 +44,9 @@ app.use("/api/customers", customerRoutes);
 
 //Invoice Routes
 app.use("/api/invoices", invoiceRoutes);
+
+//Transaction Routes
+app.use("/api/transactions", transactionRoutes);
 
 // Start the server
 app.listen(port, () => {
