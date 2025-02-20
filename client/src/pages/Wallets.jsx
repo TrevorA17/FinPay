@@ -10,6 +10,7 @@ import {
   CardContent,
   IconButton,
   Divider,
+  Paper,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
@@ -25,12 +26,18 @@ import CreateCustomer from "../components/CreateNewCustomer";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const Wallets = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [products, setProducts] = useState([]);
   const [activePage, setActivePage] = useState(null); // Declare activePage state
-
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(20);
   const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,36 +52,37 @@ const Wallets = () => {
     handleClose(); // Close the dropdown
   };
 
-  // Fetch dummy data from API
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTransactions = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get("https://fakestoreapi.com/products");
-        setProducts(response.data.slice(0, 3)); // Use 3 products for cards
-        setTransactions(response.data.slice(0, 5)); // Use 5 products for transactions
-      } catch (error) {
-        console.error("Error fetching data:", error);
+        const response = await axios.get(`${API_URL}/transactions`);
+        setTransactions(response.data);
+        setLoading(false);
+      } catch (err) {
+        setError("Failed to fetch transactions. Please try again later.");
+        setLoading(false);
       }
     };
 
-    fetchData();
-  }, []);
+    fetchTransactions();
+  }, [page, limit]);
+
+  const pageSizeOptions = [5, 10, 20, 50, 100];
+
+  const filteredTransactions = transactions.filter((transaction) =>
+    (transaction.customerName || "")
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
 
   // DataGrid Columns
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "title", headerName: "Transaction Name", flex: 1 },
-    { field: "price", headerName: "Amount ($)", width: 120 },
-    { field: "description", headerName: "Description", flex: 2 },
+    { field: "_id", headerName: "Transaction ID", width: 200 },
+    { field: "customerId", headerName: "Customer ID", flex: 1 },
+    { field: "amount", headerName: "Amount", width: 150 },
+    { field: "status", headerName: "Status", width: 150 },
   ];
-
-  // DataGrid Rows
-  const rows = transactions.map((transaction, index) => ({
-    id: index + 1,
-    title: transaction.title,
-    price: transaction.price.toFixed(2),
-    description: transaction.description,
-  }));
 
   switch (activePage) {
     case "Send Money":
@@ -292,12 +300,31 @@ const Wallets = () => {
             </Typography>
             <Divider sx={{ marginBottom: 2 }} />
             <div style={{ height: 400, width: "100%" }}>
-              <DataGrid
-                rows={rows}
-                columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-              />
+              {loading ? (
+                <Typography>Loading....</Typography>
+              ) : error ? (
+                <Typography color="error">{error}</Typography>
+              ) : (
+                <Paper>
+                  <DataGrid
+                    rows={filteredTransactions}
+                    columns={columns}
+                    pageSize={limit}
+                    getRowId={(row) => row._id}
+                    disableSelectionOnClick
+                    sx={{ backgroundColor: "#fff" }}
+                    pagination
+                    paginationMode="client"
+                    // rowCount={25}
+                    pageSizeOptions={pageSizeOptions}
+                    onPageChange={(newPage) => setPage(newPage)}
+                    onPageSizeChange={(newPageSize) => {
+                      setLimit(newPageSize);
+                      setPage(0);
+                    }}
+                  />
+                </Paper>
+              )}
             </div>
           </Box>
         </Box>
