@@ -204,20 +204,23 @@ const TransactionsPage = () => {
               variant="outlined"
               placeholder="Search for a transaction"
               onChange={(e) => setSearchTerm(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      marginRight: "10px",
-                    }}
-                  >
-                    <SearchIcon />
-                  </Box>
-                ),
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginRight: "10px",
+                      }}
+                    >
+                      <SearchIcon />
+                    </Box>
+                  ),
+                },
               }}
             />
+
             <Button
               variant="outlined"
               startIcon={<FilterListIcon />}
