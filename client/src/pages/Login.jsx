@@ -66,7 +66,7 @@ const Login = () => {
         localStorage.setItem("authToken", token);
 
         // Dispatch login action
-        dispatch(login(true));
+        dispatch(login());
 
         // Redirect to dashboard
         navigate("/dashboard");
