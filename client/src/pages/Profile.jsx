@@ -210,7 +210,7 @@ const Profile = () => {
                   name={field}
                   value={userDetails[field] || ""}
                   onChange={handleInputChange}
-                  InputProps={{ readOnly: !isEditing }}
+                  slotProps={{ input: { readOnly: !isEditing } }}
                   sx={{ flex: "1 1 45%" }}
                 />
               ))}

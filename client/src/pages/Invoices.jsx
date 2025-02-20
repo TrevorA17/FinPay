@@ -15,6 +15,7 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import SentimentDissatisfiedIcon from "@mui/icons-material/SentimentDissatisfied";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
@@ -111,10 +112,8 @@ const Invoices = () => {
   const columns = [
     { field: "_id", headerName: "Invoice ID", width: 200 },
     { field: "customerId", headerName: "Customer ID", width: 150 },
-    { field: "customerName", headerName: "Customer Name", width: 180 },
     { field: "amount", headerName: "Amount ($)", width: 120 },
     { field: "status", headerName: "Status", width: 120 },
-    { field: "dueDate", headerName: "Due Date", width: 150 },
     {
       field: "actions",
       headerName: "Actions",
@@ -262,6 +261,21 @@ const Invoices = () => {
           >
             No invoices found
           </Typography>
+          <Button
+            variant="contained"
+            startIcon={<AddCircleOutlineIcon />}
+            onClick={() => handleMenuClick("Create Invoice")}
+            sx={{
+              marginTop: "16px",
+              backgroundColor: "#007bff",
+              color: "#fff",
+              textTransform: "none",
+              padding: "15px",
+              width: "auto",
+            }}
+          >
+            Create New Invoice
+          </Button>
         </Box>
       ) : (
         <Paper

@@ -123,7 +123,6 @@ const DashboardContent = () => {
   const columns = [
     { field: "_id", headerName: "Invoice ID", width: 200 },
     { field: "customerId", headerName: "Customer ID", width: 150 },
-    { field: "customerName", headerName: "Customer Name", width: 180 },
     { field: "amount", headerName: "Amount ($)", width: 120 },
     { field: "status", headerName: "Status", width: 120 },
     { field: "dueDate", headerName: "Due Date", width: 150 },

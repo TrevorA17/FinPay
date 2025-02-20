@@ -56,7 +56,24 @@ const Wallets = () => {
     const fetchTransactions = async () => {
       setLoading(true);
       try {
-        const response = await axios.get(`${API_URL}/transactions`);
+        // Get the token from localStorage (or wherever you're storing it)
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          throw new Error("No authentication token found.");
+        }
+
+        // Set up headers with the Authorization token
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        // Make the GET request with the token
+        const response = await axios.get(`${API_URL}/transactions`, config);
+
+        // Set transactions from the response
         setTransactions(response.data);
         setLoading(false);
       } catch (err) {
