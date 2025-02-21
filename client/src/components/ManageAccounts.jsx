@@ -32,6 +32,7 @@ const ManageAccounts = () => {
     setActivePage(page); // Set the active page dynamically
     handleClose(); // Close the dropdown
   };
+
   const handleGoBack = () => {
     navigate("/"); // Go back to the main dashboard
   };

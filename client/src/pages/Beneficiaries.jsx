@@ -65,6 +65,7 @@ const Beneficiaries = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+
   const handleGoBack = () => {
     navigate("/"); // Go back to the main dashboard
   };
