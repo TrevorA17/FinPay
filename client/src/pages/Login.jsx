@@ -83,7 +83,7 @@ const Login = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#e0e0e0",
+        backgroundColor: "#8833da", // Background color
       }}
     >
       <Container component="main" maxWidth="xs">
