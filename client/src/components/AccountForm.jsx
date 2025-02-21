@@ -219,3 +219,7 @@ const AccountForm = ({ userId }) => {
 };
 
 export default AccountForm;
+
+//Notes
+//useState for managing component state and useEffect for handling side effects (like data fetching).
+// useEffect hook is crucial for fetching the account data. It runs after the component renders.
