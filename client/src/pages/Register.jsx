@@ -208,7 +208,7 @@ const Register = () => {
 
               {/* Confirm Password (Full Width) */}
               <TextField
-                label="Confirm Password"
+                label="Re-enter Password"
                 type="password"
                 variant="outlined"
                 fullWidth
