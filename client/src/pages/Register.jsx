@@ -96,27 +96,42 @@ const Register = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#e0e0e0",
+        backgroundColor: "#8833da", // Background color
+        flexDirection: "column",
       }}
     >
-      <Container component="main" maxWidth="xs">
+      {/* Form Container */}
+      <Container component="main" maxWidth="sm">
         <Paper
           elevation={3}
           sx={{
-            padding: 4,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            backgroundColor: "#f5f5f5",
+            padding: 2,
+            backgroundColor: "white",
             borderRadius: 3,
             height: otpSent ? "400px" : "550px",
           }}
         >
-          <Typography variant="h5" component="h1" gutterBottom>
-            Create Your Account
+          {/* Titles */}
+          <Typography
+            variant="h4"
+            sx={{
+              color: "black",
+              fontWeight: "bold",
+              textAlign: "center",
+              marginBottom: 3,
+              marginTop: 3,
+            }}
+          >
+            Create a secure account
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ color: "black", textAlign: "center", marginBottom: 3 }}
+          >
+            Welcome to the future of savings & investments
           </Typography>
 
-          {/* MUI Alert Snackbar */}
+          {/* Snackbar Alert */}
           <Snackbar
             open={openSnackbar}
             autoHideDuration={3000}
@@ -135,54 +150,59 @@ const Register = () => {
 
           {!otpSent ? (
             <form onSubmit={handleRegister} style={{ width: "100%" }}>
-              <TextField
-                label="Full Name"
-                type="text"
-                variant="outlined"
-                fullWidth
-                required
-                margin="normal"
-                value={credentials.fullName}
-                onChange={(e) =>
-                  setCredentials({ ...credentials, fullName: e.target.value })
-                }
-              />
-              <TextField
-                label="Email"
-                type="email"
-                variant="outlined"
-                fullWidth
-                required
-                margin="normal"
-                value={credentials.email}
-                onChange={(e) =>
-                  setCredentials({ ...credentials, email: e.target.value })
-                }
-              />
-              <TextField
-                label="Phone Number"
-                type="tel"
-                variant="outlined"
-                fullWidth
-                required
-                margin="normal"
-                value={credentials.phone}
-                onChange={(e) =>
-                  setCredentials({ ...credentials, phone: e.target.value })
-                }
-              />
-              <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                required
-                margin="normal"
-                value={credentials.password}
-                onChange={(e) =>
-                  setCredentials({ ...credentials, password: e.target.value })
-                }
-              />
+              {/* First Row: Full Name & Email */}
+              <Box sx={{ display: "flex", gap: 2 }}>
+                <TextField
+                  label="Full Name"
+                  type="text"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  value={credentials.fullName}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, fullName: e.target.value })
+                  }
+                />
+                <TextField
+                  label="Email"
+                  type="email"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  value={credentials.email}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, email: e.target.value })
+                  }
+                />
+              </Box>
+
+              {/* Second Row: Phone & Password */}
+              <Box sx={{ display: "flex", gap: 2, marginTop: 2 }}>
+                <TextField
+                  label="Phone Number"
+                  type="tel"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  value={credentials.phone}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, phone: e.target.value })
+                  }
+                />
+                <TextField
+                  label="Password"
+                  type="password"
+                  variant="outlined"
+                  fullWidth
+                  required
+                  value={credentials.password}
+                  onChange={(e) =>
+                    setCredentials({ ...credentials, password: e.target.value })
+                  }
+                />
+              </Box>
+
+              {/* Confirm Password (Full Width) */}
               <TextField
                 label="Confirm Password"
                 type="password"
@@ -199,6 +219,7 @@ const Register = () => {
                 }
               />
 
+              {/* Submit Button */}
               <Box
                 sx={{ display: "flex", justifyContent: "center", marginTop: 2 }}
               >
@@ -241,6 +262,7 @@ const Register = () => {
             </form>
           )}
 
+          {/* Login Link */}
           <Box sx={{ textAlign: "center", marginTop: 2 }}>
             <Typography variant="body2" color="textSecondary">
               Already have an account?{" "}

@@ -43,7 +43,6 @@ const App = () => {
         }
       }
     };
-
     validateToken();
   }, [dispatch]);
 
