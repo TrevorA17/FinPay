@@ -44,9 +44,11 @@ const CreateInvoice = () => {
     setActivePage(page); // Set the active page dynamically
     handleClose(); // Close the dropdown
   };
+
   const handleTopBarClose = () => {
     setAnchorEl(null);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };

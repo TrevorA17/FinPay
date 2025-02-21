@@ -45,7 +45,7 @@ const AccountForm = ({ userId }) => {
     } else {
       setError("User ID is missing");
     }
-  }, [userId]);
+  }, [userId]); // Ensures that this effect runs only when the userId prop changes.
 
   const loadAccounts = async () => {
     try {
@@ -66,10 +66,12 @@ const AccountForm = ({ userId }) => {
     }
   };
 
+  // handles form input changes.
   const handleChange = (event) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  //handles the selection of an account from the dropdown.
   const handleAccountSelect = (event) => {
     const accountId = event.target.value;
     const account = accounts.find((acc) => acc._id === accountId);
@@ -77,8 +79,9 @@ const AccountForm = ({ userId }) => {
     setFormData(account || formData);
   };
 
+  //handles the form submission.
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault(); //Prevents the default form submission behavior
     try {
       if (selectedAccount) {
         await updateUserAccount(userId, selectedAccount._id, formData);
