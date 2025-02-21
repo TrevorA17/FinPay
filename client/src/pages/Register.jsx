@@ -118,15 +118,19 @@ const Register = () => {
               color: "black",
               fontWeight: "bold",
               textAlign: "center",
-              marginBottom: 3,
-              marginTop: 3,
+              marginBottom: 2,
+              marginTop: 5,
             }}
           >
             Create a secure account
           </Typography>
           <Typography
-            variant="h6"
-            sx={{ color: "black", textAlign: "center", marginBottom: 3 }}
+            variant="body1" // Makes it smaller
+            sx={{
+              color: "text.secondary",
+              textAlign: "center",
+              marginBottom: 3,
+            }}
           >
             Welcome to the future of savings & investments
           </Typography>
@@ -230,7 +234,7 @@ const Register = () => {
                   fullWidth
                   sx={{ padding: "10px", marginBottom: 2 }}
                 >
-                  Register
+                  Create Account
                 </Button>
               </Box>
             </form>
