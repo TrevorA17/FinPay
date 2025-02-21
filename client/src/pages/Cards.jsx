@@ -29,6 +29,7 @@ const CardsPage = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleMenuClick = (page) => {
     setActivePage(page); // Set the active page dynamically
     handleClose(); // Close the dropdown
