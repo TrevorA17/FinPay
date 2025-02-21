@@ -23,3 +23,7 @@ api.interceptors.request.use(
 );
 
 export default api;
+
+//Notes
+//Interceptors allow modification of requests before they are sent and responses before they are processed.
+//pre-configured Axios instance for making API requests.  It handles setting the base URL and, importantly, adds authentication tokens to the headers of every request.
