@@ -36,6 +36,7 @@ const Invoices = () => {
 
   const handleClose = () => setAnchorEl(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
+
   const handleMenuClick = (page) => {
     setActivePage(page);
     handleClose();
