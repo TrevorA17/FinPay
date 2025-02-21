@@ -8,7 +8,6 @@ export const fetchLoggedInUser = async () => {
     const token = localStorage.getItem("authToken"); // Get auth token from storage
 
     const response = await axios.get(`${API_URL}/users`, {
-      // Adjusted to match /api/users route
       headers: { Authorization: `Bearer ${token}` }, // Send token for authentication
     });
 
@@ -23,7 +22,7 @@ export const fetchUserAccounts = async (userId) => {
   try {
     const response = await axios.get(
       `${API_URL}/users/user/accounts/${userId}`
-    ); // Adjusted to match /api/users/accounts/:userId route
+    );
 
     // Log the raw response to ensure it's correct
     // console.log("Raw API response:", response);
@@ -44,7 +43,7 @@ export const fetchUserAccounts = async (userId) => {
 export const addUserAccount = async (userId, accountData) => {
   try {
     const response = await axios.post(
-      `${API_URL}/users/user/accounts/${userId}`, // Adjusted to match /api/users/user/accounts/:userId route
+      `${API_URL}/users/user/accounts/${userId}`,
       accountData
     );
     return response.data;
@@ -58,7 +57,7 @@ export const addUserAccount = async (userId, accountData) => {
 export const updateUserAccount = async (userId, accountId, updatedData) => {
   try {
     const response = await axios.put(
-      `${API_URL}/users/user/accounts/${userId}/${accountId}`, // Adjusted to match /api/users/user/accounts/:userId/:accountId route
+      `${API_URL}/users/user/accounts/${userId}/${accountId}`,
       updatedData
     );
     return response.data;
@@ -67,3 +66,7 @@ export const updateUserAccount = async (userId, accountId, updatedData) => {
     throw error;
   }
 };
+
+//Notes
+//A set of reusable functions for interacting with a user accounts API.
+// It handles authentication, data fetching, account creation, and account updates.
