@@ -9,7 +9,7 @@ const PrivateRouteLayout = () => {
 
   // If not authenticated, redirect to login page
   if (!isAuthenticated || !authToken) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/register" />;
   }
 
   return (

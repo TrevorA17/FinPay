@@ -50,8 +50,8 @@ const App = () => {
     <Routes>
       {/* Public Routes (Login, Register) */}
       <Route element={<PublicRouteLayout />}>
-        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/newpage" element={<NewPage />} />
       </Route>
 
@@ -70,7 +70,7 @@ const App = () => {
       </Route>
 
       {/* Catch-all route to redirect to login if not matched */}
-      <Route path="*" element={<Navigate to="/login" />} />
+      <Route path="*" element={<Navigate to="/register" />} />
     </Routes>
   );
 };
