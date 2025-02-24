@@ -65,6 +65,10 @@ const Invoices = () => {
           invoice._id === invoiceId ? { ...invoice, status: "paid" } : invoice
         )
       );
+
+      setTimeout(() => {
+        navigate("/transactions");
+      }, 1000);
     } catch (error) {
       console.error("Error marking invoice as paid", error);
       alert("Failed to mark invoice as paid!");

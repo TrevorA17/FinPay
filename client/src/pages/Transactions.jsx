@@ -68,8 +68,12 @@ const TransactionsPage = () => {
       }
     };
 
+    if (location.state?.refresh) {
+      fetchTransactions(); // Re-fetch invoices when navigating
+    }
+
     fetchTransactions();
-  }, [page, limit]);
+  }, [page, limit, location]);
 
   const pageSizeOptions = [5, 10, 20, 50, 100];
 
