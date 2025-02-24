@@ -18,6 +18,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
+//Quick actions imports
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";

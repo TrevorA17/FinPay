@@ -17,9 +17,12 @@ import {
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
+import CustomerDropdown from "./CustomerDropdown";
+
+//quick actions imports
 import SendMoney from "./SendMoney";
 import CreateCustomer from "./CreateNewCustomer";
-import CustomerDropdown from "./CustomerDropdown";
+import ConvertFunds from "./ConvertFunds";
 
 const CreateInvoice = () => {
   const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
@@ -49,6 +52,7 @@ const CreateInvoice = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
 
   const handleCreateInvoice = async () => {
     setError("");
@@ -120,13 +124,14 @@ const CreateInvoice = () => {
       setOpenSnackbar(true);
     }
   };
+
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
     case "Create Customer":
       return <CreateCustomer />;
-    case "Create Invoice":
-      return <CreateInvoice />;
+    case "Convert Funds":
+      return <ConvertFunds />;
     default:
       return (
         <Box>
@@ -145,9 +150,16 @@ const CreateInvoice = () => {
               Create New Invoice
             </Typography>
             <Button
-              variant="outlined"
-              onClick={(e) => setAnchorEl(e.currentTarget)}
+              variant="contained"
               startIcon={<ArrowDropDownIcon />}
+              onClick={handleClick}
+              sx={{
+                backgroundColor: "#fff",
+                color: "#000",
+                textTransform: "none",
+                fontSize: "14px",
+                padding: "8px 12px",
+              }}
             >
               Quick Actions
             </Button>
@@ -174,12 +186,6 @@ const CreateInvoice = () => {
                   <DashboardIcon fontSize="small" />
                 </ListItemIcon>
                 Convert Funds
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Create New Invoice
               </MenuItem>
             </Menu>
           </Box>
