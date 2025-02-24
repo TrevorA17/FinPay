@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -15,7 +16,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
 
 //Quick actions imports
 import SendMoney from "../components/SendMoney";
