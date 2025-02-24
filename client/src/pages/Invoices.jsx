@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import {
   Box,
@@ -28,20 +29,22 @@ const Invoices = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [invoices, setInvoices] = useState([]);
   const [filteredInvoices, setFilteredInvoices] = useState([]);
-  const [activePage, setActivePage] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(20); //Default page size
+  const [limit, setLimit] = useState(20);
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const handleClose = () => setAnchorEl(null);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
 
-  const handleMenuClick = (page) => {
-    setActivePage(page);
+  // Handle menu selection by updating the URL
+  const handleMenuClick = (action) => {
+    navigate(`/invoices?action=${action}`); // Update URL with query param
     handleClose();
   };
-
   const markInvoiceAsPaid = async (invoiceId) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -90,26 +93,32 @@ const Invoices = () => {
       }
     };
 
+    if (location.state?.refresh) {
+      fetchInvoices(); // Re-fetch invoices when navigating
+    }
+
     fetchInvoices();
-  }, [page, limit]);
+  }, [page, limit, location]);
 
-  const pageSizeOptions = [5, 10, 20, 50, 100];
+  // Extract action from URL query params
+  const searchParams = new URLSearchParams(location.search);
+  const activePage = searchParams.get("action");
 
+  // Render components based on activePage
   if (activePage) {
     switch (activePage) {
-      case "Send Money":
+      case "send-money":
         return <SendMoney />;
-      case "Create Customer":
+      case "create-customer":
         return <CreateCustomer />;
-      case "Convert Funds":
+      case "convert-funds":
         return <ConvertFunds />;
-      case "Create Invoice":
+      case "create-invoice":
         return <CreateInvoice />;
       default:
         break;
     }
   }
-
   const columns = [
     { field: "_id", headerName: "Invoice ID", width: 200 },
     { field: "customerId", headerName: "Customer ID", width: 150 },
@@ -135,19 +144,10 @@ const Invoices = () => {
         ),
     },
   ];
+  const pageSizeOptions = [5, 10, 20, 50, 100];
 
   return (
-    <Box
-      sx={{
-        //   padding: "5px",
-        maxWidth: "77vw", //overall width of the page
-        //   width: "100%",
-        overflowX: "hidden",
-        overflowY: "hidden",
-        //   boxSizing: "border-box",
-        //   height: "2000px",
-      }}
-    >
+    <Box sx={{ maxWidth: "77vw", overflowX: "hidden", overflowY: "hidden" }}>
       {/* Top Bar */}
       <Box
         sx={{
@@ -155,7 +155,7 @@ const Invoices = () => {
           justifyContent: "space-between",
           alignItems: "center",
           backgroundColor: "#fff",
-          padding: "38px", // Reduced padding
+          padding: "38px",
           boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
           marginBottom: "20px",
           flexWrap: "wrap",
@@ -184,33 +184,32 @@ const Invoices = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => handleMenuClick("Send Money")}>
+          <MenuItem onClick={() => handleMenuClick("send-money")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
-            </ListItemIcon>{" "}
+            </ListItemIcon>
             Send Money
           </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("Create Customer")}>
+          <MenuItem onClick={() => handleMenuClick("create-customer")}>
             <ListItemIcon>
               <DescriptionOutlinedIcon fontSize="small" />
-            </ListItemIcon>{" "}
+            </ListItemIcon>
             Create Customer
           </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
+          <MenuItem onClick={() => handleMenuClick("convert-funds")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
-            </ListItemIcon>{" "}
+            </ListItemIcon>
             Convert Funds
           </MenuItem>
-          <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
+          <MenuItem onClick={() => handleMenuClick("create-invoice")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
-            </ListItemIcon>{" "}
+            </ListItemIcon>
             Create Invoice
           </MenuItem>
         </Menu>
       </Box>
-
       {/* Search Bar */}
       <Box
         sx={{
@@ -246,7 +245,6 @@ const Invoices = () => {
           Filter
         </Button>
       </Box>
-
       {/* Invoice Table */}
       {loading && <Typography>Loading...</Typography>}
       {error && <Typography color="error">{error}</Typography>}
@@ -265,7 +263,7 @@ const Invoices = () => {
           <Button
             variant="contained"
             startIcon={<AddCircleOutlineIcon />}
-            onClick={() => handleMenuClick("Create Invoice")}
+            onClick={() => handleMenuClick("create-invoice")}
             sx={{
               marginTop: "16px",
               backgroundColor: "#007bff",
@@ -294,12 +292,11 @@ const Invoices = () => {
             pageSize={limit}
             pagination
             paginationMode="client"
-            // rowCount={25}
-            pageSizeOptions={pageSizeOptions} // Controlled state for page size
-            onPageChange={(newPage) => setPage(newPage)} // page handling
+            pageSizeOptions={pageSizeOptions}
+            onPageChange={(newPage) => setPage(newPage)}
             onPageSizeChange={(newPageSize) => {
-              setLimit(newPageSize); //  Update page size
-              setPage(0); // Reset page to avoid issues
+              setLimit(newPageSize);
+              setPage(0);
             }}
           />
         </Paper>

@@ -11,12 +11,12 @@ import {
   Divider,
   Checkbox,
   FormControlLabel,
+  Snackbar,
   Alert,
 } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useNavigate } from "react-router-dom";
-
 import SendMoney from "./SendMoney";
 import CreateCustomer from "./CreateNewCustomer";
 import CustomerDropdown from "./CustomerDropdown";
@@ -35,18 +35,15 @@ const CreateInvoice = () => {
   const [includeVAT, setIncludeVAT] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleCustomerSelect = (customerId) => {
     setSelectedCustomer(customerId);
   };
 
   const handleMenuClick = (page) => {
-    setActivePage(page); // Set the active page dynamically
-    handleClose(); // Close the dropdown
-  };
-
-  const handleTopBarClose = () => {
-    setAnchorEl(null);
+    setActivePage(page);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -66,12 +63,14 @@ const CreateInvoice = () => {
       !unitPrice
     ) {
       setError("All fields are required.");
+      setOpenSnackbar(true);
       return;
     }
 
     const token = localStorage.getItem("authToken");
     if (!token) {
       setError("Authentication error. Please log in.");
+      setOpenSnackbar(true);
       return;
     }
 
@@ -102,6 +101,9 @@ const CreateInvoice = () => {
       );
 
       setSuccessMessage("Invoice created successfully!");
+      setOpenSnackbar(true);
+
+      // Clear form fields
       setSelectedCustomer("");
       setIssueDate("");
       setDueDate("");
@@ -109,11 +111,15 @@ const CreateInvoice = () => {
       setQuantity("");
       setUnitPrice("");
       setIncludeVAT(false);
+
+      setTimeout(() => {
+        navigate("/invoices");
+      }, 1000);
     } catch (error) {
       setError(error.response?.data?.message || "Error creating invoice.");
+      setOpenSnackbar(true);
     }
   };
-
   switch (activePage) {
     case "Send Money":
       return <SendMoney />;
@@ -148,7 +154,7 @@ const CreateInvoice = () => {
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
-              onClose={handleTopBarClose}
+              onClose={handleClose}
               sx={{ mt: "-45px" }}
             >
               <MenuItem onClick={() => handleMenuClick("Send Money")}>
@@ -193,7 +199,6 @@ const CreateInvoice = () => {
                 backgroundColor: "#fff",
                 padding: "20px",
                 borderRadius: "8px",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 width: "40%",
               }}
             >
@@ -216,7 +221,6 @@ const CreateInvoice = () => {
                 backgroundColor: "#fff",
                 padding: "20px",
                 borderRadius: "8px",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 width: "40%",
               }}
             >
@@ -228,7 +232,6 @@ const CreateInvoice = () => {
                 fullWidth
                 type="date"
                 label="Issue Date"
-                variant="outlined"
                 sx={{ mt: 2 }}
                 value={issueDate}
                 onChange={(e) => setIssueDate(e.target.value)}
@@ -237,7 +240,6 @@ const CreateInvoice = () => {
                 fullWidth
                 type="date"
                 label="Due Date"
-                variant="outlined"
                 sx={{ mt: 2 }}
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
@@ -251,7 +253,6 @@ const CreateInvoice = () => {
               backgroundColor: "#fff",
               padding: "20px",
               borderRadius: "8px",
-              boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
               margin: "20px auto",
               width: "60%",
             }}
@@ -263,14 +264,12 @@ const CreateInvoice = () => {
             <TextField
               fullWidth
               label="Item Description*"
-              variant="outlined"
               value={itemDescription}
               onChange={(e) => setItemDescription(e.target.value)}
             />
             <TextField
               fullWidth
               label="Quantity*"
-              variant="outlined"
               sx={{ mt: 2 }}
               value={quantity}
               onChange={(e) => setQuantity(e.target.value)}
@@ -278,7 +277,6 @@ const CreateInvoice = () => {
             <TextField
               fullWidth
               label="Amount Per Quantity*"
-              variant="outlined"
               sx={{ mt: 2 }}
               value={unitPrice}
               onChange={(e) => setUnitPrice(e.target.value)}
@@ -295,21 +293,6 @@ const CreateInvoice = () => {
             />
           </Box>
 
-          {/* Error / Success Messages */}
-          {error && (
-            <Alert severity="error" sx={{ width: "60%", margin: "10px auto" }}>
-              {error}
-            </Alert>
-          )}
-          {successMessage && (
-            <Alert
-              severity="success"
-              sx={{ width: "60%", margin: "10px auto" }}
-            >
-              {successMessage}
-            </Alert>
-          )}
-
           {/* Submit Button */}
           <Button
             variant="contained"
@@ -319,9 +302,19 @@ const CreateInvoice = () => {
           >
             Create Invoice
           </Button>
+
+          {/* Snackbar for messages */}
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={3000}
+            onClose={() => setOpenSnackbar(false)}
+          >
+            <Alert severity={error ? "error" : "success"}>
+              {error || successMessage}
+            </Alert>
+          </Snackbar>
         </Box>
       );
   }
 };
-
 export default CreateInvoice;
