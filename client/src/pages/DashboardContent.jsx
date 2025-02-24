@@ -543,7 +543,7 @@ const DashboardContent = () => {
           <Button
             variant="contained"
             startIcon={<AddCircleOutlineIcon />}
-            onClick={() => handleMenuClick("Create Invoice")}
+            onClick={() => handleMenuClick("create-invoice")}
             sx={{
               marginTop: "16px",
               backgroundColor: "#007bff",
