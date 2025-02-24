@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -15,17 +16,17 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import axios from "axios";
 
+//Quick action Imports
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
-import { useNavigate } from "react-router-dom";
 import CreateCustomer from "./../components/CreateNewCustomer";
 
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+
 const Profile = () => {
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
-  const [activePage, setActivePage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [userDetails, setUserDetails] = useState({
     fullName: "",
@@ -105,8 +106,8 @@ const Profile = () => {
     setAnchorEl(null);
   };
 
-  const handleMenuClick = (page) => {
-    setActivePage(page);
+  const handleMenuClick = (action) => {
+    navigate(`/profile?action=${action}`);
     handleClose();
   };
 
@@ -114,150 +115,156 @@ const Profile = () => {
     navigate("/"); // Go back to the main dashboard
   };
 
-  switch (activePage) {
-    case "Send Money":
-      return <SendMoney />;
-    case "Create Customer":
-      return <CreateCustomer />;
-    case "Convert Funds":
-      return <ConvertFunds />;
-    case "Create Invoice":
-      return <CreateInvoice />;
-    default:
-      return (
-        <Box>
-          {/* Welcome Box */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              padding: "38px",
-              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
-              marginBottom: "20px",
-              marginLeft: "-5px",
-            }}
-          >
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              My Profile
-            </Typography>
-            <Button
-              variant="contained"
-              onClick={handleClick}
-              startIcon={<ArrowDropDownIcon />}
-              sx={{
-                backgroundColor: "#fff",
-                color: "#000",
-                textTransform: "none",
-              }}
-            >
-              Quick Actions
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={() => handleMenuClick("Send Money")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Send Money
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Create Customer
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Convert Funds
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Create New Invoice
-              </MenuItem>
-            </Menu>
-          </Box>
+  const searchParams = new URLSearchParams(location.search);
+  const activePage = searchParams.get("action");
 
-          {/* Profile Box */}
-          <Box
-            sx={{
-              backgroundColor: "#fff",
-              padding: "30px",
-              boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-              borderRadius: "0px",
-            }}
-          >
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", marginBottom: "20px" }}
-            >
-              My Profile
-            </Typography>
-            <Divider sx={{ marginBottom: "20px" }} />
-            <Box display="flex" flexWrap="wrap" gap={8}>
-              {["fullName", "email", "phone"].map((field, index) => (
-                <TextField
-                  key={index}
-                  label={field.charAt(0).toUpperCase() + field.slice(1)}
-                  name={field}
-                  value={userDetails[field] || ""}
-                  onChange={handleInputChange}
-                  slotProps={{ input: { readOnly: !isEditing } }}
-                  sx={{ flex: "1 1 45%" }}
-                />
-              ))}
-            </Box>
-            {!isEditing ? (
-              <Button
-                onClick={handleEdit}
-                variant="outlined"
-                sx={{ marginTop: "10px" }}
-              >
-                Edit
-              </Button>
-            ) : (
-              <Button
-                onClick={handleSave}
-                variant="contained"
-                sx={{ marginTop: "10px" }}
-              >
-                Save
-              </Button>
-            )}
-          </Box>
-          <Button
-            variant="outlined"
-            sx={{ marginTop: "20px", backgroundColor: "#fff" }}
-            onClick={handleGoBack}
-          >
-            Go Back
-          </Button>
-          {/* Snackbar */}
-          <Snackbar
-            open={snackbar.open}
-            autoHideDuration={6000}
-            onClose={handleCloseSnackbar}
-            anchorOrigin={{ vertical: "top", horizontal: "center" }} // Customize position here
-          >
-            <Alert
-              onClose={handleCloseSnackbar}
-              severity={snackbar.severity}
-              sx={{ width: "90%" }}
-            >
-              {snackbar.message}
-            </Alert>
-          </Snackbar>
-        </Box>
-      );
+  if (activePage) {
+    switch (activePage) {
+      case "send-money":
+        return <SendMoney />;
+      case "create-customer":
+        return <CreateCustomer />;
+      case "convert-funds":
+        return <ConvertFunds />;
+      case "create-invoice":
+        return <CreateInvoice />;
+      default:
+        break;
+    }
   }
+  return (
+    <Box>
+      {/* Welcome Box */}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "#fff",
+          padding: "38px",
+          boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
+          marginBottom: "20px",
+          marginLeft: "-5px",
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          My Profile
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={handleClick}
+          startIcon={<ArrowDropDownIcon />}
+          sx={{
+            backgroundColor: "#fff",
+            color: "#000",
+            textTransform: "none",
+          }}
+        >
+          Quick Actions
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={() => handleMenuClick("send-money")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Send Money
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("create-customer")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create Customer
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("convert-funds")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("create-invoice")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create New Invoice
+          </MenuItem>
+        </Menu>
+      </Box>
+
+      {/* Profile Box */}
+      <Box
+        sx={{
+          backgroundColor: "#fff",
+          padding: "30px",
+          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+          borderRadius: "0px",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ fontWeight: "bold", marginBottom: "20px" }}
+        >
+          My Profile
+        </Typography>
+        <Divider sx={{ marginBottom: "20px" }} />
+        <Box display="flex" flexWrap="wrap" gap={8}>
+          {["fullName", "email", "phone"].map((field, index) => (
+            <TextField
+              key={index}
+              label={field.charAt(0).toUpperCase() + field.slice(1)}
+              name={field}
+              value={userDetails[field] || ""}
+              onChange={handleInputChange}
+              slotProps={{ input: { readOnly: !isEditing } }}
+              sx={{ flex: "1 1 45%" }}
+            />
+          ))}
+        </Box>
+        {!isEditing ? (
+          <Button
+            onClick={handleEdit}
+            variant="outlined"
+            sx={{ marginTop: "10px" }}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            onClick={handleSave}
+            variant="contained"
+            sx={{ marginTop: "10px" }}
+          >
+            Save
+          </Button>
+        )}
+      </Box>
+      <Button
+        variant="outlined"
+        sx={{ marginTop: "20px", backgroundColor: "#fff" }}
+        onClick={handleGoBack}
+      >
+        Go Back
+      </Button>
+      {/* Snackbar */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }} // Customize position here
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          sx={{ width: "90%" }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+    </Box>
+  );
 };
 
 export default Profile;
