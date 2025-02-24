@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom"; // Import Link
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import Link
 import {
   Avatar,
   Box,
@@ -17,10 +17,9 @@ import WalletIcon from "@mui/icons-material/Wallet";
 import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined";
 import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-// import Diversity1Icon from "@mui/icons-material/Diversity1";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
 import SecurityIcon from "@mui/icons-material/Security";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
-import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import { fetchLoggedInUser } from "../api/userApi";
@@ -29,6 +28,7 @@ const Sidebar = () => {
   const [user, setUser] = useState({ fullName: "", email: "" });
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
@@ -55,6 +55,16 @@ const Sidebar = () => {
   ];
 
   useEffect(() => {
+    // Find the index of the menu item that matches the current path
+    const currentIndex = menuItems.findIndex(
+      (item) => item.path === location.pathname
+    );
+    if (currentIndex !== -1) {
+      setSelectedIndex(currentIndex);
+    }
+  }, [location.pathname]); // Update selectedIndex when location changes
+
+  useEffect(() => {
     const getUser = async () => {
       const userData = await fetchLoggedInUser();
       if (userData) setUser(userData);
@@ -76,21 +86,21 @@ const Sidebar = () => {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      {/* Header Box */}
+      {/* Header */}
       <Box
         sx={{
-          backgroundColor: "#8833da", // Blue background
-          color: "#fff", // White text
-          width: "260px", // Full width
-          height: "125px", // Fixed height for the header
-          display: "flex", // Flex container
-          alignItems: "center", // Center text vertically
-          justifyContent: "center", // Center text horizontally
-          position: "absolute", // Fix the header's position
-          top: 0, // Align it to the top
-          left: 0, // Align it to the left
-          zIndex: 1000, // Ensure the header is above other elements
-          borderTopRightRadius: "15px", // Rounded corner on the top-right
+          backgroundColor: "#8833da",
+          color: "#fff",
+          width: "260px",
+          height: "125px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          position: "absolute",
+          top: 0,
+          left: 0,
+          zIndex: 1000,
+          borderTopRightRadius: "15px",
         }}
       >
         <h1
@@ -108,18 +118,18 @@ const Sidebar = () => {
       {/* Sidebar Menu */}
       <Box
         sx={{
-          backgroundColor: "#8833da", // Sidebar color
-          color: "#fff", // Default text color
-          width: "260px", // Sidebar width
-          height: "350vh", // Sidebar height
-          position: "absolute", // Fixed positioning
-          top: "126px", // Position below the header
-          left: 0, // Align to the left
-          paddingTop: "15px", // Top padding
-          borderBottomRightRadius: "15px", // Rounded bottom-right corner
-          display: "flex", // Flexbox for alignment
-          flexDirection: "column", // Stack items vertically
-          alignItems: "center", // Center items horizontally
+          backgroundColor: "#8833da",
+          color: "#fff",
+          width: "260px",
+          height: "350vh",
+          position: "absolute",
+          top: "126px",
+          left: 0,
+          paddingTop: "15px",
+          borderBottomRightRadius: "15px",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <List sx={{ width: "100%" }}>
@@ -131,34 +141,33 @@ const Sidebar = () => {
             >
               <ListItemButton
                 selected={selectedIndex === index}
-                onClick={() => handleListItemClick(index)}
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
                   width: "240px",
-                  padding: "10px 30px", // Add padding for spacing
-                  marginBottom: "10px", // Add space between buttons
-                  borderRadius: "10px", // Rounded corners for buttons
+                  padding: "10px 30px",
+                  marginBottom: "10px",
+                  borderRadius: "10px",
                   "&.Mui-selected": {
-                    backgroundColor: "#be8bea", // Selected background color
-                    color: "#fff", // Selected text color
+                    backgroundColor: "#be8bea",
+                    color: "#fff",
                   },
                   "&.Mui-selected:hover": {
-                    backgroundColor: "#ffffff", // Hover color for selected item
-                    color: "#000000", // Text color on hover
+                    backgroundColor: "#ffffff",
+                    color: "#000000",
                   },
                   "&:hover": {
-                    backgroundColor: "#ffffff", // Hover background color
-                    color: "black", // Hover text color
+                    backgroundColor: "#ffffff",
+                    color: "black",
                   },
                 }}
               >
                 <ListItemIcon
                   sx={{
-                    color: selectedIndex === index ? "#fff" : "#ffffff", // Dynamic icon color
+                    color: selectedIndex === index ? "#fff" : "#ffffff",
                     justifyContent: "center",
-                    marginRight: "0px", // Add spacing between icon and text
+                    marginRight: "0px",
                   }}
                 >
                   {item.icon}
@@ -173,7 +182,7 @@ const Sidebar = () => {
         <Box
           sx={{
             width: "100%",
-            borderTop: "1px solid #fff", // Divider between list and profile
+            borderTop: "1px solid #fff",
             padding: 2,
             display: "flex",
             alignItems: "center",
@@ -189,8 +198,8 @@ const Sidebar = () => {
                 width: 50,
                 height: 50,
                 marginRight: 2,
-                border: "2px solid #fff", // Optional border around avatar
-                cursor: "pointer", // Pointer on hover
+                border: "2px solid #fff",
+                cursor: "pointer",
               }}
             />
             <Box>
@@ -208,10 +217,10 @@ const Sidebar = () => {
               color: "#fff",
               textTransform: "none",
               "&:hover": {
-                color: "#8833da", // Change button color on hover
-                backgroundColor: "#fff", // Background on hover
+                color: "#8833da",
+                backgroundColor: "#fff",
               },
-              cursor: "pointer", // Pointer on hover
+              cursor: "pointer",
             }}
             onClick={handleLogout}
           >
