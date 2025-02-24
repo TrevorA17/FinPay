@@ -15,7 +15,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
+import { useLocation, useNavigate } from "react-router-dom";
 
+//Quick actions imports
 import SendMoney from "../components/SendMoney";
 import ConvertFunds from "../components/ConvertFunds";
 import CreateInvoice from "../components/CreateNewInvoice";
@@ -26,13 +28,15 @@ const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 const TransactionsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElFilter, setAnchorElFilter] = useState(null);
-  const [activePage, setActivePage] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTransactions = async () => {
@@ -77,8 +81,8 @@ const TransactionsPage = () => {
     setAnchorEl(null);
   };
 
-  const handleMenuClick = (page) => {
-    setActivePage(page);
+  const handleMenuClick = (action) => {
+    navigate(`/transactions?action=${action}`);
     handleClose();
   };
 
@@ -117,158 +121,162 @@ const TransactionsPage = () => {
     },
   ];
 
-  switch (activePage) {
-    case "Send Money":
-      return <SendMoney />;
-    case "Create Customer":
-      return <CreateCustomer />;
-    case "Convert Funds":
-      return <ConvertFunds />;
-    case "Create Invoice":
-      return <CreateInvoice />;
+  const searchParams = new URLSearchParams(location.search);
+  const activePage = searchParams.get("action");
 
-    default:
-      return (
-        <Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              backgroundColor: "#fff",
-              padding: "38px",
-              boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
-              marginBottom: "20px",
-              marginLeft: "-5px",
-            }}
-          >
-            <Typography variant="h4" sx={{ fontWeight: "bold" }}>
-              Transactions
-            </Typography>
-            <Button
-              variant="contained"
-              onClick={handleClick}
-              startIcon={<ArrowDropDownIcon />}
-              sx={{
-                backgroundColor: "#fff",
-                color: "#000",
-                textTransform: "none",
-              }}
-            >
-              Quick Actions
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={() => handleMenuClick("Send Money")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Send Money
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Customer")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Create Customer
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Convert Funds")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Convert Funds
-              </MenuItem>
-              <MenuItem onClick={() => handleMenuClick("Create Invoice")}>
-                <ListItemIcon>
-                  <DashboardIcon fontSize="small" />
-                </ListItemIcon>
-                Create New Invoice
-              </MenuItem>
-            </Menu>
-          </Box>
+  // Render components based on activePage
+  if (activePage) {
+    switch (activePage) {
+      case "send-money":
+        return <SendMoney />;
+      case "create-customer":
+        return <CreateCustomer />;
+      case "convert-funds":
+        return <ConvertFunds />;
+      case "create-invoice":
+        return <CreateInvoice />;
+      default:
+        break;
+    }
+  }
+  return (
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          backgroundColor: "#fff",
+          padding: "38px",
+          boxShadow: "0 0.5px 0.5px rgba(0, 0, 0.0)",
+          marginBottom: "20px",
+          marginLeft: "-5px",
+        }}
+      >
+        <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          Transactions
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={handleClick}
+          startIcon={<ArrowDropDownIcon />}
+          sx={{
+            backgroundColor: "#fff",
+            color: "#000",
+            textTransform: "none",
+          }}
+        >
+          Quick Actions
+        </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={() => handleMenuClick("send-money")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Send Money
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("create-customer")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create Customer
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("convert-funds")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("create-invoice")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create New Invoice
+          </MenuItem>
+        </Menu>
+      </Box>
 
-          <Box
-            sx={{
-              backgroundColor: "#f9f9f9",
-              padding: "20px",
-              borderRadius: "8px",
-              display: "flex",
-              alignItems: "center",
-              gap: "10px",
-            }}
-          >
-            <TextField
-              fullWidth
-              variant="outlined"
-              placeholder="Search for a transaction"
-              onChange={(e) => setSearchTerm(e.target.value)}
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <Box
-                      sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        marginRight: "10px",
-                      }}
-                    >
-                      <SearchIcon />
-                    </Box>
-                  ),
-                },
+      <Box
+        sx={{
+          backgroundColor: "#f9f9f9",
+          padding: "20px",
+          borderRadius: "8px",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <TextField
+          fullWidth
+          variant="outlined"
+          placeholder="Search for a transaction"
+          onChange={(e) => setSearchTerm(e.target.value)}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginRight: "10px",
+                  }}
+                >
+                  <SearchIcon />
+                </Box>
+              ),
+            },
+          }}
+        />
+
+        <Button
+          variant="outlined"
+          startIcon={<FilterListIcon />}
+          onClick={handleFilterClick}
+        >
+          Filter
+        </Button>
+        <Menu
+          anchorEl={anchorElFilter}
+          open={Boolean(anchorElFilter)}
+          onClose={handleFilterClose}
+        >
+          <MenuItem onClick={() => setSearchTerm("")}>Clear Filter</MenuItem>
+        </Menu>
+      </Box>
+
+      <Box sx={{ marginTop: "20px" }}>
+        {loading ? (
+          <Typography>Loading...</Typography>
+        ) : error ? (
+          <Typography color="error">{error}</Typography>
+        ) : (
+          <Paper>
+            <DataGrid
+              rows={filteredTransactions}
+              columns={columns}
+              pageSize={limit}
+              getRowId={(row) => row._id}
+              disableSelectionOnClick
+              sx={{ backgroundColor: "#fff" }}
+              pagination
+              paginationMode="client"
+              // rowCount={25}
+              pageSizeOptions={pageSizeOptions}
+              onPageChange={(newPage) => setPage(newPage)}
+              onPageSizeChange={(newPageSize) => {
+                setLimit(newPageSize);
+                setPage(0);
               }}
             />
-
-            <Button
-              variant="outlined"
-              startIcon={<FilterListIcon />}
-              onClick={handleFilterClick}
-            >
-              Filter
-            </Button>
-            <Menu
-              anchorEl={anchorElFilter}
-              open={Boolean(anchorElFilter)}
-              onClose={handleFilterClose}
-            >
-              <MenuItem onClick={() => setSearchTerm("")}>
-                Clear Filter
-              </MenuItem>
-            </Menu>
-          </Box>
-
-          <Box sx={{ marginTop: "20px" }}>
-            {loading ? (
-              <Typography>Loading...</Typography>
-            ) : error ? (
-              <Typography color="error">{error}</Typography>
-            ) : (
-              <Paper>
-                <DataGrid
-                  rows={filteredTransactions}
-                  columns={columns}
-                  pageSize={limit}
-                  getRowId={(row) => row._id}
-                  disableSelectionOnClick
-                  sx={{ backgroundColor: "#fff" }}
-                  pagination
-                  paginationMode="client"
-                  // rowCount={25}
-                  pageSizeOptions={pageSizeOptions}
-                  onPageChange={(newPage) => setPage(newPage)}
-                  onPageSizeChange={(newPageSize) => {
-                    setLimit(newPageSize);
-                    setPage(0);
-                  }}
-                />
-              </Paper>
-            )}
-          </Box>
-        </Box>
-      );
-  }
+          </Paper>
+        )}
+      </Box>
+    </Box>
+  );
 };
 
 export default TransactionsPage;
