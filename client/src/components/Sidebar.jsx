@@ -17,7 +17,7 @@ import WalletIcon from "@mui/icons-material/Wallet";
 import CompareArrowsOutlinedIcon from "@mui/icons-material/CompareArrowsOutlined";
 import OpenInNewOutlinedIcon from "@mui/icons-material/OpenInNewOutlined";
 import PersonIcon from "@mui/icons-material/Person";
-import Diversity1Icon from "@mui/icons-material/Diversity1";
+// import Diversity1Icon from "@mui/icons-material/Diversity1";
 import SecurityIcon from "@mui/icons-material/Security";
 import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import { logout } from "../store/authSlice";
@@ -72,11 +72,6 @@ const Sidebar = () => {
 
     getUser();
   }, []);
-
-  // Handle button click to update selected item
-  const handleListItemClick = (index) => {
-    setSelectedIndex(index);
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("authToken"); // Clear the token
