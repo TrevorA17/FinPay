@@ -18,6 +18,7 @@ import Profile from "./pages/Profile";
 import Security from "./pages/Security";
 import Identification from "./pages/Identification";
 import ManageAccounts from "./components/ManageAccounts";
+import Beneficiaries from "./pages/Beneficiaries";
 import NewPage from "./pages/NewPage";
 const App = () => {
   const dispatch = useDispatch();
@@ -67,6 +68,7 @@ const App = () => {
         <Route path="/security" element={<Security />} />
         <Route path="/identification" element={<Identification />} />
         <Route path="/accounts" element={<ManageAccounts />} />
+        <Route path="/beneficiaries" element={<Beneficiaries />} />
       </Route>
 
       {/* Catch-all route to redirect to login if not matched */}

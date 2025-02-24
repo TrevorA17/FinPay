@@ -38,14 +38,20 @@ const Invoices = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleClose = () => setAnchorEl(null);
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
   // Handle menu selection by updating the URL
   const handleMenuClick = (action) => {
     navigate(`/invoices?action=${action}`); // Update URL with query param
     handleClose();
   };
+
   const markInvoiceAsPaid = async (invoiceId) => {
     try {
       const token = localStorage.getItem("authToken");

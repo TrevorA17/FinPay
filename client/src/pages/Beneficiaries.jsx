@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -16,10 +17,15 @@ import {
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { useNavigate } from "react-router-dom";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+
+//Quick actions imports
+import SendMoney from "../components/SendMoney";
+import ConvertFunds from "../components/ConvertFunds";
+import CreateInvoice from "../components/CreateNewInvoice";
+import CreateCustomer from "../components/CreateNewCustomer";
 
 const Beneficiaries = () => {
-  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [beneficiaries, setBeneficiaries] = useState([]);
@@ -27,12 +33,20 @@ const Beneficiaries = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleMenuClick = (action) => {
+    navigate(`/beneficiaries?action=${action}`);
+    handleClose();
   };
 
   // Fetch beneficiaries from FakeStore API
@@ -70,6 +84,23 @@ const Beneficiaries = () => {
     navigate("/"); // Go back to the main dashboard
   };
 
+  const searchParams = new URLSearchParams(location.search);
+  const activePage = searchParams.get("action");
+
+  if (activePage) {
+    switch (activePage) {
+      case "send-money":
+        return <SendMoney />;
+      case "create-customer":
+        return <CreateCustomer />;
+      case "convert-funds":
+        return <ConvertFunds />;
+      case "create-invoice":
+        return <CreateInvoice />;
+      default:
+        break;
+    }
+  }
   return (
     <Box sx={{ padding: "20px" }}>
       {/* Welcome Box */}
@@ -106,17 +137,29 @@ const Beneficiaries = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem>
+          <MenuItem onClick={() => handleMenuClick("send-money")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
             </ListItemIcon>
-            Action 1
+            Send Money
           </MenuItem>
-          <MenuItem>
+          <MenuItem onClick={() => handleMenuClick("create-customer")}>
+            <ListItemIcon>
+              <DescriptionOutlinedIcon fontSize="small" />
+            </ListItemIcon>
+            Create Customer
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("convert-funds")}>
             <ListItemIcon>
               <DashboardIcon fontSize="small" />
             </ListItemIcon>
-            Action 2
+            Convert Funds
+          </MenuItem>
+          <MenuItem onClick={() => handleMenuClick("create-invoice")}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="small" />
+            </ListItemIcon>
+            Create Invoice
           </MenuItem>
         </Menu>
       </Box>
