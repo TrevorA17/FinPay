@@ -23,7 +23,6 @@ import FingerprintIcon from "@mui/icons-material/Fingerprint";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/authSlice";
 import { useDispatch } from "react-redux";
-// import WarningIcon from "@mui/icons-material/Warning";
 import { fetchLoggedInUser } from "../api/userApi";
 
 const Sidebar = () => {
@@ -46,11 +45,11 @@ const Sidebar = () => {
     },
     { text: "My Profile", icon: <PersonIcon />, path: "/profile" },
     { text: "Beneficiaries", icon: <Diversity1Icon />, path: "/beneficiaries" },
-    // {
-    //   text: "Identification",
-    //   icon: <FingerprintIcon />,
-    //   path: "/identification",
-    // },
+    {
+      text: "Identification",
+      icon: <FingerprintIcon />,
+      path: "/identification",
+    },
     { text: "Manage Accounts", icon: <FingerprintIcon />, path: "/accounts" },
     { text: "Security", icon: <SecurityIcon />, path: "/security" },
   ];

@@ -20,7 +20,6 @@ import CreateCustomer from "./../components/CreateNewCustomer";
 
 const CardsPage = () => {
   const [anchorEl, setAnchorEl] = useState(null);
-
   const location = useLocation();
   const navigate = useNavigate();
 
