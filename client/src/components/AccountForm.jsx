@@ -16,6 +16,7 @@ import {
   Snackbar,
   Alert,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 
 const AccountForm = ({ userId }) => {
   const [accounts, setAccounts] = useState([]);
@@ -38,6 +39,8 @@ const AccountForm = ({ userId }) => {
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("success");
+
+  const navigate = useNavigate(); // Initialize navigate function
 
   useEffect(() => {
     if (userId) {
@@ -100,6 +103,9 @@ const AccountForm = ({ userId }) => {
       setSnackbarSeverity("error");
       setSnackbarOpen(true);
     }
+    setTimeout(() => {
+      navigate("/dashboard");
+    }, 1000);
   };
 
   const handleSnackbarClose = () => {
